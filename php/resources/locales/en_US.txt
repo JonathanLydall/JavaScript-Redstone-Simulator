@@ -1,0 +1,354 @@
+application.name=Javascript Redstone Simulator
+application.downloadnow=Download
+
+tile.diode.name=Redstone Repeater
+tile.air.name=Air
+tile.stairDouble.name=Double Stair
+tile.stairSingle.name=Single Stair
+
+shortcuts.modelview.scroll.left=Scroll Left
+shortcuts.modelview.scroll.right=Scroll Right
+shortcuts.modelview.scroll.up=Scroll Up
+shortcuts.modelview.scroll.down=Scroll Down
+shortcuts.modelview.layer.up=Layer Up
+shortcuts.modelview.layer.down=Layer Down
+shortcuts.modelview.pan=Pan
+shortcuts.modelview.zoom.increase=Zoom In
+shortcuts.modelview.zoom.decrease=Zoom Out
+shortcuts.modelview.gotolayer=Goto Layer
+shortcuts.ticker.togglerunning=Toggle Running
+shortcuts.ticker.tickonce=Tick Once
+shortcuts.ticker.tickfor=Tick For
+shortcuts.options.show=Show Options
+shortcuts.category.options=Options
+shortcuts.category.ticker=Simulator State
+shortcuts.category.modelview=Model View
+shortcuts.category.toolbar0=Toolbar 1
+shortcuts.category.toolbar1=Toolbar 2
+shortcuts.category.toolbar2=Toolbar 3
+shortcuts.category.toolbar3=Toolbar 4
+shortcuts.category.toolbars.general=General Toolbar
+shortcuts.category.tools=Tools
+shortcuts.category.toolbar.top=Top Toolbar Shortcuts
+
+modelview.pendingworldload=Opening schematic file
+modelview.prompt.gotolayer=Go to layer / slice:
+
+keynames.8=Backspace
+keynames.9=Tab
+keynames.12=Numpad 5 (When numlock is off.)
+keynames.13=Enter
+keynames.16=Shift
+keynames.17=Ctrl
+keynames.18=Alt
+keynames.20=Caps Lock
+keynames.19=Pause / Break
+keynames.32=Space
+keynames.33=Page Up
+keynames.34=Page Down
+keynames.35=End
+keynames.36=Home
+keynames.37=Left Arrow
+keynames.38=Up Arrow
+keynames.39=Right Arrow
+keynames.40=Down Arrow
+keynames.45=Insert
+keynames.46=Delete
+keynames.96=Numpad 0
+keynames.97=Numpad 1
+keynames.98=Numpad 2
+keynames.99=Numpad 3
+keynames.100=Numpad 4
+keynames.101=Numpad 5
+keynames.102=Numpad 6
+keynames.103=Numpad 7
+keynames.104=Numpad 8
+keynames.105=Numpad 9
+keynames.106=* (Numpad)
+keynames.107=+ (Numpad)
+keynames.109=- (Numpad)
+keynames.110=. (Numpad)
+keynames.111=/ (Numpad)
+keynames.112=F1
+keynames.113=F2
+keynames.114=F3
+keynames.115=F4
+keynames.116=F5
+keynames.117=F6
+keynames.118=F7
+keynames.119=F8
+keynames.120=F9
+keynames.121=F10
+keynames.122=F11
+keynames.123=F12
+keynames.144=Num Lock
+keynames.145=Scroll Lock
+keynames.186=;
+keynames.187=Equals
+keynames.188=,
+keynames.189=-
+keynames.190=.
+keynames.191=/
+keynames.192=`
+keynames.220=\
+keynames.219=[
+keynames.222='
+keynames.221=]
+keynames.1=Mouse1
+keynames.2=Mouse2
+keynames.3=Mouse3
+keynames.mousewheelup=Mousewheel Up
+keynames.mousewheeldown=Mousewheel Down
+keynames.mousemove=Mousemove
+keynames.unbound=Not Bound
+
+usermanager.dropdown.listownschematics=List Schematics
+usermanager.dropdown.editprofile=Edit Profile
+usermanager.dropdown.changepassword=Change Password
+usermanager.dropdown.logout=Log Out
+usermanager.dropdown.login=Log In
+usermanager.dropdown.createaccount=Create New Account
+usermanager.dropdown.resetpassword=Forgotten Password?
+usermanager.profile.email=Email address / Username (will not be shown):
+usermanager.profile.password=Password:
+usermanager.profile.confirmpassword=Confirm Password:
+usermanager.profile.displayname=Display name:
+usermanager.passwordreset.email=Email address:
+usermanager.editpassword.currentpassword=Current Password:
+usermanager.loggedin=Logged in as %s
+usermanager.notloggedin=Click here to log in or create an account
+usermanager.title.existinguser=Existing User
+usermanager.title.newuser=New User
+usermanager.newaccount.privacynotice=I hate spam too. Your email address will be used solely for purposes of logging in and password recovery, it will not be shared with any third parties.
+usermanager.form.contactingserver=Contacting server...
+usermanager.form.waitingforserver=Waiting for server...
+usermanager.form.refresh=Refresh
+usermanager.form.inputerror=Error occurred, please check above for more information.
+usermanager.loggingout=Logging out...
+usermanager.title.forgottenpassword=Password Recovery
+usermanager.passwordforgottenlink=Click here if you have forgotten your password.
+
+guiFull.button.close=Close (Esc)
+guiFull.button.apply=Apply
+
+guiFull.input.choose=Press the keys you want for the keybinding.
+guiFull.input.nowunbound=%s (key %s) is now unbound.
+
+button.text.ok=OK
+button.text.apply=Apply
+button.text.submit=Submit
+button.text.cancel=Cancel
+
+document.metadata.default.created=(Unsaved)
+document.metadata.default.lastModified=(Unsaved)
+document.metadata.default.fileName=(Unsaved)
+document.metadata.default.fileSize=(Unsaved)
+document.metadata.default.description=(Blank)
+document.metadata.default.title=New Schematic
+document.metadata.default.userDisplayName=(Unsaved)
+
+toolbars.changetool.next=Next Toolbar Slot
+toolbars.changetool.previous=Previous Toolbar Slot
+
+toolbars.shortcut.slot0=Slot 01
+toolbars.shortcut.slot1=Slot 02 
+toolbars.shortcut.slot2=Slot 03
+toolbars.shortcut.slot3=Slot 04
+toolbars.shortcut.slot4=Slot 05
+toolbars.shortcut.slot5=Slot 06
+toolbars.shortcut.slot6=Slot 07
+toolbars.shortcut.slot7=Slot 08
+toolbars.shortcut.slot8=Slot 09
+toolbars.shortcut.slot9=Slot 10
+
+shortcuts.tools.primary=Primary Shortcut
+shortcuts.tools.secondary=Secondary Shortcut
+
+options.settodefault=Default
+options.category.modelview=Modelview Options
+options.category.simulator=Simulator Options
+options.category.toolbars=Toolbar Options
+
+options.modelview.workTime=Timeout in milliseconds before screen update during redraw
+options.modelview.lowerLayersToDraw=Number of layers to render beneath the current layer
+options.modelview.defaultZoomLevel=Default Zoom Level
+options.modelview.layerDownOpacity=Opacity for lower layers
+options.modelview.borderWidth=Border width
+
+options.simulator.doNotShowSavedUrl=Do not show URL location hint on save
+options.simulator.tickFor=Default number of "Tick For" ticks to run
+options.simulator.targetTps=Ticks to try run per second
+options.simulator.tickOnceIncrement=How many ticks to increment at once when the tick once button is used
+options.simulator.startTickingWorldOnLoad=Start running the simulator as the world is loaded
+options.simulator.xDefaultSize=Default X size (columns)
+options.simulator.yDefaultSize=Default Y size (layers)
+options.simulator.zDefaultSize=Default Z size (rows)
+
+options.toolbars.count=Number of toolbars
+
+document.info.prompt.title=Schematic Information
+document.filesize=File size at the time of the last save:
+
+document.new.prompt.title=New Schematic
+document.new.prompt.content=Any unsaved content will be lost, are you sure you want to create a new schematic?
+
+document.save.urlhint=Schematic saved to the server. You can use the URL below to link directly to this schematic. \n\n(Hint: You can prevent this prompt from showing again by ticking the "Do not show URL location hint on save" checkbox in options.) 
+document.save.prompt.title=Save Schematic As
+document.save.progress.title=Saving to server...
+document.save.progress.savingworld=Saving world state...
+document.save.progress.writingfile=Generating schematic file...
+document.save.progress.compressing=Compressing schematic file %s...
+document.save.progress.uploading=Uploading to server...
+document.save.signinrequired=To save a schematic on the server, you need to log in or create an account:
+
+document.save.locally.progress.title=Saving working copy of schematic...
+document.save.locally.progress.uploading=Uploading to server and waiting for file download prompt...
+
+
+document.width=Width (x):
+document.height=Height (z):
+document.layers=Layers (y):
+document.title=Title:
+document.filename=File Name:
+document.description=Description / Notes:
+document.default.title=New Schematic
+
+tools.description.pan=Pan
+tools.description.toggle=Toggle Block
+tools.description.rotateblock=Rotate Block
+tools.description.deleteblock=Delete Block (Replace with Air)
+tools.description.blockinfo=Block Info
+
+error.valuemustbenumber=Must be a number from %s to %s.
+error.value.string.length=Length of value must be from %s to %s.
+
+ticker.tickcounter=Tick counter:
+ticker.tickForRemaining=remaining
+
+resize.current=Current
+resize.difference=Difference
+resize.new=New
+resize.x=X
+resize.y=Y
+resize.z=Z
+resize.x.and.z=Width (x) and Length (z):
+resize.y.only=Height (y):
+resize.x.description=Width (x) increases East, decreases West.
+resize.y.description=Height (y) increases and decreases with the height of the world.
+resize.z.description=Length (z) increases South, decreases North.
+resize.populatelowerlayers=Populate any new lower layers with the following block type:
+
+tooltip.shortcutKeyText=(Shortcut: %s)
+
+tool.tooltip.pan.header=Pan Tool
+tool.tooltip.pan.body=Click and hold the mouse to pan the model view.\n\nThere is also a global shortcut key which can be assigned through the Key Bindings panel. 
+tool.tooltip.toggle.header=Toggle Block Tool
+tool.tooltip.toggle.body=Used to "activate" blocks, for example, like toggling a lever on and off.
+tool.tooltip.rotateBlock.header=Rotate Block Tool
+tool.tooltip.rotateBlock.body=Click multiple times to rotate a block into the desired orientation.\n\nIt's also possible to rotate a block by trying to place a block of the same type in the same square. For example, if you place a torch, then click in the same place with a torch again and the already placed torch will rotate. 
+tool.tooltip.deleteBlock.header=Delete Block Tool
+tool.tooltip.deleteBlock.body=Identical to placing Air in a block.
+tool.tooltip.blockInfo.header=Block Info Tool
+tool.tooltip.blockInfo.body=Shows some extra information on a block you click on.
+
+toolbar.top.tooltips.documentSaveLocally.title=Download Working Copy
+toolbar.top.tooltips.documentSaveLocally.description=Downloads a schematic file of the current content of the simulator.\n\nIf you want to download the version of the schematic as it was saved on the server, use the "Download Saved Version" option instead.
+toolbar.top.tooltips.schematicDownload.title=Download Saved Version
+toolbar.top.tooltips.schematicDownload.description=Downloads the schematic file as it was saved on the website.\n\nIf you want to download the current unsaved contents of the simulator, use the the "Download Working Copy" option instead.   
+toolbar.top.tooltips.options.title=Options
+toolbar.top.tooltips.options.description=
+toolbar.top.tooltips.input.title=Input Bindings
+toolbar.top.tooltips.input.description=Change keyboard and mouse shortcuts here.
+toolbar.top.tooltips.toolbars.title=Edit Tools / Materials
+toolbar.top.tooltips.toolbars.description=Use this screen to add or remove tools and/or materials from the side toolbar.\n\nClick and drag icons to place them in the toolbar slots. 
+toolbar.top.tooltips.help.title=Help Screen
+toolbar.top.tooltips.help.description=
+toolbar.top.tooltips.fileNew.title=New Schematic
+toolbar.top.tooltips.fileNew.description=Creates a new black schematic.
+toolbar.top.tooltips.fileOpen.title=Open Schematic
+toolbar.top.tooltips.fileOpen.description=Opens an schematic file on your computer
+toolbar.top.tooltips.fileSave.title=Save Schematic
+toolbar.top.tooltips.fileSave.description=Saves the schematic on the website, you can access the saved file from anywhere, or share the link to the schematic with others.
+toolbar.top.tooltips.fileSaveAs.title=Save Schematic As
+toolbar.top.tooltips.fileSaveAs.description=Saves a new copy of the schematic without overwriting the old one.
+toolbar.top.tooltips.documentInformation.title=Schematic Information
+toolbar.top.tooltips.documentInformation.description=Some basic information about the schematic.\n\nYou can edit the title and description here.
+toolbar.top.tooltips.documentResize.title=Change Schematic Dimensions
+toolbar.top.tooltips.documentResize.description=You can change the size of the schematic with this icon.
+toolbar.top.tooltips.tickerStop.title=Pause Simulator
+toolbar.top.tooltips.tickerStop.description=The simulator is paused and block updates no longer occur, so redstone torches will not change, pistons will not move, etc.
+toolbar.top.tooltips.tickerRun.title=Run Simulator
+toolbar.top.tooltips.tickerRun.description=Block updates will occur normally.
+toolbar.top.tooltips.tickerStep.title=Step Simulator
+toolbar.top.tooltips.tickerStep.description=The simulator will run a single tick and then pause itself again.\n\nYou can change this from a single tick to another number through the options.
+toolbar.top.tooltips.tickerTickFor.title=Run Simulator For X Ticks
+toolbar.top.tooltips.tickerTickFor.description=Use the box to the left to specify how many ticks you want the simulator to run for before it automatically pauses itself.
+toolbar.top.tooltips.resetTickCounter.title=Reset Tick Counter
+toolbar.top.tooltips.resetTickCounter.description=Resets the counter to 0.\n\nResetting the tick counter has no effect on the simulation of redstone.
+toolbar.top.tooltips.sidebar.title=Show / Hide Side Bar
+toolbar.top.tooltips.sidebar.description=Show / hide the sidebar which appears on the right of the screen.
+toolbar.top.tooltips.viewPortsSplitHorizontally.title=Split View Ports Horizontally
+toolbar.top.tooltips.viewPortsSplitHorizontally.description=Toggles whether or not there are two columns of view ports.
+toolbar.top.tooltips.viewPortsSplitVertically.title=Split View Ports Vertically
+toolbar.top.tooltips.viewPortsSplitVertically.description=Toggles whether or not there are two rows of view ports.
+toolbar.top.tooltips.editSelect.title=Select
+toolbar.top.tooltips.editSelect.description=NOT YET IMPLEMENTED!\n\nSelects a region of blocks which can be edited.
+toolbar.top.tooltips.editCopy.title=Copy Selected Region
+toolbar.top.tooltips.editCopy.description=NOT YET IMPLEMENTED!\n\nCopies the selected region of blocks so that it can be pasted else where.
+toolbar.top.tooltips.editPaste.title=Paste Selection
+toolbar.top.tooltips.editPaste.description=NOT YET IMPLEMENTED!\n\nPastes blocks which you have copied into memory.
+toolbar.top.tooltips.editDelete.title=Delete Selected Region
+toolbar.top.tooltips.editDelete.description=NOT YET IMPLEMENTED!\n\nReplaces all blocks in the selected region with air.
+toolbar.top.tooltips.documentRotate.title=Rotate Schematic
+toolbar.top.tooltips.documentRotate.description=Rotates the entire schematic the desired amount in increments of 90 degrees.
+
+shortcuts.toolbar.top.documentInformation=Schematic Information
+shortcuts.toolbar.top.documentResize=Resize Schematic
+shortcuts.toolbar.top.fileNew=New Schematic
+shortcuts.toolbar.top.fileOpen=Open Schematic
+shortcuts.toolbar.top.fileSaveAs=Save Schematic As
+shortcuts.toolbar.top.fileSave=Save Schematic
+shortcuts.toolbar.top.help=Help Screen
+shortcuts.toolbar.top.input=Input Bindings
+shortcuts.toolbar.top.options=Options Screen
+shortcuts.toolbar.top.resetTickCounter=Reset Tick Counter
+shortcuts.toolbar.top.tickerRun=Run Simulator
+shortcuts.toolbar.top.tickerStep=Step Simulator
+shortcuts.toolbar.top.tickerStop=Pause Simulator
+shortcuts.toolbar.top.tickerTickFor=Run Simulator For X Ticks
+shortcuts.toolbar.top.toolbars=Edit Tools / Materials
+shortcuts.toolbar.top.sidebar=Show / Hide Side Bar
+shortcuts.toolbar.top.documentSaveLocally=Download Working Copy
+shortcuts.toolbar.top.schematicDownload=Download Saved Copy
+shortcuts.toolbar.top.viewPortsSplitHorizontally=Split View Ports Horizontally
+shortcuts.toolbar.top.viewPortsSplitVertically=Split View Ports Vertically
+shortcuts.toolbar.top.documentRotate=Rotate Schematic
+
+shortcuts.toolbar.top.editSelect=Select
+shortcuts.toolbar.top.editCopy=Copy Selection
+shortcuts.toolbar.top.editPaste=Paste
+shortcuts.toolbar.top.editDelete=Delete Selection
+
+sidebar.schematic.info.header=Schematic Information:
+sidebar.schematic.info.title=Title:
+sidebar.schematic.info.uploadedby=Uploaded by:
+sidebar.schematic.info.description=Description:
+
+document.download.server.error.header=Could Not Download Saved Schematic
+document.download.server.error.body=Only saved schematics can be downloaded this way. To download your current work, use the "Download Working Copy" button.
+
+document.rotate.progress.title=Rotating Schematic...
+document.rotate.progress.body=Depending on the size of your schematic, this could take a while, for example a 250x250x150 schematic could take as long as 10 seconds on a good computer. This process cannot be interupted.
+document.rotate.clockwise=clockwise
+document.rotate.modalheading=Rotate Schematic
+document.rotate.disclaimer=NOTE: Only known block types are rotated correctly. This means that if a block type is showing as an ID, it will not be rotated. For example, if torches were not yet implemented, and you tried rotating them, the torch's orientation would remain the same and it could land up hanging in the air.
+
+submitfeedback.title=Submit Feedback and/or Comments
+submitfeedback.body=You can send me a bug report, suggestions or just general feedback. The email address is optional, but if you include it I will endeavour to send you a response. Please note I will never share your email address with any third party or use it to send you any correspondance except in response to your query.<br/><br/>I have temporarily made the old version available <a href="../mc_rss_old/">here</a>.
+submitfeedback.email=Email Address (optional, if you want a response):
+submitfeedback.message=Message:
+submitfeedback.buttontext=Submit Feedback/Comments
+submitfeedback.success=Message sent.
+
+blockhelper.sign.heading=Edit Sign Text
+blockhelper.sign.hint=HINT: If the first line has only a single letter and all other lines are blank, then that letter will appear on the grid instead of the sign icon. You can also make the letter overlined by preceeding it with a hyphen ( - ). For example, "A" will just show an "A" while "-A" will show an overlined "A".

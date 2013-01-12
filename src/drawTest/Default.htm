@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+	<head> 
+		<title>Canvas Draw Test</title>
+		<script type="text/javascript" src="../../js/jquery/jquery-1.7.1.min.js"></script> 
+		<script type="text/javascript" src="test.js"></script> 
+		<script type="text/javascript">
+			var zoom = 30;
+			var rows = 1;
+			var columns = 1;
+			var gridColor = "rgb(255,0,0)";
+			
+			$(document).ready(function () {
+				$("#canvasDiv").append('<canvas id="canvas">This browser does not have support for canvas.</canvas>');
+				draw();
+			});
+			
+			function draw() {
+				var width = zoom*8*columns;
+				var height = zoom*8*rows;
+				
+				$("#canvas").attr('width', width);
+				$("#canvas").attr('height', height);
+				context = document.getElementById("canvas").getContext("2d");
+				context.clearRect(0,0,width,height);
+			
+				//Draw a grid
+				context.fillStyle = gridColor;
+				for(var x = 0; x < width; x = x + zoom) {
+					context.fillRect(x, 0, 1, height);
+				}
+				for(var y = 0; y < height; y = y + zoom) {
+					context.fillRect(0, y, width, 1);
+				}
+				
+				context.save();
+				context.scale(zoom, zoom);
+				drawTests(context);
+				context.restore();
+			}
+		</script>
+	</head>
+	
+	
+	<body>
+		<!--div>
+			<button type="button" id="buttonMinus">Zoom -</button>
+			<button type="button" id="buttonPlus">Zoom +</button><br/><br/>
+		</div-->
+		<div id="canvasDiv">
+			
+		</div>
+		
+	</body>
+</html>
