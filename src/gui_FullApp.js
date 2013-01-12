@@ -1,3 +1,23 @@
+/*
+ * JavaScript Redstone Simulator
+ * Copyright (C) 2012  Jonathan Lydall (Email: jonathan.lydall@gmail.com)
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
+ * 
+ */
+
 (function(){
 	var namespace = com.mordritch.mcSim;
 	var loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia mattis faucibus. Vivamus nisi lorem, varius vel aliquet non, venenatis eu magna. Nulla eget sapien diam, a posuere purus. Aenean suscipit ultrices odio, vitae aliquet est tempor quis. Donec tincidunt magna eget turpis ultrices cursus. Phasellus vel erat sed dolor luctus convallis eget a ante. Suspendisse diam magna, euismod sed tincidunt sed, dapibus ut neque. Nulla vulputate dictum leo eget lacinia. Aenean in urna augue, eu mollis diam. Donec aliquet feugiat elit, sit amet convallis mi luctus sit amet."; //http://www.lipsum.com/
