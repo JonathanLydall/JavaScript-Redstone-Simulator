@@ -8,7 +8,7 @@ For now feel free to contact me with questions regarding how this all works.
 Future plans:
 -------------
 
-**Move everything over to [TypeScript](www.typescriptlang.org)**
+**Move everything over to [TypeScript](http://www.typescriptlang.org/)**
 
 The work required is effectively a full port, but there are a lot of advantages. I am hoping it's possible to simply port it over bit by bit, but haven't sat down yet and tried it out. The primary candidates are the block types because in the original Java source code, they use inheritance which is much easier to achieve in JavaScript by using TypeScript
 
