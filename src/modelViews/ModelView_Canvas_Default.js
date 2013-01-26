@@ -80,6 +80,8 @@
 			this[i] = options[i];
 		}
 		
+		this.tooltip = this.gui.tooltip;
+		
 		this.constructed = false; //used by readOptions(), gets changed to true when "construct()" gets called.
 
 		this.readOptions(); //Saved user settings
@@ -883,4 +885,13 @@
 
 		this.drawAllBlocks();
 	}
+	
+	proto.rotateAntiClockwise = function() {
+		//Do nothing, unless overridden by an inheriting class
+	}
+	
+	proto.rotateAntiClockwise = function() {
+		//Do nothing, unless overridden by an inheriting class
+	}
+	
 }());

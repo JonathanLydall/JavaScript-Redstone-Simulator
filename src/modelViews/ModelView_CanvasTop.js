@@ -70,10 +70,49 @@
 	 */
 	proto.bindControlEvents = function() {
 		$('#'+this.containerDomId+' .arrowUp').bind('click', {t: this}, function(e) {e.data.t.layerUp()});
+		this.tooltip.createForElement(
+			/* $domEelement           */ $('#'+this.containerDomId+' .arrowUp'),
+			/* position               */ 'below',
+			/* headerTextResourceName */ 'toolbar.modelview.tooltips.layerUp.title',
+			/* bodyTextResourceName   */ 'toolbar.modelview.tooltips.layerUp.description',
+			/* shortcutKeyScope       */ 'main',
+			/* shortcutKeyEventName   */ 'modelView_layer_up');
+		
 		$('#'+this.containerDomId+' .arrowDown').bind('click', {t: this}, function(e) {e.data.t.layerDown()});
+		this.tooltip.createForElement(
+			/* $domEelement           */ $('#'+this.containerDomId+' .arrowDown'),
+			/* position               */ 'below',
+			/* headerTextResourceName */ 'toolbar.modelview.tooltips.layerDown.title',
+			/* bodyTextResourceName   */ 'toolbar.modelview.tooltips.layerDown.description',
+			/* shortcutKeyScope       */ 'main',
+			/* shortcutKeyEventName   */ 'modelView_layer_down');
+		
 		$('#'+this.containerDomId+' .zoomIn').bind('click', {t: this}, function(e) {e.data.t.zoomLevelIncrease()});
+		this.tooltip.createForElement(
+			/* $domEelement           */ $('#'+this.containerDomId+' .zoomIn'),
+			/* position               */ 'below',
+			/* headerTextResourceName */ 'toolbar.modelview.tooltips.zoomIn.title',
+			/* bodyTextResourceName   */ 'toolbar.modelview.tooltips.zoomIn.description',
+			/* shortcutKeyScope       */ 'main',
+			/* shortcutKeyEventName   */ 'modelView_zoom_increase');
+		
 		$('#'+this.containerDomId+' .zoomOut').bind('click', {t: this}, function(e) {e.data.t.zoomLevelDecrease()});
+		this.tooltip.createForElement(
+			/* $domEelement           */ $('#'+this.containerDomId+' .zoomOut'),
+			/* position               */ 'below',
+			/* headerTextResourceName */ 'toolbar.modelview.tooltips.zoomOut.title',
+			/* bodyTextResourceName   */ 'toolbar.modelview.tooltips.zoomOut.description',
+			/* shortcutKeyScope       */ 'main',
+			/* shortcutKeyEventName   */ 'modelView_zoom_decrease');
+		
 		$('#'+this.containerDomId+' .exportImage').bind('click', {t: this}, function(e) {e.data.t.exportImage()});
+		this.tooltip.createForElement(
+			/* $domEelement           */ $('#'+this.containerDomId+' .exportImage'),
+			/* position               */ 'below',
+			/* headerTextResourceName */ 'toolbar.modelview.tooltips.exportImage.title',
+			/* bodyTextResourceName   */ 'toolbar.modelview.tooltips.exportImage.description',
+			/* shortcutKeyScope       */ 'main',
+			/* shortcutKeyEventName   */ 'modelView_exportImage');
 	}
 		
 	

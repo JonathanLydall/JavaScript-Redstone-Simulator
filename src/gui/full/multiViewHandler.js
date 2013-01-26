@@ -245,6 +245,29 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			callbackFunction_mouseMove: function(e) {t.pan_onMouseMove(e);}
 		});
 		
+		//Export Image:
+		this.gui.input.bindInputEvent({
+			savedKeyName: 'modelView_exportImage',
+			category: 'modelview',
+			description: 'shortcuts.modelview.exportImage',
+			callbackFunction: function(e) {t.exportImage(e);},
+		});
+		
+		//Rotating (For SideViews):
+		this.gui.input.bindInputEvent({
+			savedKeyName: 'modelView_rotate_clockwise',
+			category: 'modelview',
+			description: 'shortcuts.modelview.rotateClockwise',
+			callbackFunction: function(e) {t.rotateClockwise(e);},
+		});
+		this.gui.input.bindInputEvent({
+			savedKeyName: 'modelView_rotate_anti_clockwise',
+			category: 'modelview',
+			description: 'shortcuts.modelview.rotateAntiClockwise',
+			callbackFunction: function(e) {t.rotateAntiClockwise(e);},
+		});
+
+		
 		//Jump to layer:
 		this.gui.input.bindInputEvent({
 			savedKeyName: 'modelView_goto_layer',
@@ -391,6 +414,33 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 				this.modelViews[this.mouseOverModelView].zoomLevelIncrease();
 			}
 			this.modelViews[this.mouseOverModelView].updateCoords();
+		}
+	}
+	
+	/**
+	 * Forwards keybound event to export image
+	 */
+	this.exportImage = function() {
+		if (this.mouseOverModelView != null) {
+			this.modelViews[this.mouseOverModelView].exportImage();
+		}
+	}
+	
+	/**
+	 * Forwards keybound event for rotating image
+	 */
+	this.rotateClockwise = function() {
+		if (this.mouseOverModelView != null) {
+			this.modelViews[this.mouseOverModelView].rotateClockwise();
+		}
+	}
+	
+	/**
+	 * Forwards keybound event for rotating image
+	 */
+	this.rotateAntiClockwise = function() {
+		if (this.mouseOverModelView != null) {
+			this.modelViews[this.mouseOverModelView].rotateAntiClockwise();
 		}
 	}
 	

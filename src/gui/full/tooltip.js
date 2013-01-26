@@ -35,6 +35,24 @@ namespace[funcName] = function(gui) {
 		$tooltip.hide();
 	}
 	
+	this.createForElement = function($domElement, position, headerTextResourceName, bodyTextResourceName, shortcutKeyScope, shortcutKeyEventName) {
+		var t = this;
+		$domElement.on('mouseenter', function() {
+			t.show(
+				$domElement = $domElement,
+				position = position,
+				headerText = L10n.getString(headerTextResourceName),
+				bodyText = L10n.getString(bodyTextResourceName),
+				shortcutKeyScope = shortcutKeyScope,
+				shortcutKeyEventName = shortcutKeyEventName
+			);
+		});
+		
+		$domElement.on('mouseleave', function() {
+			t.hide()
+		});
+	}
+	
 	this.show = function($domElement, position, headerText, bodyText, shortcutKeyScope, shortcutKeyEventName) {
 		clearTimeout(timeoutId);
 		var t = this;

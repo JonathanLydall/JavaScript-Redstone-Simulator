@@ -13,6 +13,9 @@ shortcuts.modelview.scroll.down=Scroll Down
 shortcuts.modelview.layer.up=Layer Up
 shortcuts.modelview.layer.down=Layer Down
 shortcuts.modelview.pan=Pan
+shortcuts.modelview.exportImage=Export Image
+shortcuts.modelview.rotateClockwise=Rotate Side View Clockwise
+shortcuts.modelview.rotateAntiClockwise=Rotate Side View Anti Clockwise
 shortcuts.modelview.zoom.increase=Zoom In
 shortcuts.modelview.zoom.decrease=Zoom Out
 shortcuts.modelview.gotolayer=Goto Layer
@@ -301,6 +304,22 @@ toolbar.top.tooltips.editDelete.title=Delete Selected Region
 toolbar.top.tooltips.editDelete.description=NOT YET IMPLEMENTED!\n\nReplaces all blocks in the selected region with air.
 toolbar.top.tooltips.documentRotate.title=Rotate Schematic
 toolbar.top.tooltips.documentRotate.description=Rotates the entire schematic the desired amount in increments of 90 degrees.
+
+toolbar.modelview.tooltips.layerUp.title=Layer Up
+toolbar.modelview.tooltips.layerUp.description=Moves one layer up, or towards the camera if you are using a side view. 
+toolbar.modelview.tooltips.layerDown.title=Layer Down
+toolbar.modelview.tooltips.layerDown.description=Moves one layer down, or away from the camera if you are using a side view.
+toolbar.modelview.tooltips.zoomIn.title=Zoom In
+toolbar.modelview.tooltips.zoomIn.description=Zooms in on the view, making it look bigger.
+toolbar.modelview.tooltips.zoomOut.title=Zoom Out
+toolbar.modelview.tooltips.zoomOut.description=Zooms out on the view, making it look smaller.
+toolbar.modelview.tooltips.exportImage.title=Export Image
+toolbar.modelview.tooltips.exportImage.description=Displays the view as a flat saveable image. The image that pops up only exists in memory, so you will need to right-click and then save it to use it somewhere else. 
+
+toolbar.modelview.tooltips.rotateClockwise.title=Move Camera Around Clockwise
+toolbar.modelview.tooltips.rotateClockwise.description=As if you are moving around the outside of the schematic in a clockwise direction. If you were looking at the schematic from the the North before, you would now be looking at it from the East.   
+toolbar.modelview.tooltips.rotateAntiClockwise.title=Move Camera Around Anti Clockwise
+toolbar.modelview.tooltips.rotateAntiClockwise.description=As if you are moving around the outside of the schematic in an anti clockwise direction. If you were looking at the schematic from the the North before, you would now be looking at it from the West. 
 
 shortcuts.toolbar.top.documentInformation=Schematic Information
 shortcuts.toolbar.top.documentResize=Resize Schematic
