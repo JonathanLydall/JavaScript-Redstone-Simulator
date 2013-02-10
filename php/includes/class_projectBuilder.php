@@ -44,7 +44,7 @@ class projectBuilder {
 			$buildNumber = (file_exists($file_buildNumber)) ? file_get_contents($file_buildNumber) : 1;
 
 			if ($md5_existing != md5($newContents) || !file_exists($file_jsFile)) {
-				file_put_contents($file_buildNumber, $buildNumber++);
+				file_put_contents($file_buildNumber, ++$buildNumber);
 				file_put_contents($file_jsFile, $newContents);
 				echo "  Wrote new $languageCode to disk.".PHP_EOL;
 			}
