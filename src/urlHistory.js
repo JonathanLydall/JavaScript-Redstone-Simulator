@@ -102,7 +102,7 @@
 		
 		this.setSchematicId = function(schematicId, useReplaceState, noChange) {
 			useReplaceState = (typeof useReplaceState != 'undefined') ? useReplaceState : false;
-			if (schematicId == null) schematicId = "";
+			if (schematicId == null || schematicId == -1) schematicId = "";
 			
 			if (_historyApiSupport) {
 				if (useReplaceState) {

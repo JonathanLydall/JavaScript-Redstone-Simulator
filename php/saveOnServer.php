@@ -25,5 +25,4 @@ header('Content-type: application/json; charset=UTF-8');
 include 'includes/class_saveOnServer.php';
 
 echo json_encode(saveOnServer::save());
-//echo json_encode($_POST['schematicData']);
 ?>

@@ -110,82 +110,57 @@
 		this.setSchematicMetadata = function(parameters, isNew) {
 			isNew = (typeof isNew == "undefined") ? false : isNew;
 			
+			var schematicMetadata;
+			
 			if (isNew) {
 				this.schematicMetadata = {
-					created: "",
-					lastModified: "",
-					fileName: "",
-					fileSize: "",
-					description: "",
-					title: "",
-					schematicId: "",
-					userDisplayName: "",
+					created: this.L10n.getString("document.metadata.default.created"),
+					lastModified: this.L10n.getString("document.metadata.default.lastModified"),
+					fileName: this.L10n.getString("document.metadata.default.fileName"),
+					fileSize: this.L10n.getString("document.metadata.default.fileSize"),
+					description: this.L10n.getString("document.metadata.default.description"),
+					title: this.L10n.getString("document.metadata.default.title"),
+					schematicId: -1,
+					userDisplayName: this.L10n.getString("document.metadata.default.userDisplayName"),
 					userId: ""
 				}
 			}
 			
-			for (var parameter in parameters) {
-				this.schematicMetadata[parameter] = parameters[parameter];
-			}
+			schematicMetadata = this.schematicMetadata;
 			
-			var title =
-				(this.schematicMetadata.title != "") ?
-				this.schematicMetadata.title :
-				this.L10n.getString("document.metadata.default.title");
-			var lastModified =
-				(this.schematicMetadata.lastModified != "") ?
-				this.schematicMetadata.lastModified :
-				this.L10n.getString("document.metadata.default.lastModified");
-			var fileName =
-				(this.schematicMetadata.fileName != "") ?
-				this.schematicMetadata.fileSize :
-				this.L10n.getString("document.metadata.default.fileName");
-			var fileSize =
-				(this.schematicMetadata.fileSize != "") ?
-				this.schematicMetadata.title :
-				this.L10n.getString("document.metadata.default.fileSize");
-			var description =
-				(this.schematicMetadata.description != "") ?
-				this.schematicMetadata.description :
-				this.L10n.getString("document.metadata.default.description");
-			var schematicId =
-				(this.schematicMetadata.schematicId != "") ?
-				this.schematicMetadata.schematicId :
-				this.L10n.getString("document.metadata.default.schematicId");
-			var userDisplayName =
-				(this.schematicMetadata.userDisplayName != "") ?
-				this.schematicMetadata.userDisplayName :
-				this.L10n.getString("document.metadata.default.userDisplayName");
-			var userId =
-				(this.schematicMetadata.userId != "") ? 
-				this.schematicMetadata.userId :
-				this.L10n.getString("document.metadata.default.userId");
+			for (var parameter in parameters)
+			{
+				if (parameters[parameter] != "")
+				{
+					schematicMetadata[parameter] = parameters[parameter];
+				}
+			}
 			
 			var downloadNowString = this.L10n.getString("application.downloadnow");
 			
-			$('#headerDocumentTitle').text(" - " + escapeHtml(title));
-			if (this.schematicMetadata.title != "") {
-				$('#headerDocumentTitle').append(' (<a href="./download/?downloadId='+schematicId+'">' + downloadNowString + '</a>)');
+			$('#headerDocumentTitle').text(" - " + escapeHtml(schematicMetadata.title));
+			if (schematicMetadata.title != "") {
+				$('#headerDocumentTitle').append(' (<a href="./download/?downloadId='+schematicMetadata.schematicId+'">' + downloadNowString + '</a>)');
 			}
 
 			var sideBarBodyText =
 				this.L10n.getString("sidebar.schematic.info.title") +
 				'<br/>' +
 				'<b>' +
-				escapeHtml(title) +
+				escapeHtml(schematicMetadata.title) +
 				'</b>' +
 				'<br/>' +
 				'<br/>' +
 				this.L10n.getString("sidebar.schematic.info.uploadedby") +
 				'<br/>' +
 				'<b>' +
-				escapeHtml(userDisplayName) +
+				escapeHtml(schematicMetadata.userDisplayName) +
 				'</b>' +
 				'<br/>' +
 				'<br/>' +
 				this.L10n.getString("sidebar.schematic.info.description") +
 				' ' +
-				escapeHtml(description).replace("\\n", "<br/>");
+				escapeHtml(schematicMetadata.description).replace("\\n", "<br/>");
 
 			this.sidebar.addSection(
 				this.L10n.getString("sidebar.schematic.info.header"),
@@ -193,6 +168,8 @@
 				hideByDefault = false,
 				this.sideBarSchematicDescriptionElement
 			);
+			
+			this.urlHistory.setSchematicId(schematicMetadata.schematicId, useReplaceState = false, noChange = true);
 		}
 		
 		this.initGuiOptions = function() {
@@ -800,5 +777,5 @@
 		this.init();
 	}
 	
-	namespace.Gui_FullApp = Gui_FullApp;
+	namespace['Gui_FullApp'] = Gui_FullApp;
 }());

@@ -144,9 +144,9 @@ button.text.cancel=Cancel
 
 document.metadata.default.created=(Unsaved)
 document.metadata.default.lastModified=(Unsaved)
-document.metadata.default.fileName=(Unsaved)
+document.metadata.default.fileName=New Schematic
 document.metadata.default.fileSize=(Unsaved)
-document.metadata.default.description=(Blank)
+document.metadata.default.description=
 document.metadata.default.title=New Schematic
 document.metadata.default.userDisplayName=(Unsaved)
 
@@ -315,7 +315,6 @@ toolbar.modelview.tooltips.zoomOut.title=Zoom Out
 toolbar.modelview.tooltips.zoomOut.description=Zooms out on the view, making it look smaller.
 toolbar.modelview.tooltips.exportImage.title=Export Image
 toolbar.modelview.tooltips.exportImage.description=Displays the view as a flat saveable image. The image that pops up only exists in memory, so you will need to right-click and then save it to use it somewhere else. 
-
 toolbar.modelview.tooltips.rotateClockwise.title=Move Camera Around Clockwise
 toolbar.modelview.tooltips.rotateClockwise.description=As if you are moving around the outside of the schematic in a clockwise direction. If you were looking at the schematic from the the North before, you would now be looking at it from the East.   
 toolbar.modelview.tooltips.rotateAntiClockwise.title=Move Camera Around Anti Clockwise

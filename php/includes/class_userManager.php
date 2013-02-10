@@ -29,7 +29,7 @@ include_once 'function_removeMagicQuotesIfEnabled.php';
 define('POST', 1);
 define('GET', 2);
 define('COOKIE', 3);
-//sleep(2);
+
 class userManager {
 	private static $initDone = false;
 	
@@ -136,9 +136,7 @@ class userManager {
 				break;
 			case "process_logOut":
 				self::task_logOut();
-				return array(
-					'error' => false
-				);
+				return array('error' => false);
 				break;
 			case "process_newAccount":
 				return self::process_newAccount();
@@ -1149,15 +1147,8 @@ class userManager {
 		return $insertId;
 	}
 	
-	private static function get_schematicListForLoggedInUser() {
-		self::_init();
-		if (!isset($_SESSION['userId'])) {
-			return array(
-				'error' => true,
-				'errorMessage' => 'Not logged in.'
-			);
-		}
-		
+	private static function get_schematicListForUser($userId)
+	{
 		$stmt = self::$mysqli->prepare("
 			SELECT 
 				`id`,
@@ -1172,9 +1163,12 @@ class userManager {
 			WHERE
 				`userId`=?
 		");
-		$stmt->bind_param('i',
-			$_SESSION['userId']
+		
+		$stmt->bind_param(
+			'i',
+			$userId
 		);
+		
 		$stmt->execute();
 
 		$stmt->bind_result(
@@ -1206,6 +1200,18 @@ class userManager {
 			'schematicList' => $resultArray
 		);
 		
+	}
+	
+	private static function get_schematicListForLoggedInUser() {
+		self::_init();
+		if (!isset($_SESSION['userId'])) {
+			return array(
+				'error' => true,
+				'errorMessage' => 'Not logged in.'
+			);
+		}
+		
+		return self::get_schematicListForUser($_SESSION['userId']);
 	}
 }
 ?>

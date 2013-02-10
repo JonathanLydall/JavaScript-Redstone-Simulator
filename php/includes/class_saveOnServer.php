@@ -26,7 +26,7 @@ include_once 'function_removeMagicQuotesIfEnabled.php';
 include_once 'config_mysqlConnection.php';
 
 include_once 'class_userManager.php';
-//include_once 'class_parseJsonToNbt.php';
+include_once 'class_schematicRetrieval.php';
 
 class saveOnServer {
 	private static $initDone = false;
@@ -67,30 +67,17 @@ class saveOnServer {
 	private static function checkCookie($varName) {
 		if (!isset($_COOKIE[$varName])) $_COOKIE[$varName] = ""; 
 	}
+	
+	private static function isLoggedOn()
+	{
+		return isset($_SESSION['userId']);
+	}
+	
+	private static function getErrors()
+	{
+		$errorMessages = array("general" => "");
 
-	public static function save() {
-		self::init();
-		self::checkPost('title');
-		self::checkPost('filename');
-		self::checkPost('description');
-		self::checkPost('id');
-		self::checkPost('schematicData');
-		
-		$error = false;
-		$errorMessages = array();
-		
-		if (!isset($_SESSION['userId'])) {
-			$error = true;
-			$errorMessages['general'] = "Not logged in.";
-			return array(
-				'error' => true,
-				'errorMessages' => $errorMessages
-			);
-
-		}
-		
-		$errorMessages['general'] = ""; //initialize as blank.
-		if ($_POST['task'] == "overwriteExisting") {
+			if ($_POST['task'] == "overwriteExisting") {
 			$stmt = self::$mysqli->prepare("SELECT `userId` FROM `schematics` WHERE id=?");
 			$stmt->bind_param('i', $_POST['id']);
 			$stmt->execute();
@@ -99,152 +86,160 @@ class saveOnServer {
 			$stmt->close();
 			
 			if ($userId != $_SESSION['userId']) {
-				$error = true;
 				$errorMessages['general'] .= "Cannot overwrite a schematic uploaded by a different user. ";
 			}
 		}
-		
-		$schematicData = $_POST['schematicData'];
-		$schematicData = base64_decode($schematicData);
 		
 		//TODO: Check if it's a valid NBT file, will need function written to do it though, we receive binary NBT data from users.
 
 		$filenameLenMax = 64;
 		$filenameLenMin = 1;
 		if (mb_strlen($_POST['filename']) < $filenameLenMin || mb_strlen($_POST['filename']) > $filenameLenMax) {
-			$error = true;
 			$errorMessages['filename'] = "Must be from $filenameLenMin to $filenameLenMax characters long.";
 		}
 
 		$titleLenMax = 128;
 		if (mb_strlen($_POST['title']) > $titleLenMax) {
-			$error = true;
 			$errorMessages['title'] = "Must be less than $titleLenMax long.";
 		}
 		
 		$descriptionLenMax = 65000; //2^16
 		if (mb_strlen($_POST['description']) > $descriptionLenMax) {
-			$error = true;
 			$errorMessages['description'] = "Must be less than $descriptionLenMax long.";
 		}
 		
-		if ($error) {
+		return $errorMessages;
+	}
+
+	private static function insertIntoDatabase()
+	{
+		date_default_timezone_set("utc");
+		
+		$schematicData = base64_decode($_POST['schematicData']);
+		$timeNow = date("Y-m-d H:i:s");
+		$fileSize = strlen($schematicData);
+		$dataBlob = NULL;
+		$dataBlob_split = str_split($schematicData, self::$mysqlConfigMaxPacketSize);
+		
+		$stmt = self::$mysqli->prepare(
+			"INSERT INTO " .
+				"`schematics`" .
+			" SET " . 
+				/** 1 **/ "`dataBlob`=?," .
+				/** 2 **/ "`userId`=?," .
+				/** 3 **/ "`derivedFromId`=?," .
+				/** 4 **/ "`fileSize`=?," .
+				/** 5 **/ "`filename`=?," .
+				/** 6 **/ "`title`=?," .
+				/** 7 **/ "`description`=?," .
+				/** 8 **/ "`firstCreated`=?," .
+				/** 9 **/ "`lastModified`=?");
+				
+		$stmt->bind_param("biidsssss", 
+			/** 1 **/ $dataBlob,
+			/** 2 **/ $_SESSION['userId'],
+			/** 3 **/ $_POST['id'],
+			/** 4 **/ $fileSize,
+			/** 5 **/ $_POST['filename'],
+			/** 6 **/ $_POST['title'],
+			/** 7 **/ $_POST['description'],
+			/** 8 **/ $timeNow,
+			/** 9 **/ $timeNow);
+		
+		foreach($dataBlob_split as $packet) {
+			 $stmt->send_long_data(0, $packet);
+		}
+		
+		$stmt->execute();
+		$insert_id = $stmt->insert_id;
+		$stmt->close();
+		
+		return $insert_id;
+	}
+	
+	private static function updateIntoDatabase()
+	{
+		date_default_timezone_set("utc");
+
+		$schematicData = base64_decode($_POST['schematicData']);
+		$timeNow = date("Y-m-d H:i:s");
+		$fileSize = strlen($schematicData);
+		$dataBlob = NULL;
+		$dataBlob_split = str_split($schematicData, self::$mysqlConfigMaxPacketSize);
+
+		$stmt = self::$mysqli->prepare(
+			"UPDATE " .
+				"`schematics`" . 
+			" SET " .
+				/** 1 **/ "`dataBlob`=?," .
+				/** 2 **/ "`fileSize`=?," .
+				/** 3 **/ "`filename`=?," .
+				/** 4 **/ "`title`=?," .
+				/** 5 **/ "`description`=?," .
+				/** 6 **/ "`lastModified`=?".
+			" WHERE ".
+				/** 7 **/ "`id`=?");
+		
+		$stmt->bind_param("bdssssi",
+			/** 1 **/ $dataBlob,
+			/** 2 **/ $fileSize,
+			/** 3 **/ $_POST['filename'],
+			/** 4 **/ $_POST['title'],
+			/** 5 **/ $_POST['description'],
+			/** 6 **/ $timeNow,
+			/** 7 **/ $_POST['id']
+		);
+
+		foreach($dataBlob_split as $packet) {
+			 $stmt->send_long_data(0, $packet);
+		}
+		
+		$stmt->execute();
+		$stmt->close();
+		
+		return $_POST['id'];
+	}
+	
+	public static function save() {
+		self::init();
+		self::checkPost('title');
+		self::checkPost('filename');
+		self::checkPost('description');
+		self::checkPost('id');
+		self::checkPost('schematicData');
+		
+		if (!self::isLoggedOn()) {
+			$error = true;
+			$errorMessages['general'] = "Not logged in.";
 			return array(
 				'error' => true,
-				'errorMessages' => $errorMessages
+				'errorMessages' => array("general" => "Not logged in.")
 			);
 		}
-		else {
-			
-			//$schematicData = utf8_decode($schematicData);
-			//$schematicData = gzencode($schematicData, 9); //gzencode compresses the file into gzip format
-			
-			
-			$dataBlob = NULL;
-			
-			$fileSize = strlen($schematicData);
-			
-			
-			
-			$dataBlob_split = str_split($schematicData, self::$mysqlConfigMaxPacketSize);
-			
-			date_default_timezone_set("utc");
-			$timeNow = date("Y-m-d H:i:s");
-
-			if ($_POST['id'] != -1) {
-				$setStr = "";
-				$setStr .= "`dataBlob`=?,";
-				$setStr .= "`fileSize`=?,";
-				$setStr .= "`filename`=?,";
-				$setStr .= "`title`=?,";
-				$setStr .= "`description`=?,";
-				$setStr .= "`lastModified`=?";
-				
-				$dataBlob = NULL;
 		
-				$stmt = self::$mysqli->prepare("UPDATE `schematics` SET $setStr WHERE `id`=?");
-				$stmt->bind_param("bdssssi", 
-					$dataBlob,
-					$fileSize,
-					$_POST['filename'],
-					$_POST['title'],
-					$_POST['description'],
-					$timeNow,
-					$_POST['id']
-				);
-
-				foreach($dataBlob_split as $packet) {
-					 $stmt->send_long_data(0, $packet);
-					 //$stmt->send_long_data(0, $schematicData);
-					 
-				}
-				$stmt->execute();
-				$stmt->close();
-
-				return array(
-					'error' => false,
-					'successMessage' => 'Record updated.',
-					"metaData" => array(
-						"userId" => $_SESSION['userId'],
-						"id" =>  $_POST['id'],
-						"displayName" => $_SESSION['userData_client']['displayName'],
-						"filename" => $_POST['filename'],
-						"title" => $_POST['title'],
-						"description" => $_POST['description'],
-						"firstCreated" => $timeNow,
-						"lastModified" => $timeNow
-					)
-				);
-			}
-			else {
-				$setStr = "";
-				$setStr .= "`dataBlob`=?,";
-				$setStr .= "`userId`=?,";
-				$setStr .= "`derivedFromId`=?,";
-				$setStr .= "`fileSize`=?,";
-				$setStr .= "`filename`=?,";
-				$setStr .= "`title`=?,";
-				$setStr .= "`description`=?,";
-				$setStr .= "`firstCreated`=?,";
-				$setStr .= "`lastModified`=?";
-				
-		
-				$stmt = self::$mysqli->prepare("INSERT INTO `schematics` SET $setStr");
-				$stmt->bind_param("biidsssss", 
-					$dataBlob,
-					$_SESSION['userId'],
-					$_POST['id'],
-					$fileSize,
-					$_POST['filename'],
-					$_POST['title'],
-					$_POST['description'],
-					$timeNow,
-					$timeNow
-				);
-				
-				foreach($dataBlob_split as $packet) {
-					 $stmt->send_long_data(0, $packet);
-				}
-				$stmt->execute();
-				$insert_id = $stmt->insert_id;
-				$stmt->close();
-				
-				return array(
-					'error' => false,
-					'successMessage' => 'New record inserted. ' . $schematicData,
-					"metaData" => array(
-						"userId" => $_SESSION['userId'],
-						"id" => $insert_id,
-						"displayName" => $_SESSION['userData_client']['displayName'],
-						"filename" => $_POST['filename'],
-						"title" => $_POST['title'],
-						"description" => $_POST['description'],
-						"firstCreated" => $timeNow,
-						"lastModified" => $timeNow
-					)
-				);
-			}
+		$errorMessages = self::getErrors();
+		if ($errorMessages['general'] != "") {
+			return array(
+				'error' => true,
+				'errorMessages' => $errorMessages);
 		}
+		
+		// If we are recieving a new schematic, the posted schematic ID is -1
+		if ($_POST['id'] == -1)
+		{
+			$schematicId = self::insertIntoDatabase();
+			$successMessage = 'New record inserted.';
+		}
+		else
+		{
+			$schematicId = self::updateIntoDatabase();
+			$successMessage = 'Record updated.';
+		}
+		
+		return array(
+			'error' => false,
+			'successMessage' => $successMessage,
+			"metaData" => schematicRetrieval::getMetadata($schematicId)); 
 	}
 }
 ?>

@@ -108,7 +108,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 		}
 		
 		populateForm();
-		populateDataField();
+		populateDataFieldThenCompress();
 	}
 	
 	/**
@@ -171,11 +171,11 @@ com.mordritch.mcSim.documentSave = function(gui) {
 			gui.schematicMetadata.description = $('#documentSave_description').val()
 			
 			modal.hide();
-			populateDataField();
+			populateDataFieldThenCompress();
 		}
 	}
 	
-	var populateDataField = function() {
+	var populateDataFieldThenCompress = function() {
 		progressModal.setContent(
 			'<b>'+L10n.getString('document.save.progress.title')+'</b>' +
 			'<p id="documentSave_saving"></p>'
@@ -193,32 +193,23 @@ com.mordritch.mcSim.documentSave = function(gui) {
 			encloseInUnnamedCompoundTag: false,
 			gzipDeflate: false,
 			success: function(data) {
-				//if (data.length > 300000) {
-				if (data.length > 0) {
-					deflate(data);
-				}
-				else {
-					submitForm(data);
-				}
+				compressThenSubmit(data);
 			},
 			progress: function() {
-				console.log("submitForm: progress callback.");
+				console.log("nbtParser.encode: progress callback.");
 			},
 			cancel: function() {
-				console.log("submitForm: cancel callback.");
+				console.log("nbtParser.encode: cancel callback.");
 			}
 		});
 	}
 	
-	var deflate = function(data) {
+	var compressThenSubmit = function(data) {
 		$('#documentSave_saving').text(L10n.getString('document.save.progress.compressing', '0%'));
 		
 		com.mordritch.mcSim.gzip.deflateAsync({
 			data: data,
 			success: function(returnData) {
-				//$('#documentSave_saving').text("Finished.");
-				//returnData = com.mordritch.mcSim.gzip.inflate(returnData);
-				//console.log(hexDump(returnData));
 				submitForm(returnData);
 			},
 			progress: function(type, amount) {
@@ -232,28 +223,6 @@ com.mordritch.mcSim.documentSave = function(gui) {
 	}
 	
 	var submitForm = function(data) {
-		//console.log("Submitting...")
-		//console.log(hexDump($('#documentSave_data').val()));
-		//console.log(hexDump(data));
-		
-		/*
-		new com.mordritch.mcSim.NbtParser().decode({
-			//data: $('#documentSave_data').val(),
-			data: data,
-			updateInterval: 1000,
-			success: function(nbtData) {
-				console.log("test open successfull")
-			},
-			progress: function(category, progress, messaging) {
-				console.log("test progress...")
-			},
-			cancel: function() {
-
-			}
-		});
-		*/
-		//return;
-
 		$('#documentSave_saving').text(L10n.getString('document.save.progress.uploading'));
 
 		$.ajax({
@@ -261,21 +230,21 @@ com.mordritch.mcSim.documentSave = function(gui) {
 			url: 'php/saveOnServer.php',
 			dataType: 'json',
 			data: {
-				schematicData: base64_encode(data), //It seems that suhosin or something like it, is stripping binary data from posts, so it has to be b64 encoded
+				schematicData: base64_encode(data), //It seems that PHP suhosin or something like it on my hosting provider's server, is stripping binary data from posts, so it has to be b64 encoded
 				title: $('#documentSave_title').val(),
 				filename: $('#documentSave_filename').val(),
 				description: $('#documentSave_description').val(),
 				id: $('#documentSave_schematicId').val()
 			},
 			success: function(data) {
-				uploadComplete(data);
-				gui.urlHistory.setSchematicId(data.metaData.id, useReplaceState = false, noChange = true);
-				
+				onSubmitComplete(data);
 			}
 		});
 	}
 	
-	var uploadComplete = function(data) {
+	var onSubmitComplete = function(data) {
+		gui.setSchematicMetadata(data.metaData, isNew = false);
+		
 		progressModal.hide();
 
 		var hintString = L10n.getString('document.save.urlhint');
