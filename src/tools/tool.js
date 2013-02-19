@@ -23,30 +23,42 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 	this.lastMaterialPlacedCoords = {x: "-", y: "-", z: "-"};
 	this.infoModal = new com.mordritch.mcSim.guiFullModal(gui);
 	this.lastMaterialPlacedAt = {x: null, y: null, z: null};
+	this.debugEnabled = false;
 	
 	this.activeTool = "toggle";
 	
 	this.construct = function() {
+
+		this.console = this.debugEnabled ? console : new function() { this.log = function () {} };
+		
 		var t = this;
+		
 		this.gui.input.bindInputEvent({
 			savedKeyName: 'tool_primary',
 			category: 'tools',
 			description: 'shortcuts.tools.primary',
-			callbackFunction: function(e) {t.onPrimaryInput(e);},
+			callbackFunction: function(e) {t.onPrimaryInput(e, isMouseUpevent = e.type == "mouseup");},
 			bindToMouseMove: true,
-			callbackFunction_mouseMove: function(e) {t.onPrimaryInput_mouseMove(e);}
+			callbackFunction_mouseMove: function(e) {t.onPrimaryInput_mouseMove(e, isMouseUpevent = false);},
+			alsoFireOnMouseUp: true
 		});
+		
 		this.gui.input.bindInputEvent({
 			savedKeyName: 'tool_secondary',
 			category: 'tools',
 			description: 'shortcuts.tools.secondary', 
-			callbackFunction: function(e) {t.onSecondaryInput(e);},
+			callbackFunction: function(e) {t.onSecondaryInput(e, isMouseUpevent = e.type == "mouseup");},
 			bindToMouseMove: true,
-			callbackFunction_mouseMove: function(e) {t.onSecondaryInput_mouseMove(e);}
+			callbackFunction_mouseMove: function(e) {t.onSecondaryInput_mouseMove(e, isMouseUpevent = false);},
+			alsoFireOnMouseUp: true
 		});
 	}
 	
-	this.onPrimaryInput = function(e) {
+	this.onPrimaryInput = function(e, isMouseUpevent) {
+		if (isMouseUpevent)
+		{
+			return;
+		}
 		switch (this.activeTool) {
 			case "material":
 				var materialData = this.gui.toolbars.getMaterialData();
@@ -86,23 +98,31 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 	}
 
 	this.onSecondaryInput = function(e) {
-		switch (this.activeTool) {
-			case "material":
-				this.placeMaterial(e, false, 0, 0); //Right click deletes the block
-				break;
-			case "pan":
-				this.pan(e, false);
-				break;
-			case "toggle":
-				this.blockInfo(e);
-				//this.toggleBlock(e, false);
-				break;
-			case "rotateBlock":
-				this.rotateBlock(e, false);
-				break;
-			case "deleteBlock":
-				this.placeMaterial(e, false, 0, 0);
-				break;
+		if (isMouseUpevent)
+		{
+			switch (this.activeTool) {
+				case "toggle":
+					var t = this;
+					window.setTimeout(function() { t.blockInfo(e); }, 0);
+					break;
+			}
+		}
+		else
+		{
+			switch (this.activeTool) {
+				case "material":
+					this.placeMaterial(e, false, 0, 0); //Right click deletes the block
+					break;
+				case "pan":
+					this.pan(e, false);
+					break;
+				case "rotateBlock":
+					this.rotateBlock(e, false);
+					break;
+				case "deleteBlock":
+					this.placeMaterial(e, false, 0, 0);
+					break;
+			}
 		}
 	}
 	
@@ -128,7 +148,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			block.onBlockPlaced(world, x, y, z);
 		}
 		else {
-			console.log(
+			this.console.log(
 				"setBlockData(): canPlaceBlockAt failed at x:%s, y:%s, z:%s, blockId: %s, blockMetadata: %s",
 				x,
 				y,
@@ -205,7 +225,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			}
 			
 			else {
-				console.log(
+				this.console.log(
 					"placeMaterial(): Could not place block %s, currentLayer (x:%s, y:%s, z:%s) = %s, aboveLayer (x:%s, y:%s, z:%s) = %s",
 					blockId,
 					coords.x,
@@ -239,7 +259,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				blockAboveLayer.toggleBlock(world, coords.x1, coords.y1, coords.z1);
 			}
 			else {
-				console.log(
+				this.console.log(
 					"toggleBlock(): Could not toggle block, currentLayer (x:%s, y:%s, z:%s) = %s, aboveLayer (x:%s, y:%s, z:%s) = %s",
 					coords.x,
 					coords.y,
@@ -270,7 +290,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				blockAboveLayer.rotateBlock(world, coords.x1, coords.y1, coords.z1);
 			}
 			else {
-				console.log(
+				this.console.log(
 					"rotateBlock(): Could not rotate block, currentLayer (x:%s, y:%s, z:%s) = %s, aboveLayer (x:%s, y:%s, z:%s) = %s",
 					coords.x,
 					coords.y,

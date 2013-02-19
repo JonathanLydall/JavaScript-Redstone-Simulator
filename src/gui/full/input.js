@@ -227,6 +227,17 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 				this.captureDone(this.capturingInputCombination_modKeys.join('-'));
 			}
 		}
+		
+		if (e.type == "mouseup")
+		{
+			var keysDown = [];
+			keysDown.push(e.which);
+			for (var i in this.modKeysDown) {
+				keysDown.push(this.modKeysDown[i]);
+			}
+			keysDown.sort();
+			this.inputEvent(keysDown.join('-'), e);
+		}
 	}
 	
 	this.onMouseMove = function(e) {
@@ -267,6 +278,8 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 	}
 	
 	this.inputEvent = function(keys, e) {
+		var isForMouseUp = e.type == "mouseup";
+
 		//Always prevent default for certain keys:
 		if (
 			e.which == 32 //Spacebar, shortcut key in some browsers for page down
@@ -280,6 +293,10 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 			(
 				typeof this.keyBindingsMap[this.scope][keys] != 'undefined' ||
 				typeof this.keyBindingsMap["main"][keys] != 'undefined'
+			) &&
+			(
+				!isForMouseUp ||
+				(isForMouseUp && this.keysAreBoundToMouseUpEvent(keys, e))
 			)
 		) {
 			e.preventDefault();
@@ -299,6 +316,55 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 			if (!this.isModKey(e.which)) {
 				this.captureDone(keys);
 			}
+		}
+	}
+	
+	this.keysAreBoundToMouseUpEvent = function(keys, e)
+	{
+		var scopeBinding = this.keyBindingsMap[this.scope][keys];
+		var mainBinding = this.keyBindingsMap["main"][keys];
+		
+		if (typeof inputEventName == 'undefined' && typeof scopeBinding == 'undefined')
+		{
+			return false;
+		} 
+
+		var inputEventName = typeof scopeBinding != 'undefined' ? scopeBinding : mainBinding;
+		var inputEventBinding = this.inputEventBindings[this.scope][inputEventName];
+		return inputEventBinding.alsoFireOnMouseUp;
+	}
+	
+	/**
+	 * When there is a matching keybinding, this calls back the bound function
+	 */
+	this.doCallbackForKeyCombo = function(keys, e, isForMouseUp) {
+		if (
+			typeof this.keyBindingsMap[this.scope][keys] != 'undefined'
+		) {
+			var scope = this.scope;
+		}
+		
+		if (
+			typeof this.keyBindingsMap[this.scope][keys] == 'undefined' &&
+			typeof this.keyBindingsMap["main"][keys] != 'undefined'
+		) {
+			var scope = "main";
+		}
+
+		var inputEventName = this.keyBindingsMap[scope][keys];
+		var inputEventBinding = this.inputEventBindings[scope][inputEventName];
+		var callBackData = inputEventBinding.data;
+		
+		if (
+			e.type == 'mousemove' &&
+			inputEventBinding.bindToMouseMove
+		) {
+			inputEventBinding.callbackFunction_mouseMove(e, callBackData);
+		}
+		else {
+			inputEventBinding.callbackFunction(e, callBackData);
+			if (inputEventBinding.keyUpModifierKeysOnTrigger)
+				this.modKeysDown = [];
 		}
 	}
 	
@@ -407,40 +473,6 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		this.gui.userSettings.bindings = this.getSaveableBindings();
 		this.gui.userManager.saveUserSettings();
 		this.modal.hide();
-	}
-	
-	/**
-	 * When there is a matching keybinding, this calls back the bound function
-	 */
-	this.doCallbackForKeyCombo = function(keys, e) {
-		if (
-			typeof this.keyBindingsMap[this.scope][keys] != 'undefined'
-		) {
-			var scope = this.scope;
-		}
-		
-		if (
-			typeof this.keyBindingsMap[this.scope][keys] == 'undefined' &&
-			typeof this.keyBindingsMap["main"][keys] != 'undefined'
-		) {
-			var scope = "main";
-		}
-
-		var inputEventName = this.keyBindingsMap[scope][keys];
-		var inputEventBinding = this.inputEventBindings[scope][inputEventName];
-		var callBackData = inputEventBinding.data;
-		
-		if (
-			e.type == 'mousemove' &&
-			inputEventBinding.bindToMouseMove
-		) {
-			inputEventBinding.callbackFunction_mouseMove(e, callBackData);
-		}
-		else {
-			inputEventBinding.callbackFunction(e, callBackData);
-			if (inputEventBinding.keyUpModifierKeysOnTrigger)
-				this.modKeysDown = [];
-		}
 	}
 	
 	this.onKeyPress = function(e, type) {
@@ -572,13 +604,19 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 	 * @param	{Function}	keyUpModifierKeysOnTrigger	If true, will automatically set all modifier keys as unpressed. This is
 	 * 								 					useful for bindings which show prompts as the "keyUp" event could land up
 	 * 													not being fired.
+	 * @param	{Boolean}	alsoFireOnMouseUp				When set, the event will also trigger on key up, instead of just on keydown.
 	 */
 	this.bindInputEvent = function(parameters) {
+		//console.log("guiFullInput.bindInputEvent(): ", parameters.savedKeyName);
+		//console.log(parameters);
+		//console.log(" ");
+		
 		var defaultParamaters = {
 			scope: 'main',
 			data: {},
 			mouseMoveEvent: false,
-			keyUpModifierKeysOnTrigger: false
+			keyUpModifierKeysOnTrigger: false,
+			alsoFireOnMouseUp: false
 		}
 		
 		for (var i in defaultParamaters) {
@@ -594,6 +632,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		var bindToMouseMove 			= parameters.bindToMouseMove;
 		var callbackFunction_mouseMove 	= parameters.callbackFunction_mouseMove;
 		var keyUpModifierKeysOnTrigger 	= parameters.keyUpModifierKeysOnTrigger;
+		var alsoFireOnMouseUp			= parameters.alsoFireOnMouseUp;
 		
 		
 		
@@ -613,7 +652,8 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 			'userLoaded': false,
 			'bindToMouseMove': bindToMouseMove,
 			'callbackFunction_mouseMove': callbackFunction_mouseMove,
-			'keyUpModifierKeysOnTrigger': keyUpModifierKeysOnTrigger
+			'keyUpModifierKeysOnTrigger': keyUpModifierKeysOnTrigger,
+			'alsoFireOnMouseUp': alsoFireOnMouseUp
 		};
 		
 		var bindings_userLoaded = this.gui.userSettings.bindings;

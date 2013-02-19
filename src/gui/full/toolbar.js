@@ -551,27 +551,6 @@ var proto = function(gui) {
 		this.bindDraggable(domId + ' img');
 	}
 	
-	this.renderIcon1 = function(toolbar, slot) {
-		var t = this;
-		var domId = '#guiFullToolbarIcon_' + toolbar + '_' + slot;
-
-		if(
-			typeof this.gui.userSettings.toolbars == 'undefined' ||
-			typeof this.gui.userSettings.toolbars.slots == 'undefined' ||
-			typeof this.gui.userSettings.toolbars.slots[toolbar]['slot'+slot] == 'undefined' ||
-			this.gui.userSettings.toolbars.slots[toolbar]['slot'+slot] == ''
-		) {
-			//Empty slot
-			//$(domId).html('<span class="emptySlot"></span>');
-			$(domId+' .emptySlot').css({
-				width: this.iconSize + "px",
-				height: this.iconSize + "px"
-			});
-			return;
-		}
-		
-	}
-	
 	this.construct();
 }
 namespace[funcName] = proto;
