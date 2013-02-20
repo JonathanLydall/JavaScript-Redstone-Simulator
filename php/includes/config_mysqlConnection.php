@@ -24,7 +24,7 @@ if (!(strpos($_SERVER['HTTP_HOST'], 'mordritch.com') === false)) {
 }
 else {
 	$mysqlConfig = array(
-		"host" => "localhost",
+		"host" => "127.0.0.1", //127.0.0.1 != localhost in terms of msqli performance on a Windows 7 box with IPv6, it takes about a second to initiate the connection if you use localhost
 		"username" => "mc_rss",
 		"password" => "mc_rss",
 		"schema" => "mordritc_mcrss",

@@ -69,6 +69,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 					'<textarea id="documentSave_description"></textarea> <span class="errorText" id="documentSave_description_error"></span></p>' +
 					'<input type="hidden" id="documentSave_data" value="">' +
 					'<input type="hidden" id="documentSave_schematicId" value="">' +
+					'<input type="hidden" id="documentSave_derivedFromId" value="">' +
 				'</form>' +
 			'</div>'
 		);
@@ -77,6 +78,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 		$('#documentSave_filename').val(fileName);
 		$('#documentSave_description').val(description);
 		$('#documentSave_schematicId').val(schematicId);
+		$('#documentSave_derivedFromId').val(schematicId);
 		$('#documentSave_data').val('');
 
 		$('.documentSave input').bind('keyup', function(e) {
@@ -234,7 +236,8 @@ com.mordritch.mcSim.documentSave = function(gui) {
 				title: $('#documentSave_title').val(),
 				filename: $('#documentSave_filename').val(),
 				description: $('#documentSave_description').val(),
-				id: $('#documentSave_schematicId').val()
+				id: $('#documentSave_schematicId').val(),
+				derivedFromId: $('#documentSave_derivedFromId').val()
 			},
 			success: function(data) {
 				onSubmitComplete(data);

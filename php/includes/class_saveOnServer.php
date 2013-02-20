@@ -138,7 +138,7 @@ class saveOnServer {
 		$stmt->bind_param("biidsssss", 
 			/** 1 **/ $dataBlob,
 			/** 2 **/ $_SESSION['userId'],
-			/** 3 **/ $_POST['id'],
+			/** 3 **/ $_POST['derivedFromId'],
 			/** 4 **/ $fileSize,
 			/** 5 **/ $_POST['filename'],
 			/** 6 **/ $_POST['title'],
@@ -206,6 +206,7 @@ class saveOnServer {
 		self::checkPost('filename');
 		self::checkPost('description');
 		self::checkPost('id');
+		self::checkPost('derivedFromId');
 		self::checkPost('schematicData');
 		
 		if (!self::isLoggedOn()) {

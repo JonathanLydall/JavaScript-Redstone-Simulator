@@ -167,7 +167,7 @@ class schematicRetrieval {
 			$lastModified
 		);
 		if ($stmt->fetch()) {
-			return array(
+			$returnArray = array(
 				'error' => false,
 				'schematicId' => $schematicId,
 				'userId' => $userId,
@@ -180,10 +180,12 @@ class schematicRetrieval {
 				'lastModified' => $lastModified
 			);
 			$stmt->close();
+			return $returnArray;
 		}
 		else {
-			return array("error" => true, "runningOnLive" => self::runningOnLive(), "errorDescription" => "No record found with ID $id. (2)");
+			$returnArray = array("error" => true, "runningOnLive" => self::runningOnLive(), "errorDescription" => "No record found with ID $id. (2)");
 			$stmt->close();
+			return $returnArray;
 		}
 	}
 }
