@@ -44,6 +44,8 @@
 				'<span class="documentToolBarRight"></span>'
 			);
 
+			this.tooltip = new namespace.tooltip(this);
+
 			this.initGuiOptions();
 			this.initTopRightButtons();
 			this.initTopLeftButtons();
@@ -54,7 +56,6 @@
 			this.mcSim = new namespace.MinecraftSimulator(this);
 	
 			this.ticker = new namespace.guiFull_ticker(this); //not the actual ticker, just the gui's way of talking to it, depends on ticker inside mcSim having already been created
-			this.tooltip = new namespace.tooltip(this);
 			
 			this.initPlaceableBlockList(); //needs to be run before the toolbar
 			this.initBlockHelpers();
@@ -526,20 +527,13 @@
 				callbackFunction: onClickCallback
 			});
 
-			$('.'+className).on('mouseenter', function() {
-				t.tooltip.show(
-					$domElement = $('.addDocumentToolbarButton_'+name),
-					position = "below",
-					headerText = t.L10n.getString('toolbar.top.tooltips.'+description+'.title'),
-					bodyText = t.L10n.getString('toolbar.top.tooltips.'+description+'.description'),
-					shortcutKeyScope = 'main',
-					shortcutKeyEventName = name
-				);
-			});
-			
-			$('.'+className).on('mouseleave', function() {
-				t.tooltip.hide()
-			});
+			this.tooltip.createForElement(
+				$domElement = $('.addDocumentToolbarButton_'+name),
+				position = "below",
+				headerText = 'toolbar.top.tooltips.'+description+'.title',
+				bodyText = 'toolbar.top.tooltips.'+description+'.description',
+				shortcutKeyScope = 'main',
+				shortcutKeyEventName = name);
 
 			$(container+' .'+className).bind('click', onClickCallback);
 			return className;

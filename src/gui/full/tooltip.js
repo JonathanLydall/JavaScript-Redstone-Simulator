@@ -36,9 +36,9 @@ namespace[funcName] = function(gui) {
 	}
 	
 	this.createForElement = function($domElement, position, headerTextResourceName, bodyTextResourceName, shortcutKeyScope, shortcutKeyEventName) {
-		var t = this;
+		var self = this;
 		$domElement.on('mouseenter', function() {
-			t.show(
+			self.show(
 				$domElement = $domElement,
 				position = position,
 				headerText = L10n.getString(headerTextResourceName),
@@ -48,10 +48,38 @@ namespace[funcName] = function(gui) {
 			);
 		});
 		
-		$domElement.on('mouseleave', function() {
-			t.hide()
-		});
+		this.bindHideEvents($domElement);
 	}
+	
+	this.creteForElementWithDynamicParameters = function($domElement, getParamatersCallback) {
+		var self = this;
+		
+		$domElement.on('mouseenter', function() {
+			var parameters = getParamatersCallback(this);
+			
+			if (parameters == null)
+			{
+				return;
+			}
+			
+			self.show(
+				$domElement = parameters.$domElement,
+				position = parameters.position,
+				headerText = parameters.headerText,
+				bodyText = parameters.bodyText,
+				shortcutKeyScope = parameters.shortcutKeyScope,
+				shortcutKeyEventName = parameters.shortcutKeyEventName
+			);
+		});
+		
+		this.bindHideEvents($domElement);
+	}
+	
+	this.bindHideEvents = function($domElement) {
+		$domElement.on('mouseleave', this.hide);
+		$domElement.on('click', this.hide);
+	}
+	
 	
 	this.show = function($domElement, position, headerText, bodyText, shortcutKeyScope, shortcutKeyEventName) {
 		clearTimeout(timeoutId);

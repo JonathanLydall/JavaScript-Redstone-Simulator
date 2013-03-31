@@ -135,18 +135,19 @@ var proto = function(gui) {
 			}
 		});
 		
-		var t = this;
+		var self = this;
+		var tooltip = this.gui.tooltip; 
 		
-		$('.toolbarSlot')
-			.on('mouseenter', function() {
-				t.showTooltip($(this).data('toolbar'), $(this).data('slot'));
-			})
-			.on('mouseleave', function() {
-				t.gui.tooltip.hide();
-			});
+		tooltip.creteForElementWithDynamicParameters($('.toolbarSlot'), function(context)
+		{
+			return self.getParamatersForTooltip(context);
+		});
 	}
 	
-	this.showTooltip = function(toolbar, slot) {
+	this.getParamatersForTooltip = function(context) {
+		var toolbar = $(context).data('toolbar');
+		var slot = $(context).data('slot');
+		
 		var $domElement = $('#guiFullToolbarIcon_'+toolbar+'_'+slot);
 		var shortcutKeyScope = 'main';
 		var shortcutKeyEventName = 'toolbarSlotShortcutKey_'+toolbar+'_'+slot; 
@@ -168,8 +169,18 @@ var proto = function(gui) {
 					break;
 				default: throw new Error("Unexpected case")
 			}
-			this.gui.tooltip.show($domElement, "right", headerText, bodyText, shortcutKeyScope, shortcutKeyEventName);
+			
+			return {
+				$domElement: $domElement,
+				position: "right",
+				headerText: headerText,
+				bodyText: bodyText,
+				shortcutKeyScope: shortcutKeyScope,
+				shortcutKeyEventName: shortcutKeyEventName
+			};
 		}
+		
+		return null;
 	}
 	
 	/**
