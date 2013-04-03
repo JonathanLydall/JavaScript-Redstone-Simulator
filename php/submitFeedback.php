@@ -20,7 +20,7 @@
  */
 
 include_once 'includes/error_handling.php';
-include_once 'includes/emailHelper.php';
+include_once 'includes/class_emailHelper.php';
 include_once 'includes/utf8_handling.php';
 include_once 'includes/function_removeMagicQuotesIfEnabled.php';
 
