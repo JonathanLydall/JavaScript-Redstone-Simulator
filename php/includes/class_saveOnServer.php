@@ -28,6 +28,8 @@ include_once 'config_mysqlConnection.php';
 include_once 'class_userManager.php';
 include_once 'class_schematicRetrieval.php';
 
+include_once 'class_emailHelper.php';
+
 class saveOnServer {
 	private static $initDone = false;
 	private static $mysqli;
@@ -199,6 +201,36 @@ class saveOnServer {
 		
 		return $_POST['id'];
 	}
+
+	private static function validateCompression()
+	{
+		$data = base64_decode($_POST['schematicData']);
+
+		$tempFile = tempnam('/tmp','ff');
+		@file_put_contents($tempFile, $data);
+		ob_start();
+		readgzfile($tempFile);
+		$uncompressedData = ob_get_clean();
+		
+		if (strlen($data) != 0 && strlen($uncompressedData) == 0)
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private static function onUncompressed()
+	{
+		$email = new emailHelper();
+		$email->setSubject("JavaScript Redstone Simulator - Uncompressed data received");
+		$email->addAttachment(print_r($GLOBALS, TRUE), "globals.txt", "text/plain");
+		$email->addAttachment(base64_decode($_POST['schematicData']), "schematicData.schematic", "application/octet-stream");
+		$email->appendToBody("Uncompressed data recieved, see attachments.");
+		$email->send();
+			
+		$_POST['schematicData'] = base64_encode(gzencode(base64_decode($_POST['schematicData'])));
+	}
 	
 	public static function save() {
 		self::init();
@@ -208,7 +240,22 @@ class saveOnServer {
 		self::checkPost('id');
 		self::checkPost('derivedFromId');
 		self::checkPost('schematicData');
+		self::checkPost('isCompressed');
 		
+		$isCompressed = $_POST['isCompressed'] == "true";
+		
+		if ($isCompressed && !self::validateCompression())
+		{
+			return array(
+				'error' => true,
+				'compressionError' => true);
+		}
+		
+		if (!$isCompressed)
+		{
+			self::onUncompressed();
+		}
+
 		if (!self::isLoggedOn()) {
 			$error = true;
 			$errorMessages['general'] = "Not logged in.";

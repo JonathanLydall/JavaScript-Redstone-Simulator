@@ -20,8 +20,8 @@
  */
 
 include_once 'includes/error_handling.php';
+include_once 'includes/emailHelper.php';
 include_once 'includes/utf8_handling.php';
-
 include_once 'includes/function_removeMagicQuotesIfEnabled.php';
 
 $host = $_SERVER['HTTP_HOST'];
@@ -50,29 +50,21 @@ if ($magic = "") {
 date_default_timezone_set("utc");
 $timeNow = date("Y-m-d H:i:s");
 
-$headers = 
-	"From: noreply@mordritch.com" . PHP_EOL .
-	"Reply-To: noreply@mordritch.com" . PHP_EOL .
-	"";
-
-$to = "jonathan.lydall+mcrss@gmail.com";
-$subject = $spamDetected . "Javascript Redstone Simulator - Feedback (" . $timeNow . ")";
-
-//$body .= PHP_EOL . PHP_EOL . PHP_EOL . "Globals:" . PHP_EOL . print_r($GLOBALS, true);
-$body = wordwrap($body, 70);
+$email = new emailHelper();
+$email->setSubject("Javascript Redstone Simulator - Feedback (" . $timeNow . ")");
+$email->addAttachment(print_r($GLOBALS, TRUE), "globals.txt", "text/plain");
+$email->appendToBody($body);
 
 if ($inputError) {
 	echo json_encode(array('error' => 'true', 'type' => 'input', 'details' => $errorDetails));
 }
 else {
-	if (mail($to, $subject, $body, $headers)) {
-	//if (mail($to, $subject, $body, $headers) && !$inputError) {
-		//echo("<p>Message successfully sent!</p>");
+	$sendSuccess = $email->send();
+	if ($sendSuccess) {
 		echo json_encode(array('error' => 'false'));
 	}
 	else {
-		echo json_encode(array('error' => 'true', 'type' => 'mailSend', 'details' => $errorDetails));
+		echo json_encode(array('error' => 'true', 'type' => 'mailSend', 'details' => "Error sending mail, please try again later."));
 	}
 }
-
 ?>

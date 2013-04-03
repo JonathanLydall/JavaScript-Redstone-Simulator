@@ -20,6 +20,7 @@
  */
 
 include_once 'utf8_handling.php';
+include_once 'class_emailHelper.php';
 
 if (!(strpos($_SERVER['HTTP_HOST'], 'mordritch.com') === false)) {
 	$runningOnLive = true;
@@ -110,54 +111,31 @@ function shutdown() {
 
 				date_default_timezone_set("utc");
 				$timeNow = date("Y-m-d H:i:s");
-				$random_hash = md5($timeNow);
-
-				$body = 
-					"--$random_hash" . PHP_EOL .
-					"Content-Type: text/plain; charset=ISO-8859-1" . PHP_EOL .
-					PHP_EOL .
+				$email = new emailHelper();
+				$email->appendToBody(
 					"Previous Errors:" . PHP_EOL . print_r($error_handler_errors, true) . PHP_EOL .
 					"Last Error:" . PHP_EOL . print_r($lastError, true) . PHP_EOL .
-				 	"Backtrace:" . PHP_EOL . print_r(debug_backtrace(), true) . PHP_EOL .
-				 	"Globals:" . PHP_EOL . print_r($GLOBALS, true) . PHP_EOL .
-					PHP_EOL .
-				"";
-				$body = wordwrap($body, 70);
+				 	"Backtrace:" . PHP_EOL . print_r(debug_backtrace(), true) . PHP_EOL
+				);
+					
+				$email->addAttachment(print_r($GLOBALS, TRUE), "globals.txt", "text/plain");
+				
 				
 				foreach($_FILES as $att) {
-					$fileContents = base64_encode(file_get_contents($att[tmp_name]));
-					$fileName = $att['name'];
-					$fileType = $att['type'];
-
-					$body .=
-						"--$random_hash" . PHP_EOL .
-						"Content-Type: $fileType; name=\"$fileName\"" . PHP_EOL .
-						"Content-Transfer-Encoding: base64" . PHP_EOL .
-						"Content-Disposition: attachment; filename=\"$fileName\"" . PHP_EOL .
-						PHP_EOL .
-						wordwrap($fileContents, 70, PHP_EOL, true) . PHP_EOL .
-					"";			
+					$email->addAttachment(
+						file_get_contents($att[tmp_name]),
+						$att['name'],
+						$att['type']);
 				}
 				
-				$body .= "--$random_hash--";
-				$headers = 
-					"From: noreply@mordritch.com" . PHP_EOL .
-					"Reply-To: noreply@mordritch.com" . PHP_EOL .
-					"Content-Type: multipart/mixed; boundary=\"".$random_hash."\"" . PHP_EOL .
-				"";
-				
-				$to = "jonathan.lydall+mcrss@gmail.com";
-				$subject = "Javascript Redstone Simulator - Fatal server side error (" . $timeNow . ")";
-				
-				
-				mail($to, $subject, $body, $headers);
-
-
+				$email->setSubject("Javascript Redstone Simulator - Fatal server side error (" . $timeNow . ")");
+				$email->send();
 
 				break;	
 		}
 	}
 }
+
 register_shutdown_function('shutdown');
 /*
 */

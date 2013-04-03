@@ -23,6 +23,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 	var L10n = gui.localization;
 	var modal = new com.mordritch.mcSim.guiFullModal(gui);
 	var progressModal = new com.mordritch.mcSim.guiFullModal(gui);
+	var uncompressedNbtData = "";	
 	
 	var construct = function() {
 		modal.addButton(
@@ -195,6 +196,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 			encloseInUnnamedCompoundTag: false,
 			gzipDeflate: false,
 			success: function(data) {
+				uncompressedNbtData = data;
 				compressThenSubmit(data);
 			},
 			progress: function() {
@@ -212,7 +214,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 		com.mordritch.mcSim.gzip.deflateAsync({
 			data: data,
 			success: function(returnData) {
-				submitForm(returnData);
+				submitForm(returnData, isCompressed = true);
 			},
 			progress: function(type, amount) {
 				var percentDone = Math.floor((amount/data.length)*100);
@@ -224,20 +226,28 @@ com.mordritch.mcSim.documentSave = function(gui) {
 		});
 	}
 	
-	var submitForm = function(data) {
-		$('#documentSave_saving').text(L10n.getString('document.save.progress.uploading'));
+	var submitForm = function(data, isCompressed) {
+		if (isCompressed)
+		{
+			$('#documentSave_saving').text(L10n.getString('document.save.progress.uploading'));
+		}
+		else
+		{
+			$('#documentSave_saving').text(L10n.getString('document.save.progress.uploading.uncompressed'));
+		}
 
 		$.ajax({
 			type: 'POST',
 			url: 'php/saveOnServer.php',
 			dataType: 'json',
 			data: {
-				schematicData: base64_encode(data), //It seems that PHP suhosin or something like it on my hosting provider's server, is stripping binary data from posts, so it has to be b64 encoded
+				schematicData: base64_encode(data), //It seems that PHP suhosin (or something like it) on my hosting provider's server, is stripping binary data from posts, so it has to be b64 encoded
 				title: $('#documentSave_title').val(),
 				filename: $('#documentSave_filename').val(),
 				description: $('#documentSave_description').val(),
 				id: $('#documentSave_schematicId').val(),
-				derivedFromId: $('#documentSave_derivedFromId').val()
+				derivedFromId: $('#documentSave_derivedFromId').val(),
+				isCompressed: isCompressed
 			},
 			success: function(data) {
 				onSubmitComplete(data);
@@ -246,6 +256,16 @@ com.mordritch.mcSim.documentSave = function(gui) {
 	}
 	
 	var onSubmitComplete = function(data) {
+		if (data.error && data.compressionError)
+		{
+			submitForm(uncompressedNbtData, isCompressed = false);
+			return;
+		}
+		
+		onSaveSuccess(data);
+	}
+	
+	var onSaveSuccess = function(data) {
 		gui.setSchematicMetadata(data.metaData, isNew = false);
 		
 		progressModal.hide();
