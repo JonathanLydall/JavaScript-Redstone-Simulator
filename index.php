@@ -128,8 +128,8 @@ function getNoCanvasError() {
 		<title>Javascript Redstone Simulator</title> 
 		<meta name="keywords" content=""> 
 		<meta name="description" content="An in-browser, Javascript redstone simulator. Inspired by Baezon's simulator." /> 
-		<link rel="stylesheet" type="text/css" href="css/guiFull.css" />
-		<script type="text/javascript">
+		<link rel="stylesheet" href="css/guiFull.css" />
+		<script>
 			function redirectIfNoHistoryApiSupport(schematicIdToOpen) {
 				if (schematicIdToOpen == null || typeof schematicIdToOpen == "undefined") {
 					return;
@@ -149,14 +149,14 @@ function getNoCanvasError() {
 		<!--[if lt IE 8]>  
 		    <script "text/javascript" src="js/json2.js"></script>  
 		<![endif]-->
-		<script type="text/javascript" src="js/defaultOptions.js"></script> 
+		<script src="js/defaultOptions.js"></script> 
 
-		<script type="text/javascript" src="js/jquery/jquery-1.7.1.min.js"></script> 
-		<script type="text/javascript" src="js/jquery/jquery-ui-1.8.17.custom.min.js"></script> 
-		<script type="text/javascript" src="js/jquery/jquery.mousewheel.min.js"></script>
-		<script type="text/javascript" src="js/jquery/jquery.form.js"></script>
-		<script type="text/javascript" src="js/jquery/jquery.disableTextSelect.js"></script>
-		<script type="text/javascript" src="js/jquery/jquery.ba-hashchange.min.js"></script>
+		<script src="js/jquery/jquery-1.7.1.min.js"></script> 
+		<script src="js/jquery/jquery-ui-1.8.17.custom.min.js"></script> 
+		<script src="js/jquery/jquery.mousewheel.min.js"></script>
+		<script src="js/jquery/jquery.form.js"></script>
+		<script src="js/jquery/jquery.disableTextSelect.js"></script>
+		<script src="js/jquery/jquery.ba-hashchange.min.js"></script>
 
 <?php echo generateScriptTags('		'); ?>			
 <?php generateGaqScriptTag(); ?>
@@ -176,7 +176,7 @@ function getNoCanvasError() {
 				</div>
 			</noscript>
 			
-			<script type="text/javascript">
+			<script>
 				if (!window.HTMLCanvasElement) {
 					//Canvas not supported
 					var noCanvasError = <?php echo json_encode(getNoCanvasError()); ?>;
