@@ -2,7 +2,7 @@
 	var namespace = com.mordritch.mcSim;
 	var funcName = "BlockType__Default";
 	
-	namespace[funcName] = function() {};
+	namespace[funcName] = function(){};
 	var proto = namespace[funcName].prototype;
 
 	proto.material = "";
