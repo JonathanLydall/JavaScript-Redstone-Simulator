@@ -26,11 +26,11 @@
 	proto.construct = function() {
 		this.drawIconBlockMetadataOveride = 5;
 		this._renderAsNormalBlock = false;
-	}
+	};
 
 	proto.isPoweringTo = function(world, posX, posY, posZ, direction) {
 		return (world.getBlockMetadata(posX, posY, posZ) & 8) > 0;
-	}
+	};
 	
 	proto.canPlaceBlockAt = function (world, posX, posY, posZ) {
         if ( 
@@ -43,7 +43,7 @@
         ) {
         	return true;
         }
-    }
+    };
 
 	proto.isIndirectlyPoweringTo = function(world, posX, posY, posZ, direction) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -66,7 +66,7 @@
 			return true;
 		}
 
-	}
+	};
 
 	proto.rotateSelection = function(blockMetadata, amount) {
 		var isThrown = blockMetadata & 8;
@@ -75,7 +75,7 @@
 			orientation = new Array(0, 3, 4, 2, 1, 5, 6, 7)[orientation];
 		}
 		return orientation | isThrown;
-	}
+	};
 	
 	proto.rotateBlock = function(world, posX, posY, posZ) {
 		var orientation = world.getBlockMetadata(posX, posY, posZ) & 7;
@@ -86,7 +86,7 @@
 				break;
 			}			
 		} while (true);
-	}
+	};
 	
 	proto.checkIfAttachedToBlock = function(world, posX, posY, posZ) {
         if (!this.canPlaceBlockAt(world, posX, posY, posZ))
@@ -99,7 +99,7 @@
         {
             return true;
         }
-	}
+	};
 	
 	proto.placementInvalid = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ) & 7;
@@ -146,7 +146,7 @@
 		}
 
 		return placementInvalid;		
-	}
+	};
 	
 	proto.onNeighborBlockChange = function(world, posX, posY, posZ, neighborBlockId) {
 		if (this.checkIfAttachedToBlock(world, posX, posY, posZ))
@@ -157,7 +157,7 @@
 				world.setBlockWithNotify(posX, posY, posZ, 0);
 			}
 		}
-	}
+	};
 	
 	proto.onBlockPlaced = function(world, posX, posY, posZ) {
 		for (var i=1; i<=6; i++) {
@@ -173,15 +173,15 @@
 			) break;
 		}
 		world.setBlockMetadata(posX, posY, posZ, i);
-	}
+	};
 	
 	proto.canProvidePower = function() {
 		return true;
-	}
+	};
 	
 	proto.toggleBlock = function(world, posX, posY, posZ) {
 		this.blockActivated (world, posX, posY, posZ);
-	}
+	};
 	
 	proto.blockActivated = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -217,16 +217,16 @@
 			world.notifyBlocksOfNeighborChange(posX, posY + 1, posZ, blockID);
 		}
 		return true;
-	}
+	};
 	
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas);
-	}
+	};
 
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas);
 		//TODO: Have this make a shadow if anything other than ground mounted
-	}
+	};
 
 	proto.drawTopView_generic = function(world, posX, posY, posZ, canvas) {
 		var facing = world.getBlockMetadata(posX, posY, posZ) & 0x7;
@@ -257,16 +257,16 @@
 				break;
 			default:
 		}
-	}
+	};
 	
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		this.drawSideView_generic(world, posX, posY, posZ, canvas, lookingTowards);
-	}
+	};
 
 	proto.drawSideView_aboveLayer = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		this.drawSideView_generic(world, posX, posY, posZ, canvas, lookingTowards);
 		//TODO: Have this make a shadow if anything other than ground mounted
-	}
+	};
 	
 	proto.drawSideView_generic = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		var 
@@ -420,7 +420,7 @@
 		}
 		
 		this.draw(world, posX, posY, posZ, canvas, view, rotated, mirrored);
-	}
+	};
 	
 	proto.draw = function(world, posX, posY, posZ, canvas, view, rotated, mirrored) {
 		var baseColour = "rgb(64,64,64)";
@@ -497,5 +497,5 @@
 				return;
 		}
 		canvas.restore();
-	}
+	};
 }());

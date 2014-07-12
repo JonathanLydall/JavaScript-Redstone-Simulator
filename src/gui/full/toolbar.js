@@ -94,7 +94,7 @@ var proto = function(gui) {
 		//Bind the drggable event to icons, but disable until we have the toolbar editing modal showing:
 		this.bindDraggable('.icon');
 		$('.icon').draggable('disable');
-	}
+	};
 	
 	/**
 	 * Draws the unpopulated toolbars onto the screen
@@ -142,7 +142,7 @@ var proto = function(gui) {
 		{
 			return self.getParamatersForTooltip(context);
 		});
-	}
+	};
 	
 	this.getParamatersForTooltip = function(context) {
 		var toolbar = $(context).data('toolbar');
@@ -167,7 +167,7 @@ var proto = function(gui) {
 					headerText = this.extraTools[slotData[1]].tooltipHeader;
 					bodyText = this.extraTools[slotData[1]].tooltipBody;
 					break;
-				default: throw new Error("Unexpected case")
+				default: throw new Error("Unexpected case");
 			}
 			
 			return {
@@ -181,7 +181,7 @@ var proto = function(gui) {
 		}
 		
 		return null;
-	}
+	};
 	
 	/**
 	 * Used to render the toolbars, also called back if the toolbar count is changed in options
@@ -202,7 +202,7 @@ var proto = function(gui) {
 		$(modelViewContainerDomSelector).css("left", $(toolbarContainerDomSelector).width() + $(toolbarContainerDomSelector).position().left);
 
 		this.setSelectedSlot(0,0);
-	}
+	};
 
 	/**
 	 * When a toolbar slot is clicked
@@ -215,7 +215,7 @@ var proto = function(gui) {
 		) {
 			this.setSelectedSlot(targetData.toolbar, targetData.slot);
 		}
-	}
+	};
 	
 	/**
 	 * A modal from which we can drag icons onto our toolbars
@@ -286,7 +286,7 @@ var proto = function(gui) {
 		$('.inner .icon').bind('mousedown', function() {
 			t.scrollTop = $('.inner').scrollTop(); //fix for firefox jumping the inner div scrolling to the top any time you try drag
 		});
-	}
+	};
 	
 	this.registerInputBindings = function() {
 		var t = this;
@@ -316,11 +316,11 @@ var proto = function(gui) {
 				});
 			}
 		}
-	}
+	};
 	
 	this.registerOptions = function() {
 		var t = this;
-		var options = this.gui.options
+		var options = this.gui.options;
 
 		options.registerOption({
 			type: 'number',
@@ -330,9 +330,9 @@ var proto = function(gui) {
 			minValue: 1,
 			maxValue: 4,
 			callbackScope: 'toolbars',
-			callbackForOnChange: function() {t.renderToolbars()}
+			callbackForOnChange: function() {t.renderToolbars();}
 		});
-	}
+	};
 	
 	/**
 	 * Sets a slot as selected
@@ -366,7 +366,7 @@ var proto = function(gui) {
 					break;
 			}
 		}
-	}
+	};
 	
 	this.toolbarSlotChange = function(delta) {
 		var currentSlot = this.currentSlot;
@@ -407,11 +407,11 @@ var proto = function(gui) {
 		} while (true);
 		
 		this.setSelectedSlot(currentToolbar, currentSlot);
-	}
+	};
 	
 	this.slotShortcutKey = function(data) {
 		if (this.getSlotData(data.toolbar, data.slot) != null) this.setSelectedSlot(data.toolbar, data.slot);
-	}
+	};
 	
 	/**
 	 * Returns whatever is currently in the slot
@@ -427,7 +427,7 @@ var proto = function(gui) {
 			return null;
 		}
 		return this.gui.userSettings.toolbars.slots[toolbar]['slot'+slot];
-	}
+	};
 	
 
 	/**
@@ -438,9 +438,8 @@ var proto = function(gui) {
 		return {
 			blockId: this.gui.placeableBlocks[link].blockID,
 			blockMetadata: this.gui.placeableBlocks[link].blockMetadata
-		}
-		
-	}
+		};
+	};
 
 	/**
 	 * Callback for when user settings are loaded, populates the toolbars with the saved settings.
@@ -459,13 +458,13 @@ var proto = function(gui) {
 		else {
 			this.toolbarSlotChange(1); //Otherwise, pretend we used the mousewheel, which only selects a valid tool
 		}
-	}
+	};
 	
 	this.show = function() {
 		this.showing = true;
 		$('.icon').draggable('enable');
 		$('#toolbars').addClass('onIconChange');
-	}
+	};
 	
 	this.hide = function() {
 		this.showing = false;
@@ -477,7 +476,7 @@ var proto = function(gui) {
 		this.gui.userManager.saveUserSettings();
 
 		$('#toolbars').removeClass('onIconChange');
-	}
+	};
 	
 	/**
 	 * Calls draggable binding on an element
@@ -506,7 +505,7 @@ var proto = function(gui) {
 			}
 		});
 		
-	}
+	};
 	
 	/**
 	 * Event called when a tool icon is dropped onto a toolbar slot. 
@@ -522,7 +521,7 @@ var proto = function(gui) {
 		
 		this.gui.userSettings.toolbars.slots[toolbar]['slot'+slot] = [toolType, toolId];
 		this.renderIcon(toolbar, slot);
-	}
+	};
 	
 	/**
 	 * Updates the icon for a toolbar slot
@@ -560,9 +559,9 @@ var proto = function(gui) {
 				break; 
 		}
 		this.bindDraggable(domId + ' img');
-	}
+	};
 	
 	this.construct();
-}
+};
 namespace[funcName] = proto;
 })();

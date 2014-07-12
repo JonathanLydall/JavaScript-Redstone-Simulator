@@ -38,7 +38,7 @@ namespace[funcName] = function(gui) {
 			yTopLess: "yTopMore",
 			yBottomMore: "yBottomLess",
 			yBottomLess: "yBottomMore"
-	}
+	};
 	this.selectedBlockId = "1"; //expects a string
 	
 	this.construct = function() {
@@ -53,7 +53,7 @@ namespace[funcName] = function(gui) {
 		});
 		
 		this.setContent();
-	}
+	};
 	
 	this.setContent = function() {
 		var html =
@@ -222,21 +222,21 @@ namespace[funcName] = function(gui) {
 			t.selectedBlockId = $('.documentResize .restingBlockType').val();
 		});
 		
-		$('.documentResize .button.zTopMore').on('click', function() { t.onButtonClick("zTop", 1)});
-		$('.documentResize .button.zTopLess').on('click', function() { t.onButtonClick("zTop", -1)});
-		$('.documentResize .button.zBottomMore').on('click', function() { t.onButtonClick("zBottom", 1)});
-		$('.documentResize .button.zBottomLess').on('click', function() { t.onButtonClick("zBottom", -1)});
+		$('.documentResize .button.zTopMore').on('click', function() { t.onButtonClick("zTop", 1);});
+		$('.documentResize .button.zTopLess').on('click', function() { t.onButtonClick("zTop", -1);});
+		$('.documentResize .button.zBottomMore').on('click', function() { t.onButtonClick("zBottom", 1);});
+		$('.documentResize .button.zBottomLess').on('click', function() { t.onButtonClick("zBottom", -1);});
 		
-		$('.documentResize .button.xLeftMore').on('click', function() { t.onButtonClick("xLeft", 1)});
-		$('.documentResize .button.xLeftLess').on('click', function() { t.onButtonClick("xLeft", -1)});
-		$('.documentResize .button.xRightMore').on('click', function() { t.onButtonClick("xRight", 1)});
-		$('.documentResize .button.xRightLess').on('click', function() { t.onButtonClick("xRight", -1)});
+		$('.documentResize .button.xLeftMore').on('click', function() { t.onButtonClick("xLeft", 1);});
+		$('.documentResize .button.xLeftLess').on('click', function() { t.onButtonClick("xLeft", -1);});
+		$('.documentResize .button.xRightMore').on('click', function() { t.onButtonClick("xRight", 1);});
+		$('.documentResize .button.xRightLess').on('click', function() { t.onButtonClick("xRight", -1);});
 		
-		$('.documentResize .button.yTopMore').on('click', function() { t.onButtonClick("yTop", 1)});
-		$('.documentResize .button.yTopLess').on('click', function() { t.onButtonClick("yTop", -1)});
-		$('.documentResize .button.yBottomMore').on('click', function() { t.onButtonClick("yBottom", 1)});
-		$('.documentResize .button.yBottomLess').on('click', function() { t.onButtonClick("yBottom", -1)});
-	}
+		$('.documentResize .button.yTopMore').on('click', function() { t.onButtonClick("yTop", 1);});
+		$('.documentResize .button.yTopLess').on('click', function() { t.onButtonClick("yTop", -1);});
+		$('.documentResize .button.yBottomMore').on('click', function() { t.onButtonClick("yBottom", 1);});
+		$('.documentResize .button.yBottomLess').on('click', function() { t.onButtonClick("yBottom", -1);});
+	};
 	
 	this.getCurrentDimensions = function() {
 		if (this.gui.mcSim.World == null) {
@@ -249,7 +249,7 @@ namespace[funcName] = function(gui) {
 				z: this.gui.mcSim.World.worldData.getSizeZ()
 			};
 		}
-	}
+	};
 	
 	this.setDimensions = function() {
 		var xCurrent = parseInt(this.getCurrentDimensions().x);
@@ -312,7 +312,7 @@ namespace[funcName] = function(gui) {
 		}
 		
 		this.modal.hide();
-	}
+	};
 	
 	this.show = function() {
 		this.model = {
@@ -322,11 +322,11 @@ namespace[funcName] = function(gui) {
 			xRight: 0,
 			yTop: 0,
 			yBottom: 0
-		}
+		};
 
 		this.updateModelView();
 		this.modal.show();
-	}
+	};
 	
 	this.onInputChange = function() {
 		var val, inverseProperty;
@@ -345,13 +345,13 @@ namespace[funcName] = function(gui) {
 				this.updateModelView();
 			}
 		}
-	}
+	};
 	
 	this.onButtonClick = function(property, delta) {
 		this.model[property] = this.model[property] + delta;
 		
 		this.updateModelView();
-	}
+	};
 	
 	this.updateModelView = function() {
 		var xCurrent = parseInt(this.getCurrentDimensions().x, 10);
@@ -403,7 +403,8 @@ namespace[funcName] = function(gui) {
 			$('.documentResize .' + property).val(this.model[property]);
 			$('.documentResize .' + property).removeClass("invalidBackgroundColor");
 		}
-	}
+	};
 	
 	this.construct();
-}})();
+};
+})();

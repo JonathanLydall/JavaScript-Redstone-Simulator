@@ -41,19 +41,19 @@ com.mordritch.mcSim.documentSave = function(gui) {
 			defaultValue: false
 		});
 		
-	}
+	};
 	
 	
 	var showModal = function() {
 		modal.show();
 		$('#documentSave_title').focus();
-	}
+	};
 	
 	var populateForm = function() {
 		var title = gui.schematicMetadata.title;
 		var fileName = gui.schematicMetadata.fileName;
 		var description = gui.schematicMetadata.description;
-		var schematicId = gui.schematicMetadata.schematicId
+		var schematicId = gui.schematicMetadata.schematicId;
 		
 		modal.setContent(
 			'<div class="documentSave standardForm">' +
@@ -85,7 +85,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 		$('.documentSave input').bind('keyup', function(e) {
 			if (e.which == 13) validateForm();
 		});
-	}
+	};
 	
 	/**
 	 * When the "save" button or shortcut is triggered
@@ -112,7 +112,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 		
 		populateForm();
 		populateDataFieldThenCompress();
-	}
+	};
 	
 	/**
 	 * When the "save as" button or shortcut is triggered
@@ -132,7 +132,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 		populateForm();
 		$('#documentSave_schematicId').val(-1);
 		showModal();
-	}
+	};
 	
 	var validateForm = function() {
 		var inputError = false;
@@ -170,13 +170,13 @@ com.mordritch.mcSim.documentSave = function(gui) {
 		
 		if (!inputError) {
 			gui.schematicMetadata.title = $('#documentSave_title').val();
-			gui.schematicMetadata.fileName = $('#documentSave_filename').val()
-			gui.schematicMetadata.description = $('#documentSave_description').val()
+			gui.schematicMetadata.fileName = $('#documentSave_filename').val();
+			gui.schematicMetadata.description = $('#documentSave_description').val();
 			
 			modal.hide();
 			populateDataFieldThenCompress();
 		}
-	}
+	};
 	
 	var populateDataFieldThenCompress = function() {
 		progressModal.setContent(
@@ -206,7 +206,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 				console.log("nbtParser.encode: cancel callback.");
 			}
 		});
-	}
+	};
 	
 	var compressThenSubmit = function(data) {
 		$('#documentSave_saving').text(L10n.getString('document.save.progress.compressing', '0%'));
@@ -224,7 +224,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 				
 			}
 		});
-	}
+	};
 	
 	var submitForm = function(data, isCompressed) {
 		if (isCompressed)
@@ -253,7 +253,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 				onSubmitComplete(data);
 			}
 		});
-	}
+	};
 	
 	var onSubmitComplete = function(data) {
 		if (data.error && data.compressionError)
@@ -263,7 +263,7 @@ com.mordritch.mcSim.documentSave = function(gui) {
 		}
 		
 		onSaveSuccess(data);
-	}
+	};
 	
 	var onSaveSuccess = function(data) {
 		gui.setSchematicMetadata(data.metaData, isNew = false);
@@ -272,13 +272,13 @@ com.mordritch.mcSim.documentSave = function(gui) {
 
 		var hintString = L10n.getString('document.save.urlhint');
 		while (hintString.indexOf('\\n') >= 0) {
-			hintString = hintString.replace("\\n", "\n")
+			hintString = hintString.replace("\\n", "\n");
 		}
 
 		if (!gui.options.getOption('simulator', 'doNotShowSavedUrl')) {
 			prompt(hintString, window.location.href);
 		}
-	}
+	};
 	
 	construct();
-}
+};

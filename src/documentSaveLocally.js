@@ -44,11 +44,11 @@ com.mordritch.mcSim.documentSaveLocally = function(gui) {
 		progressModal.bind('hide', function() {
 			hide();
 		});
-	}
+	};
 	
 	var hide = function() {
 		cancellationRequested = true;
-	}
+	};
 	
 	/**
 	 * When the "save" button or shortcut is triggered
@@ -60,7 +60,7 @@ com.mordritch.mcSim.documentSaveLocally = function(gui) {
 		setTimeout(function() {
 			nbtEncode();
 		},5);
-	}
+	};
 	
 	var nbtEncode = function() {
 		var nbtData = gui.mcSim.saveWorld();
@@ -82,7 +82,7 @@ com.mordritch.mcSim.documentSaveLocally = function(gui) {
 				deflate(data);
 			}
 		});
-	}
+	};
 	
 	var deflate = function(data) {
 		$(saveProgressSelector).text(L10n.getString('document.save.progress.compressing', '0%'));
@@ -105,7 +105,7 @@ com.mordritch.mcSim.documentSaveLocally = function(gui) {
 				},5);
 			}
 		});
-	}
+	};
 	
 	var postData = function(data) {
 		var fileName = (gui.schematicMetadata.fileName == null || gui.schematicMetadata.fileName == "") ? L10n.getString("document.metadata.default.fileName") : gui.schematicMetadata.fileName;
@@ -127,7 +127,7 @@ com.mordritch.mcSim.documentSaveLocally = function(gui) {
 				uploadComplete(data);
 			}
 		});
-	}
+	};
 	
 	var uploadComplete = function(data) {
 		progressModal.hide();
@@ -150,7 +150,7 @@ com.mordritch.mcSim.documentSaveLocally = function(gui) {
 				}
 			}).submit();
 		}
-	}
+	};
 	
 	construct();
-}
+};

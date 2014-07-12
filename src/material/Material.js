@@ -54,5 +54,5 @@
 		cake: (new namespace.Material_(MapColor.airColor)).setNoPushMobility(),
 		web: (new namespace.MaterialWeb(MapColor.clothColor)).setNoHarvest().setNoPushMobility(),
 		piston: (new namespace.Material_(MapColor.stoneColor)).setImmovableMobility()
-	}
+	};
 })();

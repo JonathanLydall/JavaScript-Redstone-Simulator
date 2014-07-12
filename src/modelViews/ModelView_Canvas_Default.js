@@ -62,7 +62,7 @@
 		offSetY: 0,
 		borderColour: "128,128,128",
 		noContextMenu: true
-	}
+	};
 
 	proto._construct = function() {
 		var options = this.options;
@@ -142,7 +142,7 @@
 					'</div>' +
 				'</div>' +
 			'</div>' +
-		''
+		'';
 		$('#workarea').append(html);
 		this.setCssClass(this.cssClass);
 		
@@ -166,7 +166,7 @@
 		
 		if (this.noContextMenu == true) this.disableContextMenu();
 		
-		$(window).bind('resize', {t: this}, function(e){e.data.t.windowResize()});
+		$(window).bind('resize', {t: this}, function(e){e.data.t.windowResize();});
 		this.$controls.parent().bind('mouseenter', {t: this}, function(e) {
 			e.data.t.$controls.show();
 		});
@@ -179,7 +179,7 @@
 		this.construct();
 		this.constructed = true;
 		this.drawAllBlocks();
-	}
+	};
 	
 	/**
 	 * Used to change the container DIVs CSS class which is responsible for the placement of each modelview
@@ -188,12 +188,12 @@
 		$('#'+this.containerDomId).removeClass(this.cssClass);
 		$('#'+this.containerDomId).addClass(cssClass);
 		this.cssClass = cssClass;
-	}
+	};
 
 
 	proto.onOptionsChange = function() {
 		this.readOptions();
-	}
+	};
 	
 	/**
 	 * Called if the options screen is applied or the user settings are loaded due to a reason like the user logging on 
@@ -208,7 +208,7 @@
 		this.workTime = options.workTime;
 		
 		if (typeof this.mcSim != 'undefined' && this.constructed) this.drawAllBlocks();
-	}
+	};
 	
 	proto.windowResize = function() {
 		var top = this.$controls.parent().offset().top;
@@ -216,7 +216,7 @@
 		
 		this.$controls.css('top', top+'px');
 		this.$controls.css('left', left+'px');
-	}
+	};
 	
 	proto.setLoading = function(state) {
 		if (state) {
@@ -228,14 +228,14 @@
 			$('#'+this.containerDomId+' canvas').show();
 			this.setDimensions();
 		}
-	}
+	};
 	
 	/**
 	 * Prevents context menu from showing, making it possible to bind our right mousebutton
 	 */
 	proto.disableContextMenu = function() {
 		this.$domObject_overlay.bind("contextmenu",function(e){return false;});
-	}
+	};
 	
 	/**
 	 * A public method for changing the worktime, perhaps it's a little superfluous 
@@ -253,7 +253,7 @@
 	 */
 	proto.getDataUrl = function() {
 		return this.domObject.toDataURL();
-	}
+	};
 	
 	proto.zoomLevelIncrease = function() {
 		if (this.zoomLevel < 6 && this.zoomLevel >= 1) {
@@ -266,7 +266,7 @@
 			this.zoomLevel = this.zoomLevel*2;
 			this.setDimensions();
 		}
-	}
+	};
 	
 	proto.zoomLevelDecrease = function() {
 		if (this.zoomLevel > 1) {
@@ -279,11 +279,11 @@
 			this.zoomLevel = this.zoomLevel/2;
 			this.setDimensions();
 		}
-	}
+	};
 	
 	proto.bindToEvent_onMousedown = function(callbackFunction) {
 		this.eventBindings_onMousedown.push(callbackFunction);
-	}
+	};
 	
 	/**
 	 * Called when the mouse moves on the canvas
@@ -294,7 +294,7 @@
 	proto.onMouseMove = function(pageX, pageY) {
 		this.latestMouseCoords = this.getMousePositionOnCanvas(pageX, pageY);
 		this.updateCoords();
-	}
+	};
 	
 	proto.updateCoords = function() {
 		var schematicCoords = this.getSchematicCoords(this.latestMouseCoords.x, this.latestMouseCoords.y, forAboveLayer = false);
@@ -312,7 +312,7 @@
 			this.currentShownCoords.y = schematicCoords.y;
 			this.currentShownCoords.z = schematicCoords.z;
 		}
-	}
+	};
 	
 	proto.exportImage = function() {
 		//TODO: can hang on big images, perhaps have some feedback on whether or not it's working
@@ -321,7 +321,7 @@
 		
 		this.exportImageModal.setContent('<img src="'+imageData+'" />');
 		this.exportImageModal.show();
-	}
+	};
 	
 	/**
 	 * Bind events to the mouse
@@ -352,7 +352,7 @@
 		});
 		
 
-	}
+	};
 
 	proto.pan_onMouseMove = function(e) {
 		var $div = $('#' + this.containerDomId + ' .scrollable');
@@ -367,7 +367,7 @@
 			$div.scrollLeft(currentScrollLeft + (panStart.x - positionNow.x)); 
 			$div.scrollTop(currentScrollTop + (panStart.y - positionNow.y)); 
 		}
-	}
+	};
 	
 	proto.pan_start = function(e) {
 		this.panStart = {
@@ -380,7 +380,7 @@
 			this.panStart = this.getMousePositionOnCanvas(e.pageX, e.pageY);
 		}
 		*/
-	}
+	};
 	
 	proto.scroll = function(direction) {
 		var $div = $('#' + this.containerDomId);
@@ -402,7 +402,7 @@
 				$div.scrollTop(currentScrollTop + scrollAmount);
 				break;
 		}
-	}
+	};
 	
 	/**
 	 * Returns the x and y position of the mouse on the canvas from the page position
@@ -438,7 +438,7 @@
 		var mouseOnCanvasY = pageY - elementOffsetY;
 
 		return {x: mouseOnCanvasX, y: mouseOnCanvasY};
-	}
+	};
 
 	/**
 	 * Called by the simulator any time a block needs to be drawn
@@ -655,7 +655,7 @@
 			var forAboveLayer = true;
 			World.Block.pistonMoving[drawMethod + "_moving_fromAir"](World, aboveLayerCoords.x, aboveLayerCoords.y, aboveLayerCoords.z, ctx, aboveEntity, forAboveLayer, currentFacing); this.blockDrawCount++;
 		}
-	}
+	};
 	
 	/**
 	 * Redraws all the blocks we can see on the canvas
@@ -776,7 +776,7 @@
 			}
 		}
 		*/
-	}
+	};
 	
 	/**
 	 * Returns the schematic coordinates from an and x and y position on the canvas
@@ -816,14 +816,14 @@
 		}
 		if (zReturn < 0 || zReturn >= zMax) {
 			zReturn = '-';
-		}
+		};
 
 		return {
 			x: xReturn,
 			y: yReturn,
 			z: zReturn
 		};
-	}
+	};
 	
 	proto.markBlockNeedsUpdate = function(posX, posY, posZ) {
 		var gridCoords = this.getGridCoordsFromWorldCoords(posX, posY, posZ);
@@ -834,7 +834,7 @@
 		) {
 			this.blocksMarkedForUpdate[gridCoords.x+"_"+gridCoords.y] = {x: gridCoords.x, y: gridCoords.y};
 		}
-	}
+	};
 	
 	proto.flushMarkedBlocks = function() {
 		for (var i in this.blocksMarkedForUpdate) {
@@ -843,7 +843,7 @@
 			this.drawBlock(x, y);
 		}
 		this.blocksMarkedForUpdate = {};
-	}
+	};
 
 	
 	/**
@@ -884,14 +884,14 @@
 		this.context_overlay.fillRect(0, 0, canvasWidth, canvasHeight);
 
 		this.drawAllBlocks();
-	}
+	};
 	
 	proto.rotateAntiClockwise = function() {
 		//Do nothing, unless overridden by an inheriting class
-	}
+	};
 	
 	proto.rotateAntiClockwise = function() {
 		//Do nothing, unless overridden by an inheriting class
-	}
+	};
 	
 }());

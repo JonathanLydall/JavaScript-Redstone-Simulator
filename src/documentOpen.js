@@ -39,7 +39,7 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 		this.initOverButton();
 		
 		return;
-	}
+	};
 	
 	this.supportsFileAPI = function() {
 		if (
@@ -53,7 +53,7 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 		else {
 			return false;
 		}
-	}
+	};
 	
 	this.show = function() {};
 	
@@ -93,7 +93,7 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 			t.move();
 		});
 		this.move();
-	}
+	};
 	
 	this.bind = function() {
 		//because we have a hidden input element hovering over, we need to update the styles manually of the "button under"File Open" icon beneath it
@@ -115,7 +115,7 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 			$(fileOpenClass).removeClass("topToolbarUnselected_hover");
 			$(fileOpenClass).addClass("topToolbarUnselected");
 		});
-	}
+	};
 	
 	this.move = function() {
 		$('.documentOpen').width($('.addDocumentToolbarButton_fileOpen img').outerWidth());
@@ -124,7 +124,7 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 			top: $('.addDocumentToolbarButton_fileOpen img').offset().top,
 			left: $('.addDocumentToolbarButton_fileOpen img').offset().left
 		});
-	}
+	};
 	
 	this.createForm = function() {
 		var html =
@@ -159,7 +159,7 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 				t.loadUsingBounceBack(e);
 			}
 		});
-	}
+	};
 	
 	this.loadUsingFileApi = function(e) {
 		console.log("Loading using File API.");
@@ -169,10 +169,10 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 		
 		fileReader.onload = function(e) {
 			t.openFile(e.target.result);
-		}
+		};
 		fileReader.readAsBinaryString(file);
 		t.createForm();
-	}
+	};
 	
 	this.loadUsingBounceBack = function(e) {
 		console.log("Loading using server bounceback.");
@@ -185,7 +185,7 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 				console.log("uploadProgress:", percentComplete + '%');
 			},*/
 			success: function(data) {
-				console.log("Put complete, getting...")
+				console.log("Put complete, getting...");
 				$.ajax({
 					url: "php/readFile_bounceBack.php?task=get&id=" + data.id,
 					success: function(data) {
@@ -198,7 +198,7 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 				});
 			}
 		});
-	}
+	};
 	
 	this.openFile = function(data) {
 		//console.log("Open file for length:", data.length);
@@ -215,7 +215,7 @@ com.mordritch.mcSim.documentOpen = function(gui) {
 			fileName: this.fileName,
 			description: ""
 		}, isNew = true);
-	}
+	};
 	
 	this.construct();
-}
+};

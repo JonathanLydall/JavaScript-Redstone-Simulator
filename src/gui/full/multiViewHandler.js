@@ -42,7 +42,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			this.setLoading(true);
 		}
 		
-	}
+	};
 	
 	this.addModelView = function(cssClass, viewType) {
 		var t = this;
@@ -61,7 +61,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 				offSetY: 0
 			})
 		);
-	}
+	};
 	
 	this.removeModelView = function(cssClass) {
 		var oldModelViewsArray = this.modelViews;
@@ -72,7 +72,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			} 
 		}
 		$('.' + cssClass).remove();
-	}
+	};
 	
 	this.getModelViewByCssClass = function(cssClass) {
 		for (var i=0; i< this.modelViews.length; i++) {
@@ -80,7 +80,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 				return this.modelViews[i];
 			} 
 		}
-	}
+	};
 	
 	this.onMouseEnterOrLeave = function(action, modelView) {
 		if (action == 'enter') {
@@ -94,11 +94,11 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		else {
 			this.mouseOverModelView = null;
 		}
-	}
+	};
 	
 	this.registerOptions = function() {
 		var t = this;
-		var options = this.gui.options
+		var options = this.gui.options;
 
 		options.registerOption({
 			type: 'number',
@@ -108,7 +108,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			minValue: 0.25,
 			maxValue: 5,
 			callbackScope: 'modelview_appearance',
-			callbackForOnChange: function() {t.onOptionsChange()}
+			callbackForOnChange: function() {t.onOptionsChange();}
 		});
 
 		options.registerOption({
@@ -120,7 +120,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			minValue: 0,
 			maxValue: 1,
 			callbackScope: 'modelview_appearance',
-			callbackForOnChange: function() {t.onOptionsChange()}
+			callbackForOnChange: function() {t.onOptionsChange();}
 		});
 
 		options.registerOption({
@@ -132,7 +132,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			minValue: 12,
 			maxValue: 5000,
 			callbackScope: 'modelview_appearance',
-			callbackForOnChange: function() {t.onOptionsChange()}
+			callbackForOnChange: function() {t.onOptionsChange();}
 		});
 
 		options.registerOption({
@@ -143,7 +143,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			minValue: 0,
 			maxValue: 10,
 			callbackScope: 'modelview_appearance',
-			callbackForOnChange: function() {t.onOptionsChange()}
+			callbackForOnChange: function() {t.onOptionsChange();}
 		});
 		
 		options.registerOption({
@@ -154,17 +154,17 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			minValue: 0,
 			maxValue: 10,
 			callbackScope: 'modelview_appearance',
-			callbackForOnChange: function() {t.onOptionsChange()}
+			callbackForOnChange: function() {t.onOptionsChange();}
 		});
 		
 		this.onOptionsChange();
-	}
+	};
 	
 	this.onOptionsChange = function() {
 		for (var i=0; i<this.modelViews.length; i++) {
 			this.modelViews[i].onOptionsChange();
 		}
-	}
+	};
 	
 	this.bindInputs = function() {
 		var t = this;
@@ -276,7 +276,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			callbackFunction: function(e) {t.gotoLayer();},
 			keyUpModifierKeysOnTrigger: true
 		});
-	}
+	};
 	
 	/**
 	 * Called as the mouse as the shortcut keycombo is first pushed
@@ -286,7 +286,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			this.modelViews[this.mouseOverModelView].pan_start(e);
 		}
 		
-	}
+	};
 	
 	/**
 	 * Called as the mouse moves while the keycombo is still active
@@ -295,7 +295,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		if (this.mouseOverModelView != null) {
 			this.modelViews[this.mouseOverModelView].pan_onMouseMove(e);
 		}
-	}
+	};
 	
 	/**
 	 * Forwards the keybound event to scroll the modelview
@@ -304,7 +304,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		if (this.mouseOverModelView != null) {
 			this.modelViews[this.mouseOverModelView].scroll(direction);
 		}
-	}
+	};
 	
 	/**
 	 * Mark a block as needing a redraw:
@@ -317,7 +317,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 				this.modelViews[i].markBlockNeedsUpdate(x, y, z);
 			}}}
 		}
-	}
+	};
 	
 	/**
 	 * Draw everything now that needs an update
@@ -326,7 +326,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		for (var i=0; i<this.modelViews.length; i++) {
 			this.modelViews[i].flushMarkedBlocks();
 		}
-	} 
+	} ;
 
 	/**
 	 * Called by simulator when a block needs to be redrawn
@@ -335,7 +335,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		for (var i=0; i<this.modelViews.length; i++) {
 			this.modelViews[i].drawBlock(posX, posY, posZ);
 		}
-	}
+	};
 	
 	/**
 	 * Called by simulator any time the size of the schematic changes
@@ -344,7 +344,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		for (var i=0; i<this.modelViews.length; i++) {
 			this.modelViews[i].setDimensions(parameters);
 		}
-	}
+	};
 	
 	/**
 	 * Called any time all blocks need to be redrawn
@@ -355,7 +355,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		for (var i=0; i<this.modelViews.length; i++) {
 			this.modelViews[i].drawAllBlocks();
 		}
-	}
+	};
 	
 	/**
 	 * Tells all canvases whether or not world data is in the process of
@@ -364,7 +364,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		for (var i=0; i<this.modelViews.length; i++) {
 			this.modelViews[i].setLoading(state);
 		}
-	}
+	};
 
 	/**
 	 * Jumps the current selected modelview to the specified layer:
@@ -385,7 +385,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		else {
 			console.log("Could not change layer to "+layer);
 		}
-	}
+	};
 	
 	/**
 	 * Forwards keybound event to try change active modelview's layer
@@ -400,7 +400,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			}
 			this.modelViews[this.mouseOverModelView].updateCoords();
 		}
-	}
+	};
 	
 	/**
 	 * Forwards keybound event to try change active modelview's zoomlevel
@@ -415,7 +415,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			}
 			this.modelViews[this.mouseOverModelView].updateCoords();
 		}
-	}
+	};
 	
 	/**
 	 * Forwards keybound event to export image
@@ -424,7 +424,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		if (this.mouseOverModelView != null) {
 			this.modelViews[this.mouseOverModelView].exportImage();
 		}
-	}
+	};
 	
 	/**
 	 * Forwards keybound event for rotating image
@@ -433,7 +433,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		if (this.mouseOverModelView != null) {
 			this.modelViews[this.mouseOverModelView].rotateClockwise();
 		}
-	}
+	};
 	
 	/**
 	 * Forwards keybound event for rotating image
@@ -442,7 +442,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 		if (this.mouseOverModelView != null) {
 			this.modelViews[this.mouseOverModelView].rotateAntiClockwise();
 		}
-	}
+	};
 	
 	/**
 	 * If the mouse is currently over the grid, this returns the coords, otherwise it returns false.
@@ -475,7 +475,7 @@ com.mordritch.mcSim.guiFull_multiViewHandler = function(gui) {
 			y1: schematicCoordsAboveLayer.y,
 			z1: schematicCoordsAboveLayer.z
 		};
-	}
+	};
 	
 	this.construct();
-}
+};

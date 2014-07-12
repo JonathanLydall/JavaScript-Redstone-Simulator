@@ -17,7 +17,7 @@
 		if (!this.isActive()) {
 			this.torchActive = false;
 		}
-	}
+	};
 		
 	proto.isActive = function() {
 		if (this.blockType == "torchRedstoneActive") {
@@ -27,7 +27,7 @@
 		if (this.blockType == "torchRedstoneIdle") {
 			return false;
 		}
-	}
+	};
 	
 	/**
 	 * See if there have been too many torch updates recently, if so, burn out torch
@@ -61,15 +61,15 @@
 		}
 
 		return false;
-	}
+	};
 	
 	proto.canProvidePower = function() {
 		return true;
-	}
+	};
 	
 	proto.tickRate = function() {
 		return 2;
-	}
+	};
 	
 	proto.isPoweringTo = function (world, posX, posY, posZ, direction) {
 		//TODO: Confirm last parameter = direction?
@@ -95,7 +95,7 @@
 			return false;
 		}
 		return blockMetaData != 2 || direction != 4;
-	}
+	};
 	
 	proto.isIndirectlyPowered = function(world, posX, posY, posZ) {
 		var direction = world.getBlockMetadata(posX, posY, posZ);
@@ -121,7 +121,7 @@
 		}
 		
 		return false;
-	}
+	};
 
 	proto.updateTick = function(world, posX, posY, posZ) {
 		var isIndirectlyPowered = this.isIndirectlyPowered(world, posX, posY, posZ);
@@ -141,7 +141,7 @@
 		else if (!isIndirectlyPowered && !this.checkForBurnout(world, posX, posY, posZ, false)) {
 			world.setBlockAndMetadataWithNotify(posX, posY, posZ, world.Block.torchRedstoneActive.blockID, world.getBlockMetadata(posX, posY, posZ));
 		}
-	}
+	};
 	
 	proto.isIndirectlyPoweringTo = function(world, posX, posY, posZ, direction) {
 		//TODO: Confirm last parameter = direction?
@@ -153,7 +153,7 @@
 		{
 			return false;
 		}
-	}
+	};
 	
 	proto.onNeighborBlockChange = function(world, posX, posY, posZ) {
 		/*
@@ -168,7 +168,7 @@
 		else {
 			world.scheduleBlockUpdate(posX, posY, posZ, this.blockID, this.tickRate());
 		}
-	}
+	};
 	
 	proto.onBlockAdded = function(world, posX, posY, posZ)
 	{
@@ -188,7 +188,7 @@
 			world.notifyBlocksOfNeighborChange(posX, posY, posZ - 1, blockID);
 			world.notifyBlocksOfNeighborChange(posX, posY, posZ + 1, blockID);
 		}
-	}
+	};
 	
 	proto.onBlockRemoval = function(world, posX, posY, posZ)
 	{
@@ -204,7 +204,7 @@
 			world.notifyBlocksOfNeighborChange(posX, posY, posZ - 1, blockID);
 			world.notifyBlocksOfNeighborChange(posX, posY, posZ + 1, blockID);
 		}
-	}
+	};
 	
 	proto.enumeratePlaceableBlocks = function() {
 		if (this.blockType == "torchRedstoneActive") {
@@ -221,5 +221,5 @@
 		else {
 			return new Array();
 		}
-	}
+	};
 }());

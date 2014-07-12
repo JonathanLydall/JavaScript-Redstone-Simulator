@@ -24,9 +24,9 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 	
 	this.init = function() {
 		this.Block = new com.mordritch.mcSim.Block(); //consistent with MCP name
-		this.World = null //consistent with MCP name, will be populated with world data
+		this.World = null; //consistent with MCP name, will be populated with world data
 		this.updateTicker = new com.mordritch.mcSim.ticker(this);
-	}
+	};
 	
 	/**
 	 * In the source code, resides in the renderer
@@ -40,7 +40,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 			//The game also always re-renders all neighboring blocks:
 			this.modelViews[i].markBlockNeedsUpdate(posX, posY, posZ);
 		}
-	}
+	};
 	
 	/**
 	 * In the source code, resides in the renderer
@@ -53,7 +53,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 			//TODO: Consider passing this.World along to the draw routine
 			this.modelViews[i].markBlockNeedsUpdate(posX1, posY1, posZ1);
 		}
-	}
+	};
 	
 	/**
 	 * Called anytime we start or load a schematic, to ensure we don't have things like entities or tickData lying around;
@@ -61,7 +61,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 	this.preLoad = function() {
 		this.worldIsLoaded = false;
 		this.updateTicker.stopRunning();
-	}
+	};
 	
 	/**
 	 * Loads world into the simulator
@@ -83,7 +83,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 			throw new Error("com.mordritch.mcSim.MinecraftSimulator.loadWorld(): Unrecognized world type.");
 		}
 		this.postLoad(worldData, startTickingWorldOnLoad);
-	}
+	};
 	
 	this.postLoad = function(worldData, startTickingWorldOnLoad) {
 		for (var i in this.modelViews) {
@@ -106,7 +106,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 			//TODO: Consider passing this.World along to the draw routine
 			this.modelViews[i].setLoading(false);
 		}
-	}
+	};
 	
 	/**
 	 * saveWorld 
@@ -114,7 +114,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 	this.saveWorld = function() {
 		this.World.commitAll();
 		return this.World.worldData.getNbtData();
-	}
+	};
 	
 	/**
 	 * Called to start a new schematic
@@ -123,7 +123,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 		this.preLoad();
 		var worldData = new com.mordritch.mcSim.World_Schematic(null, xDefaultSize, yDefaultSize, zDefaultSize);
 		this.postLoad(worldData, startTickingOnLoad);
-	}
+	};
 	
 	/**
 	 * Idea is that we can use a global flag to decide whether or not to show console output.
@@ -132,7 +132,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 	 */
 	this.consoleOut = function(text) {
 		console.log(text);
-	}
+	};
 	
 	/**
 	 * Add a model view to modelViews array:
@@ -142,7 +142,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 	 */
 	this.bindModelView = function(modelView) {
 		this.modelViews.push(modelView);
-	}
+	};
 	
 	/**
 	 * Searches the modelViews array for a model view and removes it.
@@ -156,7 +156,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 				break;
 			}
 		}
-	}
+	};
 	
 	/**
 	 * Returns the block object at specified coordinates.
@@ -180,7 +180,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 		else {
 			return Block.unknown;
 		}
-	}
+	};
 	
 	/**
 	 * Returns the name of a type of block at a particular coordinate
@@ -204,7 +204,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 		else {
 			return Block.unknown.blockType;
 		}
-	}
+	};
 	
 	/**
 	 * Unique to MC Sim. Calls toggleBlock method for block at particular coords
@@ -218,7 +218,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 		block.toggleBlock(this.World, posX, posY, posZ);
 		//console.log("Toggle block called: " + this.World.getWorldTime());
 		//console.log("Toggle block called: "+posX+" "+posY+" "+posZ);
-	}
+	};
 	
 	/**
 	 * Unique to MC Sim. Calls rotateBlock method for block at particular coords
@@ -230,7 +230,7 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 	this.rotateBlock = function (posX, posY, posZ) {
 		var block = this.getBlockObject(posX, posY, posZ);
 		block.rotateBlock(this.World, posX, posY, posZ);
-	}
+	};
 	
 	this.init();
-}
+};

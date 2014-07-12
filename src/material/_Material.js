@@ -33,7 +33,7 @@
 		{
 			this.canHarvest = true;
 			this.materialMapColor = par1MapColor;
-		}
+		};
 	
 		/**
 		 * Returns if blocks of these materials are liquids.
@@ -41,12 +41,12 @@
 		this.isLiquid = function()
 		{
 			return false;
-		}
+		};
 	
 		this.isSolid = function()
 		{
 			return true;
-		}
+		};
 	
 		/**
 		 * Will prevent grass from growing on dirt underneath and kill any grass below it if it returns true
@@ -54,7 +54,7 @@
 		this.getCanBlockGrass = function()
 		{
 			return true;
-		}
+		};
 	
 		/**
 		 * Returns if this material is considered solid or not
@@ -62,8 +62,7 @@
 		this.blocksMovement = function()
 		{
 			return true;
-		}
-	
+		};
 		/**
 		 * Marks the material as translucent
 		 */
@@ -71,7 +70,7 @@
 		{
 			this.isTranslucent = true;
 			return this;
-		}
+		};
 	
 		/**
 		 * Disables the ability to harvest this material.
@@ -80,7 +79,7 @@
 		{
 			this.canHarvest = false;
 			return this;
-		}
+		};
 	
 		/**
 		 * Set the canBurn bool to True and return the current object.
@@ -89,7 +88,7 @@
 		{
 			this.canBurn = true;
 			return this;
-		}
+		};
 	
 		/**
 		 * Returns if the block can burn or not.
@@ -97,7 +96,7 @@
 		this.getCanBurn = function()
 		{
 			return this.canBurn;
-		}
+		};
 	
 		/**
 		 * Sets the material as a form of ground cover, e.g. Snow
@@ -106,7 +105,7 @@
 		{
 			this.groundCover = true;
 			return this;
-		}
+		};
 	
 		/**
 		 * Return whether the material is a form of ground cover, e.g. Snow
@@ -114,7 +113,7 @@
 		this.isGroundCover = function()
 		{
 			return this.groundCover;
-		}
+		};
 	
 		/**
 		 * Indicates if the material is translucent
@@ -129,7 +128,7 @@
 			{
 				return this.blocksMovement();
 			}
-		}
+		};
 	
 		/**
 		 * Returns true if material can be harvested by player.
@@ -137,7 +136,7 @@
 		this.isHarvestable = function()
 		{
 			return this.canHarvest;
-		}
+		};
 	
 		/**
 		 * Returns the mobility information of the material, 0 = free, 1 = can't push but can move over, 2 = total
@@ -146,7 +145,7 @@
 		this.getMaterialMobility = function()
 		{
 			return this.mobilityFlag;
-		}
+		};
 	
 		/**
 		 * This type of material can't be pushed, but pistons can move over it.
@@ -155,7 +154,7 @@
 		{
 			mobilityFlag = 1;
 			return this;
-		}
+		};
 	
 		/**
 		 * This type of material can't be pushed, and pistons are blocked to move.
@@ -164,8 +163,8 @@
 		{
 			mobilityFlag = 2;
 			return this;
-		}
+		};
 	
 		this.construct(par1MapColor);
-	}
+	};
 })();

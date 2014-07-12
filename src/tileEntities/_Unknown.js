@@ -12,7 +12,7 @@ com.mordritch.mcSim.TileEntity__Unknown = function() {};
 		this.mappingId = nbttagcompound.id.payload;
 		this.entityId = nbttagcompound.id.payload;
 		this.loaded_NBT_Data = nbttagcompound;
-	}
+	};
 	
 	/**
 	 * Used to export NBT data
@@ -21,4 +21,4 @@ com.mordritch.mcSim.TileEntity__Unknown = function() {};
 	com.mordritch.mcSim.TileEntity__Unknown.prototype.writeToNBT = function() {
 		var nbttagcompound = this.loaded_NBT_Data;
 		return this._writeToNBT(nbttagcompound);
-	}
+	};

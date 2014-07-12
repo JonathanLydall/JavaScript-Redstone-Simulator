@@ -30,7 +30,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 	 */
 	this.l = function(string) {
 		return this.gui.localization.getString(string);
-	}
+	};
 	
 	this.construct = function() {
 		var t = this;
@@ -67,7 +67,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 		*/
 		
 		this.modal_signIn = new com.mordritch.mcSim.guiFullModal(this.gui);
-		this.modal_signIn.bind('show', function() {t.onModalShow_signIn()});
+		this.modal_signIn.bind('show', function() {t.onModalShow_signIn();});
 		this.modal_signIn.setCloseButtonText(this.l('button.text.cancel'));
 		this.modal_signIn.addButton(this.l('button.text.apply'), 'applyButton', function() {
 			$(t.modal_signIn.jqDomId + ' form').submit();
@@ -75,31 +75,31 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 		
 
 		this.modal_forgotPassword = new com.mordritch.mcSim.guiFullModal(this.gui);
-		this.modal_forgotPassword.bind('show', function() {t.onModalShow_forgotPassword()});
+		this.modal_forgotPassword.bind('show', function() {t.onModalShow_forgotPassword();});
 		this.modal_forgotPassword.setCloseButtonText(this.l('button.text.cancel'));
 		this.modal_forgotPassword.addButton(this.l('button.text.apply'), 'applyButton', function() {
 			$(t.modal_forgotPassword.jqDomId + ' form').submit();
 		});
 
 		this.modal_changePassword = new com.mordritch.mcSim.guiFullModal(this.gui);
-		this.modal_changePassword.bind('show', function() {t.onModalShow_changePassword()});
+		this.modal_changePassword.bind('show', function() {t.onModalShow_changePassword();});
 		this.modal_changePassword.setCloseButtonText(this.l('button.text.cancel'));
 		this.modal_changePassword.addButton(this.l('button.text.apply'), 'applyButton', function() {
 			$(t.modal_changePassword.jqDomId + ' form').submit();
 		});
 
 		this.modal_editProfile = new com.mordritch.mcSim.guiFullModal(this.gui);
-		this.modal_editProfile.bind('show', function() {t.onModalShow_editProfile()});
+		this.modal_editProfile.bind('show', function() {t.onModalShow_editProfile();});
 		this.modal_editProfile.setCloseButtonText(this.l('button.text.cancel'));
 		this.modal_editProfile.addButton(this.l('button.text.apply'), 'applyButton', function() {
 			$(t.modal_editProfile.jqDomId + ' form').submit();
 		});
 		
 		this.modal_schematicListing = new com.mordritch.mcSim.guiFullModal(this.gui);
-		this.modal_schematicListing.bind('show', function() {t.onModalShow_schematicListing()});
+		this.modal_schematicListing.bind('show', function() {t.onModalShow_schematicListing();});
 		this.modal_schematicListing.addButton({
 			label: this.L10n.getString('usermanager.form.refresh'),
-			onActivateFunction: function() {t.onModalShow_schematicListing()}
+			onActivateFunction: function() {t.onModalShow_schematicListing();}
 		});
 		
 		if (
@@ -108,7 +108,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 		) {
 			this.loggedIn(userManager_cookieCheckResponse.userData);
 		}
-	}
+	};
 
 		/*
 	
@@ -157,13 +157,13 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 		$(modal.jqDomId + ' input').keyup(function(e) {
 			if(e.keyCode == 13) $(modal.jqDomId + ' form').submit();
 		});
-	}
+	};
 	
 	this.formBeforeSubmit = function(modal) {
 		modal.startWaitingForServer(this.l("usermanager.form.contactingserver"));
 		$(modal.jqDomId + ' .formError').html('<br/>');
 		$(modal.jqDomId + ' .applyButton').addClass('disabled');
-	}
+	};
 
 	this.formSuccess = function(modal, data) {
 		modal.stopWaitingForServer();
@@ -183,7 +183,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 				$(jqDomId + i).html('<br/>'+data.errorMessages[i]);
 			}
 		}
-	}
+	};
 	
 	/**
 	 *A single form which prompts for user to log on with an existing account or make a new account 
@@ -257,7 +257,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 		$('#signIn_forgottenPassword').hide();
 
 		this.bindForm(this.modal_signIn, 'process_signIn');
-	}
+	};
 	
 	this.signIn_select = function(type) {
 		$('#signIn_new').removeClass('signIn_selected');
@@ -280,7 +280,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 		
 		$('#signIn_task').val(type);
 		return false;
-	}
+	};
 	
 	/**
 	 * Called by any feature which requires the user to sign in first, for example if they want to save their schematic on the server
@@ -293,7 +293,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 		this.signInFirst_callback = callback;
 		this.modal_signIn.show();
 		$('#signInFirst').html(this.l(text) + '</br>');
-	}
+	};
 	
 	/*
 	this.onModalShow_newAccount = function() {
@@ -327,7 +327,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 			'</form>';
 		this.modal_forgotPassword.setContent(content);
 		this.bindForm(this.modal_forgotPassword, 'process_resetPassword');
-	}
+	};
 
 	this.onModalShow_editProfile = function() {
 		var content =
@@ -344,7 +344,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 			'</form>';
 		this.modal_editProfile.setContent(content);
 		this.bindForm(this.modal_editProfile, 'process_editProfile');
-	}
+	};
 
 	this.onModalShow_changePassword = function() {
 		var content =
@@ -361,7 +361,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 			'</form>';
 		this.modal_changePassword.setContent(content);
 		this.bindForm(this.modal_changePassword, 'process_editPassword');
-	}
+	};
 	
 	this.showDropDown = function() {
 		var t = this;
@@ -437,7 +437,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 		*/
 		
 		$('#userManager_dropDown').show();
-	}
+	};
 	
 	this.clickDropdown = function() {
 		if ($('#userManager_dropDown').css('display') == 'none') {
@@ -452,7 +452,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 		else {
 			$('#userManager_dropDown').hide();
 		}
-	}
+	};
 
 	this.onModalShow_schematicListing = function() {
 		this.modal_schematicListing.setContent("");
@@ -470,7 +470,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 				}
 			});
 		}
-	}
+	};
 	
 	this.schematicLoadingComplete = function(data) {
 		if (data.error) {
@@ -518,7 +518,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 				t.gui.urlHistory.onUrlClick(event);
 			}
 		});
-	}
+	};
 	
 	this.logOut = function() {
 		$('#userManager_dropDown').hide();
@@ -534,12 +534,12 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 
 			t.loggedOut();
 		});
-	}
+	};
 	
 	this.loggedOut = function() {
 		this.authenticated = false;
 		$('#userManagerDropdownButton').html(this.l('usermanager.notloggedin')+'&#9660;');
-	}
+	};
 	
 	this.loggedIn = function(userData) {
 		this.authenticated = true;
@@ -548,7 +548,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 			userId: userData.userId,
 			displayName: userData.displayName,
 			emailAddress: userData.emailAddress
-		}
+		};
 		
 		if (
 			userData.userSettings != null &&
@@ -562,7 +562,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 
 		$('#userManager_dropDown').hide();
 		$('#userManager_dropDown_loggedIn_true').show();
-	}
+	};
 	
 	/**
 	 * Saves all settings to the user's profile on the webserver, if they are logged in. 
@@ -587,7 +587,7 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 				dataType: 'json'
 			});
 		}
-	}
+	};
 	
 
 	/*
@@ -626,4 +626,4 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 	*/
 	
 	this.construct();
-}
+};

@@ -25,9 +25,10 @@ com.mordritch.mcSim.options = function(gui) {
 	this.construct = function() {
 		var t = this;
 		this.gui.userSettings_registerForOnLoadCallback(function() {t.onUserSettingsLoad();});
+		
 		this.modal = new com.mordritch.mcSim.guiFullModal(this.gui);
 		this.modal.setCloseButtonText('Cancel');
-		this.modal.addButton('Apply', 'applyButton', function() {t.applyButton()}); //TODO: localize "Apply" word here 
+		this.modal.addButton('Apply', 'applyButton', function() {t.applyButton();}); //TODO: localize "Apply" word here 
 		
 		
 		this.gui.input.bindInputEvent({
@@ -36,14 +37,14 @@ com.mordritch.mcSim.options = function(gui) {
 			description: 'shortcuts.options.show',
 			callbackFunction: function(e) {t.showOptionsScreen();}
 		});
-	}
+	};
 	
 	/**
 	 * A convenient way to get an option's current value  
 	 */
 	this.getOption = function(category, name) {
 		return currentValue = this.gui.userSettings.options[category][name];
-	}
+	};
 
 	/**
 	 * When the apply button is pushed
@@ -85,7 +86,7 @@ com.mordritch.mcSim.options = function(gui) {
 			this.gui.userManager.saveUserSettings();
 			this.modal.hide();
 		}
-	}
+	};
 	
 	/**
 	 * Reads the current value set by the user on the form based on the option name and category
@@ -105,7 +106,7 @@ com.mordritch.mcSim.options = function(gui) {
 				else
 					return false;
 		}		
-	}
+	};
 	
 	/**
 	 * Checks automically reads the DOM value and returns whether or not the current input is valid
@@ -135,7 +136,7 @@ com.mordritch.mcSim.options = function(gui) {
 				break;
 		}
 		return false;
-	}
+	};
 	
 	/**
 	 * Called anytime a table row is moused over, if there is an error it shows it
@@ -150,7 +151,7 @@ com.mordritch.mcSim.options = function(gui) {
 			//TODO: Implement a div which can pop up with the error details
 			//console.log(target);
 		}
-	}
+	};
 	
 	/**
 	 * 
@@ -180,7 +181,7 @@ com.mordritch.mcSim.options = function(gui) {
 		if (typeof this.gui.userSettings.options[parameters.category][parameters.name] == 'undefined') {
 			this.gui.userSettings.options[parameters.category][parameters.name] = parameters.defaultValue;
 		}
-	}
+	};
 	
 	/**
 	 * Populates and shows the options modal
@@ -271,9 +272,9 @@ com.mordritch.mcSim.options = function(gui) {
 		$('.optionsTable .setDefault').bind('click', function(e) {t.defaultButton(e);});
 
 		$('.optionsTable .button').disableSelection();
-		$('.optionsTable tr').bind('mouseover', function(e) {t.showErrorDetails(e)});
-		$('.optionsTable .numberInput').bind('change', function(e) {t.onChangeEvent(e)});
-	}
+		$('.optionsTable tr').bind('mouseover', function(e) {t.showErrorDetails(e);});
+		$('.optionsTable .numberInput').bind('change', function(e) {t.onChangeEvent(e);});
+	};
 	
 	/**
 	 * Called any time an input box is changed, can check the input live
@@ -283,7 +284,7 @@ com.mordritch.mcSim.options = function(gui) {
 	this.onChangeEvent = function(e) {
 		var arr = e.delegateTarget.id.split('_');
 		this.checkForError(arr[1], arr[2]);
-	}
+	};
 	
 	/**
 	 * Number inputs have +/- buttons, this is called each time they are pushed
@@ -297,10 +298,10 @@ com.mordritch.mcSim.options = function(gui) {
 		if (typeof option.changeIncrement == 'undefined') option.changeIncrement = 1;
 
 		if (buttonPushed == "plus") {
-			var newValue = Math.round((currentValue + option.changeIncrement)*10)/10
+			var newValue = Math.round((currentValue + option.changeIncrement)*10)/10;
 		}
 		else {
-			var newValue = Math.round((currentValue - option.changeIncrement)*10)/10
+			var newValue = Math.round((currentValue - option.changeIncrement)*10)/10;
 		}
 		
 		if (
@@ -310,7 +311,7 @@ com.mordritch.mcSim.options = function(gui) {
 			$targetElement.val(newValue);
 		}
 		this.checkForError(data.category, data.name);
-	}
+	};
 	
 	/**
 	 * Each row has a "Default" button, this is called when that's pushed and sets the option to its default value
@@ -329,7 +330,7 @@ com.mordritch.mcSim.options = function(gui) {
 				$targetElement.attr('checked', true);
 				break;
 		}
-	}
+	};
 	
 	/**
 	 * The callback function which is called if say the user logs in.
@@ -350,7 +351,7 @@ com.mordritch.mcSim.options = function(gui) {
 				callbacks[category][callbackScope]();
 			}
 		}
-	}
+	};
 	
 	this.construct();
-}
+};

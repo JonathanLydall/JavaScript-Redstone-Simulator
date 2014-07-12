@@ -36,7 +36,7 @@ com.mordritch.mcSim.localization = function(rawStrings) {
 				this.strings[string] = this.rawStrings[section][string];
 			}
 		}
-	}
+	};
 	
 	/**
 	 * Returns the translated string
@@ -60,7 +60,7 @@ com.mordritch.mcSim.localization = function(rawStrings) {
 		//return '<span class="localizedString" data-string-name="'+stringName+'" data-arguments=\''+JSON.stringify(args1)+'\'>'+returnString+'</span>';
 		//return '<span>'+returnString+'</span>';
 		return returnString;
-	}
+	};
 	
 	/**
 	 * UI elements can use this to register callbacks to themselves to update their strings
@@ -68,7 +68,7 @@ com.mordritch.mcSim.localization = function(rawStrings) {
 	 */
 	this.registerLocalizationChangeCallback = function(callbackFunction) {
 		this.registeredLocalizationChangeCallbacks.push(callbackFunction);
-	}
+	};
 	
 	this.construct();
-}
+};

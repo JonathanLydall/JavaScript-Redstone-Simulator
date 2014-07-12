@@ -14,7 +14,7 @@
 	{
 		this._onBlockAdded(par1World, par2, par3, par4);
 		par1World.setBlockTileEntity(par2, par3, par4, this.getBlockEntity());
-	}
+	};
 
 	/**
 	 * Called whenever the block is removed.
@@ -24,7 +24,7 @@
 	{
 		this._onBlockRemoval(par1World, par2, par3, par4);
 		par1World.removeBlockTileEntity(par2, par3, par4);
-	}
+	};
 
 	proto._powerBlock = proto.powerBlock;
 	proto.powerBlock = function(par1World, par2, par3, par4, par5, par6)
@@ -36,6 +36,6 @@
 		{
 			tileentity.onTileEntityPowered(par5, par6);
 		}
-	}
+	};
 
 }());

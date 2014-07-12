@@ -30,4 +30,4 @@ com.mordritch.mcSim.facing = function() {
 	this.offsetsXForSide = new Array(0, 0, 0, 0, -1, 1);
 	this.offsetsYForSide = new Array(-1, 1, 0, 0, 0, 0);
 	this.offsetsZForSide = new Array(0, 0, -1, 1, 0, 0);
-}
+};

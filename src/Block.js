@@ -736,11 +736,11 @@ com.mordritch.mcSim.Block = function() {
 			blockName: "redstoneLight",
 			className: "BlockType_RedstoneLight"
 		}
-	}
+	};
 
 	this.construct = function() {
 		this.loadBlockTypes();
-	}
+	};
 	
 	/**
 	 * Iterates through the BlockList object and tries to load each block type
@@ -791,7 +791,7 @@ com.mordritch.mcSim.Block = function() {
 
 
 		return "Loaded "+loadedCount+" block types.";
-	}
+	};
 	
 	this.construct();
-}
+};

@@ -46,7 +46,7 @@
 	proto.getNormalCubeColour = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
 		return this.getNormalCubeColourByMetadata(blockMetadata);
-	}
+	};
 	
 	proto.getNormalCubeColourByMetadata = function(blockMetadata) {
 		//We don't want to pass back a reference or that could get edited later on by mistake.
@@ -55,11 +55,11 @@
 			this.clothColours[blockMetadata][1],
 			this.clothColours[blockMetadata][2]
 		];
-	}
+	};
 	
 	proto.getLocalizedBlockName = function(world, posX, posY, posZ, localization) {
 		return localization.getString("tile.cloth." + this.getColorName(world.getBlockMetadata(posX, posY, posZ)) + ".name");
-	}
+	};
 	
 	/**
 	 * Gets the internal name of the wool's colour based on its metadata
@@ -69,7 +69,7 @@
 	 */
 	proto.getColorName = function(blockMetadata) {
 		
-	}
+	};
 	
 	proto.getBlockName = function(blockMetadata) {
 		var blockColor = new Array(
@@ -91,7 +91,7 @@
 			"black"
 		);
 		return "tile.cloth." + blockColor[blockMetadata] + ".name";
-	}
+	};
 
 	proto.enumeratePlaceableBlocks = function() {
 		var returnArray = new Array();
@@ -108,5 +108,5 @@
 		}
 		
 		return returnArray;
-	}
+	};
 }());

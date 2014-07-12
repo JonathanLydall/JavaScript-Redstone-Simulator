@@ -64,7 +64,7 @@ com.mordritch.mcSim.convertLevelToSchematic = function(level) {
 	schematic.Schematic.payload.Data.payload = data;
 	
 	return schematic;
-}
+};
 
 
 $.ajax({

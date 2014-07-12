@@ -51,7 +51,7 @@ com.mordritch.mcSim.guiFullModal = function(gui, makeClosedButtonDefault) {
 		
 		
 		this.addButton(this.localizer.getString('button.text.cancel'), 'guiModal_closeButton', function() {t.hide(); }, makeClosedButtonDefault);
-	}
+	};
 	
 	/**
 	 * Change the CSS class that is applied to the modal, for example, one style would make it a large modal, another could make it a much smaller modal.
@@ -63,19 +63,19 @@ com.mordritch.mcSim.guiFullModal = function(gui, makeClosedButtonDefault) {
 		$(this.jqDomId).removeClass(this.domClass);
 		this.domClass = domClass;
 		$(this.jqDomId).addClass(this.domClass);
-	}
+	};
 	
 	this.setContent = function(html) {
 		$(this.jqDomId+' .guiModal_innerContent').html(html);
-	}
+	};
 	
 	this.setFeedbackText = function(html) {
 		$(this.jqDomId+' .guiModal_Feedback').html(html);
-	}
+	};
 	
 	this.setCloseButtonText = function(html) {
 		$(this.jqDomId+' .guiModal_closeButton').html(html);
-	}
+	};
 	
 	/**
 	 * Adds an extra button to the bottom area of the modal, to the left of the cancel button
@@ -109,7 +109,7 @@ com.mordritch.mcSim.guiFullModal = function(gui, makeClosedButtonDefault) {
 				(e.type == "click" && e.which == 1)
 			) onActivateFunction();
 		});
-	}
+	};
 	
 	this.toggleShown = function() {
 		if (this.isShowing) {
@@ -118,7 +118,7 @@ com.mordritch.mcSim.guiFullModal = function(gui, makeClosedButtonDefault) {
 		else {
 			this.show();
 		}
-	}
+	};
 	
 	this.show = function() {
 		$('#modalBackground').show();
@@ -137,7 +137,7 @@ com.mordritch.mcSim.guiFullModal = function(gui, makeClosedButtonDefault) {
 		this.triggerEvent('show');
 
 		this.gui.ticker.pause();
-	}
+	};
 	
 	this.hide = function() {
 		$('#modalBackground').hide();
@@ -148,7 +148,7 @@ com.mordritch.mcSim.guiFullModal = function(gui, makeClosedButtonDefault) {
 		this.gui.resumeBindings();
 		this.triggerEvent('hide');
 		this.gui.ticker.resume();
-	}
+	};
 	
 	/**
 	 * Allows callback bindings
@@ -160,7 +160,7 @@ com.mordritch.mcSim.guiFullModal = function(gui, makeClosedButtonDefault) {
 			this.eventBindings[eventName] = [];
 		}
 		this.eventBindings[eventName].push(callbackFunction);
-	}
+	};
 	
 	/**
 	 * Used within the modal to trigger events so any bound callbacks are called.
@@ -171,28 +171,28 @@ com.mordritch.mcSim.guiFullModal = function(gui, makeClosedButtonDefault) {
 				this.eventBindings[eventName][i]();
 			}
 		}
-	}
+	};
 	
 	this.disableControls = function() {
 		$(this.jqDomId + ' .button').addClass("disabled");
 		$(this.jqDomId + ' input').attr("disabled", "disabled");
 		
-	}
+	};
 	
 	this.startWaitingForServer = function(message) {
 		this.disableControls();
 		this.setFeedbackText('<img src="images/loading1.gif" alt=""> ' + message);
-	}
+	};
 	
 	this.enableControls = function() {
 		$(this.jqDomId + ' .button').removeClass("disabled");
 		$(this.jqDomId + ' input').removeAttr("disabled", "disabled");
-	}
+	};
 	
 	this.stopWaitingForServer = function() {
 		this.enableControls();
 		this.setFeedbackText('');
 	}
-	
+	;
 	this.construct();
-}
+};

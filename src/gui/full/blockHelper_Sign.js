@@ -37,7 +37,7 @@ namespace[funcName] = function(gui) {
 				applyChanges();
 			}
 		});
-	}
+	};
 	
 	var bindToEvents = function() {
 		
@@ -48,12 +48,12 @@ namespace[funcName] = function(gui) {
 		gui.mcSim.Block.signWall.on("toggleBlock", function(e) {
 			toggle(e);
 		});
-	}
+	};
 	
 	var toggle = function(eventDetails) {
 		latestEventDetails = eventDetails;
 		showEditor();
-	}
+	};
 	
 	var applyChanges = function() {
 		var entity = latestEventDetails.entity;
@@ -72,7 +72,7 @@ namespace[funcName] = function(gui) {
 		
 		world.markBlockNeedsUpdate(posX, posY, posZ);
 		gui.modelviews.flushMarkedBlocks();
-	}
+	};
 	
 	var showEditor = function() {
 		var entity = latestEventDetails.entity;
@@ -95,7 +95,7 @@ namespace[funcName] = function(gui) {
 		$('#signHelper_text4').val(entity.text[3]);
 		
 		modal.show();
-	} 
+	};
 	
 	construct();
-}})();
+};})();

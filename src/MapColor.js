@@ -34,7 +34,7 @@
 		
 		func.mapColorArray[colorIndex] = returnItem;
 		return returnItem;
-	}
+	};
 
 	func.mapColorArray = [];
 

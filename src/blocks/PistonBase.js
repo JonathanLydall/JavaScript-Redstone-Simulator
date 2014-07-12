@@ -40,11 +40,11 @@
 		this.facing = new com.mordritch.mcSim.facing();
 		//setStepSound(soundStoneFootstep);
 		//setHardness(0.5);
-	}
+	};
 	
 	proto.isOpaqueCube = function() {
 		false;
-	}
+	};
 	
 	proto.getRearEntity = function(world, entity) {
 		var rearEntity;
@@ -72,15 +72,15 @@
 		}
 		
 		return rearEntity;
-	}
+	};
 
 	proto.drawSideView_moving = function(world, posX, posY, posZ, canvas, entity, forAboveLayer, currentFacing) {
 		this.drawMoving_generic(world, posX, posY, posZ, canvas, entity, forAboveLayer, currentFacing);
-	}
+	};
 
 	proto.drawTopView_moving = function(world, posX, posY, posZ, canvas, entity, forAboveLayer, currentFacing) {
 		this.drawMoving_generic(world, posX, posY, posZ, canvas, entity, forAboveLayer, currentFacing = FACING_DOWN);
-	}
+	};
 
 	/**
 	 * Used to draw portion of a whole block which is extending or retracting
@@ -161,23 +161,23 @@
 				pistonExtension["draw" + view + "View_currentLayer"](world, posX, posY, posZ, canvas, lookingTowards, metadataForPistonExtension);
 			} 
 		}
-	}
+	};
 
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing = FACING_DOWN, blockMetadata, forAboveLayer = false);
-	}
+	};
 
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing = FACING_DOWN, blockMetadata, forAboveLayer = true);
-	}
+	};
 
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing, blockMetadata, forAboveLayer = false);
-	}
+	};
 
 	proto.drawSideView_aboveLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing, blockMetadata, forAboveLayer = true);
-	}
+	};
 	
 	proto.draw_generic = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata, forAboveLayer) {
 		if (typeof blockMetadata == 'undefined') blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -327,7 +327,7 @@
 			default:
 				throw new Error("Uknown view: "+view);
 		}
-	}
+	};
 
 	/* Relevent to game's renderer
 	proto.getBlockTextureFromSideAndMetadata = function(i, j)
@@ -361,12 +361,12 @@
 
 	proto.onBlockPlaced = function(world, posX, posY, posZ, facing) {
 		world.setBlockMetadataWithNotify(posX, posY, posZ, ORIENTATION_NORTH);
-	}
+	};
 
 	proto.blockActivated = function(world, posX, posY, posZ)
 	{
 		return false;
-	}
+	};
 
 	/**
 	 * Unused? 
@@ -389,7 +389,7 @@
 		{
 			this.updatePistonState(world, posX, posY, posZ);
 		}
-	}
+	};
 
 	proto.onBlockAdded = function(world, posX, posY, posZ)
 	{
@@ -399,7 +399,7 @@
 		) {
 			this.updatePistonState(world, posX, posY, posZ);
 		}
-	}
+	};
 
 	proto.updatePistonState = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -422,7 +422,7 @@
 			world.setBlockMetadata(posX, posY, posZ, orientation);
 			world.playNoteAt(posX, posY, posZ, 1, orientation);
 		}
-	}
+	};
 
 	proto.isIndirectlyPowered = function(world, posX, posY, posZ, direction)
 	{
@@ -475,7 +475,7 @@
 		}
 		
 		return false;
-	}
+	};
 
 	proto.powerBlock = function(world, posX, posY, posZ, isExtendedParamater, orientation) {
 		this.ignoreUpdates = true;
@@ -550,7 +550,7 @@
 			//world.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "tile.piston.in", 0.5F, world.rand.nextFloat() * 0.15F + 0.6F);
 		}
 		this.ignoreUpdates = false;
-	}
+	};
 
 	/* Relevent to game's renderer
 	proto.setBlockBoundsBasedOnState = function(world, i, j, k)
@@ -610,12 +610,12 @@
 	proto.getOrientation = function(blockMetadata)
 	{
 		return blockMetadata & 0x7;
-	}
+	};
 
 	proto.isExtended = function(blockMetadata)
 	{
 		return (blockMetadata & 0x8) != 0;
-	}
+	};
 
 	/**
 	 * Not implemented, it's for the game, to deternmine which way the piston faces based on the placing player's position 
@@ -681,7 +681,7 @@
 			}
 		}
 		return !(world.Block.blocksList[blockID] instanceof com.mordritch.mcSim.BlockType_Container);
-	}
+	};
 	
 	proto.canExtend = function(world, posX, posY, posZ, direction)
 	{
@@ -725,7 +725,7 @@
 		}
 		while (true);
 		return true;
-	}
+	};
 
 	proto.tryExtend = function(world, posX, posY, posZ, direction)
 	{
@@ -794,7 +794,7 @@
 		}
 
 		return true;
-	}
+	};
 	
 	proto.rotateSelection = function(blockMetadata, amount) {
 		var isExtended = blockMetadata & 8;
@@ -803,7 +803,7 @@
 			orientation = new Array(0, 1, 5, 4, 2, 3)[orientation];
 		}
 		return orientation | isExtended;
-	}
+	};
 	
 	proto.rotateBlock = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -815,7 +815,7 @@
 		var orientation = this.getOrientation(blockMetadata);
 		var blockMetadata = new Array(1, 2, 5, 4, 0, 3)[orientation];
 		world.setBlockMetadataWithNotify(posX, posY, posZ, blockMetadata);
-	}
+	};
 
 	proto.getDrawViewAndRotation = function(currentFacing, orientation) {
 		var view, rotateBy;
@@ -969,5 +969,5 @@
 			default: throw new Error("Unexpected case");
 		}
 		return {view: view, rotateBy: rotateBy};
-	}
+	};
 }());

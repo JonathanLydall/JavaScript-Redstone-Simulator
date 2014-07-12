@@ -29,7 +29,7 @@
 		this._renderAsNormalBlock = false;
 		this.eventBindings = [];
 		this.isFreestanding = !!(this.blockType == "signPost");
-	}
+	};
 	
 	/*
 	 * Added for simulator
@@ -39,7 +39,7 @@
 		var signWall_BlockId = 68;
 
 		return (blockId == signPost_BlockId || blockId == signWall_BlockId);
-	}
+	};
 
 	/**
 	 * MCP source does not have this method since the code for placing a sign is handled in the ItemSign class. 
@@ -80,7 +80,7 @@
 		else {
 			this.toggleBlock(world, posX, posY, posZ);
 		}
-	}
+	};
 	
 	/*
 	 * Added for simulator:
@@ -93,7 +93,7 @@
 			world.getBlockMaterial(posX + 1, posY, posZ).isSolid() ||
 			world.getBlockMaterial(posX - 1, posY, posZ).isSolid()
 		);
-	}
+	};
 	
 	proto.rotateBlock = function(world, posX, posY, posZ) {
 		var signPost_BlockId = world.Block.signPost.blockID;
@@ -128,7 +128,7 @@
 				break;
 			}
 		} while (true);
-	}
+	};
 	
 	proto.rotateSelection = function(blockMetadata, amount) {
 		for (var i=0; i<amount; i++) {
@@ -141,7 +141,7 @@
 		}
 
 		return blockMetadata;
-	}
+	};
 	
 	/*
 	 * Added for simulator:
@@ -171,7 +171,7 @@
 			
 			return true;
 		}
-	}
+	};
 	
 	proto._onNeighborBlockChange = proto.onNeighborBlockChange;
 	proto.onNeighborBlockChange = function(par1World, par2, par3, par4, par5)
@@ -218,11 +218,11 @@
 		}
 
 		this._onNeighborBlockChange(par1World, par2, par3, par4, par5);
-	}
+	};
 	
 	proto.getBlockEntity = function() {
 		return new namespace.TileEntity_Sign();
-	}
+	};
 
 	proto.toggleBlock = function(world, posX, posY, posZ) {
 		var entity = world.getBlockTileEntity(posX, posY, posZ);
@@ -234,11 +234,11 @@
 			posY: posY,
 			posZ: posZ
 		});
-	}
+	};
 	
 	proto.on = function(eventType, callback) {
 		this.eventBindings.push({eventType: eventType, callback: callback});
-	}
+	};
 	
 	proto.triggerEvent = function(eventType, parameters) {
 		parameters.eventType = eventType;
@@ -248,11 +248,11 @@
 				this.eventBindings[i].callback(parameters);
 			}
 		}
-	}
+	};
 	
 	proto.isOpaqueCube = function() {
 		return false;
-	}
+	};
 	
 	/**
 	 * Checks to see if the sign is a single letter and if so, draws just the letter instead and returns true.
@@ -292,15 +292,15 @@
 		else {
 			return false;
 		}
-	}
+	};
 	
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas, currentFacing) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas, currentFacing = null, forAboveLayer = false);
-	}
+	};
 
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas, currentFacing) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas, currentFacing = null, forAboveLayer = true);
-	}
+	};
 	
 	proto.drawTopView_generic = function(world, posX, posY, posZ, canvas, currentFacing, forAboveLayer) {
 		if (this.checkForAndDrawLabel(world, posX, posY, posZ, canvas, forAboveLayer)) {
@@ -359,15 +359,15 @@
 			
 			canvas.restore();
 		}
-	}
+	};
 
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.drawSideView_generic(world, posX, posY, posZ, canvas, currentFacing, blockMetadata, forAboveLayer = false);
-	}
+	};
 
 	proto.drawSideView_aboveLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.drawSideView_generic(world, posX, posY, posZ, canvas, currentFacing, blockMetadata, forAboveLayer = true);
-	}
+	};
 	
 	proto.drawSideView_generic = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata, forAboveLayer) {
 		if (this.checkForAndDrawLabel(world, posX, posY, posZ, canvas, forAboveLayer)) {
@@ -502,7 +502,7 @@
 				default: throw new Error("Unexpected case");
 			}
 		}
-	}
+	};
 	
 	proto.drawIcon = function(blockObj, canvas, blockMetadata) {
 		var worldData = new com.mordritch.mcSim.World_Schematic(null, 1, 1, 1);
@@ -519,6 +519,6 @@
 			blockMetadata = 2,
 			forAboveLayer = false
 		);
-	}
+	};
 
 }());

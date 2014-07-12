@@ -10,14 +10,14 @@
 	proto.construct = function(blockType, blockID, blockDefinition, Block) {
 		this.modelBlock = Block[blockDefinition.modelBlock];
 		this.blockMaterial = this.modelBlock.blockMaterial;
-	}
+	};
 	
 	proto.isOpaqueCube = function() {
 		return false;
-	}
+	};
 	
 	proto.renderAsNormalBlock = function() {
 		return false;
-	}
+	};
 	
 }());

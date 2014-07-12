@@ -35,22 +35,22 @@
 		}
 		
 		this.construct(blockType, blockID, blockDefinition, Block);
-	}
+	};
 	
 	proto.setBlockMaterial = function(material) {
 		this.blockMaterial = namespace.Material[material];
-	}
+	};
 	
 	proto.renderAsNormalBlock = function() {
 		return this._renderAsNormalBlock;
-	}
+	};
 	
 	/**
 	 * When one is inspecting block info, blocks can choose to show extra data here. 
 	 */
 	proto.getBlockInfo = function(world, posX, posY, posZ) {
 		return "No extra block info provided.";
-	}
+	};
 	
 	/**
 	 * Block specific constructor, can be implemented by inherited blocks, called automatically by
@@ -58,7 +58,7 @@
 	 */
 	proto.construct = function() {
 		
-	}
+	};
 	
 	/**
 	 * Used to rotate the entire world or a selection of blocks, torches for example can have their metadata updated appropriately
@@ -69,7 +69,7 @@
 	 */
 	proto.rotateSelection = function(blockMetadata, amount) {
 		return blockMetadata;
-	}
+	};
 	
 	/**
 	 * Is the block solid?
@@ -85,7 +85,7 @@
 	 */
 	proto.getIsBlockSolid = function(world, posX, posY, posZ) {
 		return this.isSolid;
-	}
+	};
 	
 	/**
 	 * Called when a block has been queued to update at a cetain tick
@@ -100,7 +100,7 @@
 	 */
 	proto.updateTick = function(world, posX, posY, posZ) {
 		
-	}
+	};
 	
 	/**
 	 * Called when the block is destroyed by a player
@@ -115,7 +115,7 @@
 	 */
 	proto.onBlockDestroyedByPlayer = function(world, posX, posY, posZ) {
 	
-	}
+	};
 	
 	/**
 	 * Called when the block is destroyed by a player
@@ -130,7 +130,7 @@
 	 */
 	proto.onNeighborBlockChange = function(world, posX, posY, posZ, blockID) {
 		
-	}
+	};
 	
 	/**
 	 * Called when "block is added to the world"?
@@ -145,7 +145,7 @@
 	 */
 	proto.onBlockAdded = function(world, posX, posY, posZ) {
 		
-	}
+	};
 	
 	/**
 	 * Checks to see if its valid to put this block at the specified coordinates
@@ -161,7 +161,7 @@
         
         var blockId = world.getBlockId(posX, posY, posZ);
         return blockId == 0 || blocksList[blockId].blockMaterial.isGroundCover();
-	}
+	};
 	
 	/**
 	 * Used by the place block tool as an additional way to compare if block types match for purposes of rotating
@@ -170,7 +170,7 @@
 	 */
 	proto.sameBlockTypeAs = function(blockId) {
 		return false;
-	}
+	};
 	
 	/**
 	 * Called when block is removed from the world, but not when destroyed by player
@@ -185,7 +185,7 @@
 	 */
 	proto.onBlockRemoval = function(world, posX, posY, posZ) {
 	
-	}
+	};
 	
 	/**
 	 * I am guessing it's a check to see if we can place the block on the specified side of
@@ -203,7 +203,7 @@
 	 */
 	proto.canPlaceBlockOnSide = function(world, posX, posY, posZ, side) {
 		return this.canPlaceBlockAt(world, posX, posY, posZ);
-	}
+	};
 	
 	/**
 	 * Can the block be placed at the following co-ordinates, certain blocks can't rest on nothing, so
@@ -218,7 +218,7 @@
 	 */
 	proto.canPlaceBlockAt = function(world, posX, posY, posZ) {
 		return true;
-	}
+	};
 	
 	/**
 	 * Event called when a player right clicks the block.
@@ -231,7 +231,7 @@
 	 */
 	proto.blockActivated = function(world, posX, posY, posZ) {
 		
-	}
+	};
 	
 	/**
 	 * Event called when a block is placed by a player into the world
@@ -244,7 +244,7 @@
 	 */
 	proto.onBlockPlaced = function(world, posX, posY, posZ, facing) {
 		
-	}
+	};
 	
 	/**
 	 * Event called when a block is placed by a player into the world
@@ -259,7 +259,7 @@
 	 */
 	proto.isPoweringTo = function(world, posX, posY, posZ) {
 		return false;
-	}
+	};
 	
 	/**
 	 * Can provide power
@@ -274,7 +274,7 @@
 	 */
 	proto.canProvidePower = function(world, posX, posY, posZ) {
 		return false;
-	}
+	};
 	
 	/**
 	 * Event called when a block is placed by a player into the world
@@ -289,7 +289,7 @@
 	 */
 	proto.isIndirectlyPoweringTo = function(world, posX, posY, posZ) {
 		return false;
-	}
+	};
 	
 	/**
 	 * Unknown functionality
@@ -307,7 +307,7 @@
 	 */
 	proto.canBlockStay = function(world, posX, posY, posZ) {
 		return true;
-	}
+	};
 	
 	/**
 	 * Seems to be implemented by music blocks and pistons
@@ -324,7 +324,7 @@
 	 */
 	proto.playBlock = function(world, posX, posY, posZ) {
 		
-	}
+	};
 	
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, worldFacing) {
 		if (world.isBlockNormalCube(posX, posY, posZ)) {
@@ -343,7 +343,7 @@
 		canvas.textAlign = "center";
 		canvas.font = "bold " + (8) + "px arial";
 		canvas.fillText(this.blockID, 4, 4, 6);
-	}
+	};
 	
 	proto.drawSideView_aboveLayer = function(world, posX, posY, posZ, canvas, worldFacing) {
 		if (world.isBlockNormalCube(posX, posY, posZ)) {
@@ -353,7 +353,7 @@
 		}
 		
 		//TODO: Handle not implemented?
-	}
+	};
 	
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas) {
 		if (world.isBlockNormalCube(posX, posY, posZ)) {
@@ -376,7 +376,7 @@
 		canvas.textAlign = "center";
 		canvas.font = "bold " + (8) + "px arial";
 		canvas.fillText("?", 4, 4, 6);
-	}
+	};
 	
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas) {
 		if (world.isBlockNormalCube(posX, posY, posZ)) {
@@ -386,15 +386,15 @@
 		}
 
 		//TODO: Handle not implemented?
-	}
+	};
 	
 	proto.getNormalCubeColour = function() {
 		return [255,255,0];
-	} 
+	};
 	
 	proto.getNormalCubeColourByMetadata = function() {
 		return [255,255,0];
-	}
+	};
 	
 	proto.drawNormalCube_currentLayer = function(world, posX, posY, posZ, canvas, shadowed) {
 		var rgbColour = this.getNormalCubeColour(world, posX, posY, posZ);
@@ -407,7 +407,7 @@
 		}
 		canvas.fillStyle = "rgb("+rgbColour[0]+","+rgbColour[1]+","+rgbColour[2]+")";
 		canvas.fillRect(0, 0, 8, 8);
-	}
+	};
 	
 	proto.drawNormalCube_withOpacity = function(world, posX, posY, posZ, canvas, alpha, shadowed) {
 		var rgbColour = this.getNormalCubeColour(world, posX, posY, posZ);
@@ -417,7 +417,7 @@
 		}
 		canvas.fillStyle = "rgb("+rgbColour[0]+","+rgbColour[1]+","+rgbColour[2]+")";
 		canvas.fillRect(0, 0, 8, 8);
-	}
+	};
 	
 	proto.drawTopView_moving = function(world, posX, posY, posZ, canvas, entity, forAboveLayer) {
 		if (forAboveLayer) {
@@ -428,7 +428,7 @@
 			canvas.fillStyle = "rgb("+rgbColour[0]+","+rgbColour[1]+","+rgbColour[2]+")";
 		}
 		canvas.fillRect(0, 0, 8, 8);
-	}
+	};
 	
 	proto.drawSideView_moving = function(world, posX, posY, posZ, canvas, entity, forAboveLayer) {
 		if (forAboveLayer) {
@@ -439,7 +439,7 @@
 			canvas.fillStyle = "rgb("+rgbColour[0]+","+rgbColour[1]+","+rgbColour[2]+")";
 		}
 		canvas.fillRect(0, 0, 8, 8);
-	}
+	};
 	
 	/**
 	 * Called by "toggle" tool of the simulator, not implemented in the game.
@@ -451,7 +451,7 @@
 	 */
 	proto.toggleBlock = function(world, posX, posY, posZ) {
 		
-	}
+	};
 	
 	/**
 	 * Used to called by "rotate" tool of the simulator, not implemented in the game.
@@ -463,14 +463,14 @@
 	 */
 	proto.rotateBlock = function(world, posX, posY, posZ) {
 		
-	}
+	};
 	
 	/**
 	 * Used by pistons to see whether or not a block can be moved:
 	 */
 	proto.getMobilityFlag = function() {
 		return this.blockMaterial.mobilityFlag;
-	}
+	};
 	
 	/**
 	 * Retrieves a block name based on the kind of block.
@@ -485,7 +485,7 @@
 	 */
 	proto.getBlockName = function(blockMetadata) {
 		return "tile." + this.blockName + ".name";
-	}
+	};
 	
 	/**
 	 * Used by the gui to get a list of what kind of placeable blocktypes are offered.
@@ -508,7 +508,7 @@
 				material: this.material
 			}
 		);
-	}
+	};
 
 	/**
 	 * Used to draw icons on a canvas. 
@@ -533,7 +533,7 @@
 		
 		var world = new com.mordritch.mcSim.World(blockObj, worldData);
 		this.drawTopView_currentLayer(world, 0, 0, 0, canvas);
-	}
+	};
 	
 	/**
 	 * A helper utility function for draw methods of blocks, used by simulator only, not the game
@@ -555,15 +555,15 @@
 				context.rotate(Math.PI*1.5);
 				return;
 		}
-	}
+	};
 	
 	proto.mirrorContext = function(context) {
 		context.translate(8, 0);
 		context.scale(-1, 1);
-	}
+	};
 	
 	proto.flipContext = function(context) {
 		context.translate(0, 8);
 		context.scale(1, -1);
-	}
+	};
 }());

@@ -29,7 +29,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 	
 	this.construct = function() {
 
-		this.console = this.debugEnabled ? console : new function() { this.log = function () {} };
+		this.console = this.debugEnabled ? console : new function() { this.log = function () {}; };
 		
 		var t = this;
 		
@@ -52,7 +52,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			callbackFunction_mouseMove: function(e) {t.onSecondaryInput_mouseMove(e, isMouseUpevent = false);},
 			alsoFireOnMouseUp: true
 		});
-	}
+	};
 	
 	this.onPrimaryInput = function(e, isMouseUpevent) {
 		if (isMouseUpevent)
@@ -80,7 +80,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				this.blockInfo(e);
 				break;
 		}
-	}
+	};
 	
 	this.onPrimaryInput_mouseMove = function(e) {
 		switch (this.activeTool) {
@@ -95,7 +95,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				this.placeMaterial(e, true, 0, 0);
 				break;
 		}
-	}
+	};
 
 	this.onSecondaryInput = function(e) {
 		if (isMouseUpevent)
@@ -124,7 +124,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 					break;
 			}
 		}
-	}
+	};
 	
 	this.onSecondaryInput_mouseMove = function(e) {
 		switch (this.activeTool) {
@@ -138,7 +138,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				this.placeMaterial(e, true, 0, 0);
 				break;
 		}
-	}
+	};
 	
 	this.setBlockData = function(x, y, z, blockId, blockMetadata) {
 		var block = this.gui.mcSim.Block.blocksList[blockId];
@@ -155,9 +155,9 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				z,
 				blockId,
 				blockMetadata
-			)
+			);
 		}
-	}
+	};
 	
 	this.pan = function(e, onMousemove) {
 		if (!onMousemove) {
@@ -166,7 +166,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 		else {
 			this.gui.modelviews.pan_onMouseMove(e);
 		}
-	}
+	};
 	
 	this.placeMaterial = function(e, triggeredByMouseMove, blockId, blockMetadata) {
 		var coords = this.gui.modelviews.getCurrentMouseCoords(e);
@@ -236,13 +236,13 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 					coords.y1,
 					coords.z1,
 					blockAboveLayer.blockID
-				)
+				);
 			}
 		}
 		
 		this.gui.modelviews.markBlockNeedsUpdate(coords.x, coords.y, coords.z);
 		this.gui.modelviews.flushMarkedBlocks();
-	}
+	};
 
 	this.toggleBlock = function(e, triggeredByMouseMove) {
 		if (triggeredByMouseMove) return;
@@ -269,11 +269,11 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 					coords.y1,
 					coords.z1,
 					blockAboveLayer.blockID
-				)
+				);
 			}
 		}
 		this.gui.modelviews.flushMarkedBlocks();
-	}
+	};
 	
 	this.rotateBlock = function(e, triggeredByMouseMove) {
 		if (triggeredByMouseMove) return;
@@ -300,11 +300,11 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 					coords.y1,
 					coords.z1,
 					blockAboveLayer.blockID
-				)
+				);
 			}
 		}
 		this.gui.modelviews.flushMarkedBlocks();
-	}
+	};
 	
 	this.blockInfo = function(e) {
 
@@ -351,10 +351,10 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			this.infoModal.show();
 		}
 		
-	}
+	};
 	
 	this.construct();
-}
+};
 
 
 		/*

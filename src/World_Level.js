@@ -104,16 +104,16 @@ com.mordritch.mcSim.World_Level = function(level) {
 		*/
 		
 		if (x >= this.chunkSizeX || x < 0)
-			throw new Error("WorldTypeLevel.getPosition(): x is out of bounds.")
+			throw new Error("WorldTypeLevel.getPosition(): x is out of bounds.");
 		
 		if (y >= this.chunkSizeY || y < 0)
-			throw new Error("WorldTypeLevel.getPosition(): y is out of bounds.")
+			throw new Error("WorldTypeLevel.getPosition(): y is out of bounds.");
 		
 		if (z >= this.chunkSizeZ || z < 0)
-			throw new Error("WorldTypeLevel.getPosition(): z is out of bounds.")
+			throw new Error("WorldTypeLevel.getPosition(): z is out of bounds.");
 		
 		return y + z * this.chunkSizeY + x * this.chunkSizeY * this.chunkSizeZ;
-	}
+	};
 	
 	/**
 	 * Returns the blockID at specified minecraft world co-ordinates
@@ -130,7 +130,7 @@ com.mordritch.mcSim.World_Level = function(level) {
 		else {
 			return this.level.Level.payload.Blocks.payload.charCodeAt(this.getPosition(x,y,z)) & 0xff;
 		}
-	}
+	};
 	
 	/**
 	 * Returns the meta data for block at specified minecraft world co-ordinates
@@ -145,42 +145,42 @@ com.mordritch.mcSim.World_Level = function(level) {
 		else {
 			return fullByte >>> 4;
 		}
-	}
+	};
 	
 	/**
 	 * Returns the x size of the schematic in terms minecraft co-ordinate system
 	 */
 	this.getSizeX = function() {
 		return this.chunkSizeX;
-	}
+	};
 	
 	/**
 	 * Returns the y size of the schematic in terms minecraft co-ordinate system
 	 */
 	this.getSizeY = function() {
 		return this.chunkSizeY;
-	}
+	};
 	
 	/**
 	 * Returns the z size of the schematic in terms minecraft co-ordinate system
 	 */
 	this.getSizeZ = function() {
 		return this.chunkSizeX;
-	}
+	};
 	
 	/**
 	 * Retrieve a Tile Entity
 	 */
 	this.getTileEntity = function(x, y, z) {
 		//TODO: Implement
-	}
+	};
 	
 	/**
 	 * Retrieve an entity
 	 */
 	this.getEntity = function(x, y, z) {
 		
-	}
+	};
 	
 	/**
 	 * Removes internal reference to the schematic object allowing it to be freed by the garbage collector.
@@ -190,5 +190,5 @@ com.mordritch.mcSim.World_Level = function(level) {
 	 */
 	this.destroy = function() {
 		this.level = undefined;
-	}
-}
+	};
+};

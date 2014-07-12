@@ -42,7 +42,7 @@
 						'</div>' +
 					'</div>' +
 				'</div>');
-		}
+		};
 		
 		this.show = function(noAnimate) {
 			if (isShowing) {return;}
@@ -67,7 +67,7 @@
 				$(sidebarDomSelector).animate({right: 0}, 'fast');
 				$(workareaDomSelector).animate({right: width}, 'fast');
 			}
-		}
+		};
 		
 		this.hide = function() {
 			if (!isShowing) {return;}
@@ -80,12 +80,12 @@
 				$(sidebarDomSelector).hide();
 			});
 			$(workareaDomSelector).animate({right: 0}, 'fast');
-		}
+		};
 		
 		this.resize = function(resizeToPixels) {
 			$(sidebarDomSelector).css('width', resizeToPixels + 'px');
 			$(workareaDomSelector).css('right', resizeToPixels + 'px');
-		}
+		};
 		
 		this.toggle = function() {
 			if (isShowing) {
@@ -94,7 +94,7 @@
 			else {
 				this.show();
 			}
-		}
+		};
 		
 		this.addSection = function(header, body, collapsedByDefault, existingDomId) {
 			collapsedByDefault = (typeof collapsedByDefault != "undefined") ? collapsedByDefault : false;
@@ -135,9 +135,9 @@
 			});
 			
 			return domId;
-		}
+		};
 		
 		this.construct();
-	}
+	};
 	namespace[funcName] = proto;
 })();

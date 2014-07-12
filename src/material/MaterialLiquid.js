@@ -33,7 +33,7 @@
 		this._construct(par1MapColor);
 		this.setGroundCover();
 		this.setNoPushMobility();
-	}
+	};
 
 	/**
 	 * Returns if blocks of these materials are liquids.
@@ -41,7 +41,7 @@
 	proto.isLiquid = function()
 	{
 		return true;
-	}
+	};
 
 	/**
 	 * Returns if this material is considered solid or not
@@ -49,11 +49,11 @@
 	proto.blocksMovement = function()
 	{
 		return false;
-	}
+	};
 
 	proto.isSolid = function()
 	{
 		return false;
-	}
+	};
 
 }());

@@ -17,11 +17,11 @@
 		this.wiresProvidePower = true;
 		this.debugCharge = true;
 		this.debugCharge = false;
-	}
+	};
 	
 	proto.canProvidePower = function() {
 		return this.wiresProvidePower;
-	}
+	};
 	
 	proto.onBlockAdded = function(world, posX, posY, posZ) {
 		//this._super.onBlockAdded(posX, posY, posZ); //TODO: The MCP source code calls the super method, fortunately with "Block", that function does nothing, but could be an issue with other block types.
@@ -63,12 +63,12 @@
 		else {
 			this.notifyWireNeighborsOfNeighborChange(world, posX, posY - 1, posZ + 1);
 		}
-	}
+	};
 	
 	proto.canPlaceBlockAt = function(world, posX, posY, posZ, direction) {
 		var Block = world.Block;
 		return world.isBlockNormalCube(posX, posY - 1, posZ) || world.getBlockId(posX, posY - 1, posZ) == Block.glowStone.blockID;
-	}
+	};
 	
 	/**
 	 * Returns true if the block coordinate passed can provide power, or is a redstone wire, or if its a repeater that is powered.
@@ -101,7 +101,7 @@
 		}
 
 		return false;
-	}
+	};
 
 	proto.isIndirectlyPoweringTo = function(world, posX, posY, posZ, direction)
 	{
@@ -112,7 +112,7 @@
 		{
 			return this.isPoweringTo(world, posX, posY, posZ, direction);
 		}
-	 }
+	 };
 
 
 	proto.isPoweredOrRepeater = function(world, posX, posY, posZ, direction)
@@ -131,7 +131,7 @@
 		{
 			return false;
 		}
-	}
+	};
 	
 	proto.isPoweringTo = function(world, posX, posY, posZ, direction)
 	{
@@ -182,7 +182,7 @@
 				return true;
 		}
 		return direction == 5 && checkEast && !checkNorth && !checkSouth;
-	}
+	};
 
 	proto.onBlockRemoval = function(world, posX, posY, posZ) {
 		//super.onBlockRemoval(posX, posY, posZ);
@@ -223,7 +223,7 @@
 		else {
 			this.notifyWireNeighborsOfNeighborChange(world, posX, posY - 1, posZ + 1);
 		}
-	}
+	};
 
 	
 	proto.notifyWireNeighborsOfNeighborChange = function(world, posX, posY, posZ)
@@ -244,7 +244,7 @@
 			world.notifyBlocksOfNeighborChange(posX, posY + 1, posZ, blockID);
 			return;
 		}
-	}
+	};
 	
 	
 	proto.onNeighborBlockChange = function (world, posX, posY, posZ, direction) {
@@ -260,7 +260,7 @@
 		}
 		
 		//super.onNeighborBlockChange(world, posX, posY, posZ, direction); //Block which this is inherited from does nothing in the method
-	}
+	};
 
 	/**
 	 * Check and see if the target block is a "power provider" (IE: does it connect wires);
@@ -281,13 +281,13 @@
 		) {
 			var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
 			var footInvisibleFaceRemap = new Array(2, 3, 0, 1); //take from Direction.
-			return (direction == (blockMetadata & 3) || direction == footInvisibleFaceRemap[blockMetadata & 3]) 
+			return (direction == (blockMetadata & 3) || direction == footInvisibleFaceRemap[blockMetadata & 3]);
 		}
 		else {
 			return false;
 		} 
 		
-	}
+	};
 	
 	proto.updateAndPropagateCurrentStrength = function(world, posX, posY, posZ)
 	{
@@ -302,7 +302,7 @@
 			world.notifyBlocksOfNeighborChange(blocksNeedingUpdate[i][0], blocksNeedingUpdate[i][1], blocksNeedingUpdate[i][2], this.blockID);
 		}
 
-	}
+	};
 
 	proto.getMaxCurrentStrength = function(world, posX, posY, posZ, strength)
 	{
@@ -319,7 +319,7 @@
 		{
 			return strength;
 		}
-	}
+	};
 
 	proto.calculateCurrentChanges = function(world, posX, posY, posZ, sourcePosX, sourcePosY, sourcePosZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -422,7 +422,7 @@
 				this.blocksNeedingUpdate.push(new Array(posX, posY, posZ + 1));
 			}
 		}
-	}
+	};
 	
 	proto.getConnectedDirectionsForDrawing = function(world, posX, posY, posZ) {
 		var connectedW = this.isPowerProviderOrWire(world, posX - 1, posY, posZ, 1) || !world.isBlockNormalCube(posX - 1, posY, posZ) && this.isPowerProviderOrWire(world, posX - 1, posY - 1, posZ, -1);
@@ -454,15 +454,15 @@
 			S: connectedS,
 			W: connectedW
 		};
-	}
+	};
 	
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas);
-	}
+	};
 	
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas);
-	}
+	};
 	
 	proto.drawTopView_generic = function(world, posX, posY, posZ, canvas) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -498,7 +498,7 @@
 		}
 
 		this.drawDebugCharge(blockMetadata, canvas);
-	}
+	};
 	
 	proto.drawDebugCharge = function(charge, canvas) {
 		if (this.debugCharge) {
@@ -529,7 +529,7 @@
 			canvas.fillText(charge, 4, 4, 6-2);
 			//canvas.strokeText(charge, 4, 4, 6-2);
 		}
-	}
+	};
 
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -647,7 +647,7 @@
 		}
 		
 		this.drawDebugCharge(blockMetadata, canvas);
-	}
+	};
 
 	proto.drawIcon = function(blockObj, canvas, blockMetadata) {
 		var worldData = new com.mordritch.mcSim.World_Schematic(null, 3, 1, 3);
@@ -661,5 +661,5 @@
 		
 		var world = new com.mordritch.mcSim.World(blockObj, worldData);
 		this.drawTopView_currentLayer(world, 1, 0, 1, canvas);
-	}
+	};
 }());

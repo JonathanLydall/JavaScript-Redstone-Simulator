@@ -28,7 +28,7 @@
 		
 		var isIntVal = function(val) {
 			return !!(parseInt(val, 10) == val && parseInt(val, 10));
-		}
+		};
 
 		var construct = function() {
 			if (!_historyApiSupport) {
@@ -41,11 +41,11 @@
 			if (isIntVal(_schematicId) && _schematicId > 0) {
 				onSchematicIdChange_accepted(_schematicId);
 			}
-		}
+		};
 		
 		var getTitle = function() {
 			return $('title').text(); //Can be customized to have something appended to the end.
-		}
+		};
 		
 		var initHashChange = function() {
 			$(window).hashchange(function() {
@@ -59,7 +59,7 @@
 			if (isIntVal(hash)) {
 			 	_schematicId = hash;
 			}
-		}
+		};
 		
 		var initHistoryApi = function() {
 			var hash = location.hash.replace( /^#/, '' );
@@ -82,7 +82,7 @@
 					onSchematicIdChange(event.state.id);
 				}
 			});
-		}
+		};
 		
 		this.onUrlClick = function(event) {
 			if (_historyApiSupport) {
@@ -90,15 +90,15 @@
 				var schematicId = $(event.target).data('id');
 				self.setSchematicId(schematicId);
 			}
-		}
+		};
 		
 		this.generateUrl = function(schematicId) {
 			return (_historyApiSupport) ? "./"  + schematicId : "./#" + schematicId;
-		}
+		};
 		
 		this.getIdToOpen = function() {
 			return _schematicId;
-		}
+		};
 		
 		this.setSchematicId = function(schematicId, useReplaceState, noChange) {
 			useReplaceState = (typeof useReplaceState != 'undefined') ? useReplaceState : false;
@@ -118,12 +118,12 @@
 			else {
 				window.location.hash = schematicId;
 			}
-		}
+		};
 		
 		
 		var onSchematicIdChange = function(schematicId) {
 			onSchematicIdChange_accepted(schematicId); //TODO: Perhaps have a confirmation modal show first.
-		}
+		};
 		
 		var onSchematicIdChange_accepted = function(schematicId) {
 			var pathname = window.location.pathname;
@@ -136,15 +136,15 @@
 			if (typeof schematicId != "undefined" && schematicId != null && schematicId != "") {
 				_gui.loadSchematicId(schematicId);
 			}
-		}
+		};
 		
 		var onSchematicIdChange_declined = function(schematicId) {
 			
-		}
+		};
 		
 		var self = this;
 		construct();
-	}
+	};
 
 	namespace.urlHistory = urlHistory;
 }());

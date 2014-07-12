@@ -44,7 +44,7 @@
 		this.currentLayer = 0;
 		this.currentFacing = 0; //At this time only used by sideview, but our draw methods use this to determine based on the direction of the viewport, how we should draw blocks
 		this.drawMethod = "drawTopView";
-	}
+	};
 	
 	/**
 	 * Generates the HTML for the controls of the model view, called in the parent class' _construct method 
@@ -63,13 +63,13 @@
 			'<img class="zoomOut" src="images/icons/modelviewControls/zoom-out.png" />' +
 			'<img class="exportImage" src="images/icons/modelviewControls/export-image.png" />';
 		return returnString;
-	}
+	};
 	
 	/**
 	 * Binds events to the controls of the modelView 
 	 */
 	proto.bindControlEvents = function() {
-		$('#'+this.containerDomId+' .arrowUp').bind('click', {t: this}, function(e) {e.data.t.layerUp()});
+		$('#'+this.containerDomId+' .arrowUp').bind('click', {t: this}, function(e) {e.data.t.layerUp();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .arrowUp'),
 			/* position               */ 'below',
@@ -78,7 +78,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_layer_up');
 		
-		$('#'+this.containerDomId+' .arrowDown').bind('click', {t: this}, function(e) {e.data.t.layerDown()});
+		$('#'+this.containerDomId+' .arrowDown').bind('click', {t: this}, function(e) {e.data.t.layerDown();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .arrowDown'),
 			/* position               */ 'below',
@@ -87,7 +87,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_layer_down');
 		
-		$('#'+this.containerDomId+' .zoomIn').bind('click', {t: this}, function(e) {e.data.t.zoomLevelIncrease()});
+		$('#'+this.containerDomId+' .zoomIn').bind('click', {t: this}, function(e) {e.data.t.zoomLevelIncrease();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .zoomIn'),
 			/* position               */ 'below',
@@ -96,7 +96,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_zoom_increase');
 		
-		$('#'+this.containerDomId+' .zoomOut').bind('click', {t: this}, function(e) {e.data.t.zoomLevelDecrease()});
+		$('#'+this.containerDomId+' .zoomOut').bind('click', {t: this}, function(e) {e.data.t.zoomLevelDecrease();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .zoomOut'),
 			/* position               */ 'below',
@@ -105,7 +105,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_zoom_decrease');
 		
-		$('#'+this.containerDomId+' .exportImage').bind('click', {t: this}, function(e) {e.data.t.exportImage()});
+		$('#'+this.containerDomId+' .exportImage').bind('click', {t: this}, function(e) {e.data.t.exportImage();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .exportImage'),
 			/* position               */ 'below',
@@ -113,7 +113,7 @@
 			/* bodyTextResourceName   */ 'toolbar.modelview.tooltips.exportImage.description',
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_exportImage');
-	}
+	};
 		
 	
 	/**
@@ -124,7 +124,7 @@
 			this.currentLayer++;
 			this.drawAllBlocks();
 		}
-	}
+	};
 	
 	/**
 	 * Tries moving down one layer down
@@ -134,7 +134,7 @@
 			this.currentLayer--;
 			this.drawAllBlocks();
 		}
-	}
+	};
 	
 	/**
 	 * Tries moving to the specified layer
@@ -150,7 +150,7 @@
 			return true;
 		}
 		return false;
-	}
+	};
 
 	/**
 	 * Check and see if the dimensions of a "world" have changed and if we maybe need to change our canvas size.
@@ -168,7 +168,7 @@
 				rows: ySize
 			});
 		}
-	}
+	};
 	
 	/**
 	 * Translates world coordinates into grid coordinates based on current direction
@@ -178,7 +178,7 @@
 			x: xWorld,
 			y: zWorld
 		};
-	}
+	};
 	
 	/**
 	 * Based on our direction we are facing and our current layer, ensure that our number of lower layers to
@@ -190,7 +190,7 @@
 		var drawDepth = this.lowerLayersToDraw;
 		
 		return (currentLayer - drawDepth >= 0) ? drawDepth : currentLayer;  
-	}
+	};
 
 	proto.getWorldCoordsFromGridCoords = function(xGrid, yGrid, depth) {
 		if (this.gui.mcSim.World == null) return {x: 0, y: 0, z: 0}; //if the world is still loading while we are hovering over, an error happens
@@ -201,7 +201,7 @@
 			y: currentLayer - depth,
 			z: yGrid
 		};
-	}
+	};
 
 	/**
 	 * See if world coords are in the currentLayer + renderdepth
@@ -233,5 +233,5 @@
 		}
 
 		return returnValue;
-	}
+	};
 }());

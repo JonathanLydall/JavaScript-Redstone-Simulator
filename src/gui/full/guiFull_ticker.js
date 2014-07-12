@@ -34,12 +34,12 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		this.tickCounter = 0;
 		this.tickForRemaining = 0;
 		this.tickingForInProgress = false;
-	}
+	};
 	
 	this.updateButtonStatus = function() {
 		var ticker = this.gui.mcSim.updateTicker;
 		this.onEventStopOrStart(ticker.isRunning);
-	}
+	};
 	
 	/**
 	 * Records whether or not the ticker was running and stops it 
@@ -48,7 +48,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		var ticker = this.gui.mcSim.updateTicker;
 		wasRunning = ticker.isRunning;
 		this.stop();
-	}
+	};
 	
 	/**
 	 * Based on the state recorded by this.pause(), will start it running again if it was running before 
@@ -57,7 +57,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		if (wasRunning) {
 			this.start();
 		}
-	}
+	};
 	
 	this.registerInputBindings = function() {
 		var t = this;
@@ -85,7 +85,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 			description: 'shortcuts.ticker.tickfor',
 			callbackFunction: function(e) {t.tickFor();}
 		});
-	}
+	};
 	
 	this.registerEventBindings = function() {
 		var t = this;
@@ -101,7 +101,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		ticker.bind("onTickFinished", function() {
 			t.onEventTickFinished();
 		});
-	}
+	};
 	
 	this.registerOptions = function() {
 		var t = this;
@@ -115,7 +115,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 			minValue: 0,
 			maxValue: 100,
 			callbackScope: 'ticker',
-			callbackForOnChange: function() {t.onOptionsChange()}
+			callbackForOnChange: function() {t.onOptionsChange();}
 		});
 		
 		options.registerOption({
@@ -127,7 +127,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 			minValue: 1,
 			maxValue: 20,
 			callbackScope: 'ticker',
-			callbackForOnChange: function() {t.onOptionsChange()}
+			callbackForOnChange: function() {t.onOptionsChange();}
 		});
 		
 		options.registerOption({
@@ -139,11 +139,11 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 			minValue: 1,
 			maxValue: 10000,
 			callbackScope: 'ticker',
-			callbackForOnChange: function() {t.onOptionsChange()}
+			callbackForOnChange: function() {t.onOptionsChange();}
 		});
 		
 		this.onOptionsChange();
-	}
+	};
 	
 	this.onOptionsChange = function() {
 		var options = this.gui.userSettings.options.simulator;
@@ -152,21 +152,21 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		ticker.targetTps = this.gui.getOption("simulator", "targetTps");
 		ticker.tickOnceIncrement = this.gui.getOption("simulator", "tickOnceIncrement");
 		$("#" + this.tickForTextboxId).val(this.gui.getOption("simulator", "tickFor"));
-	}
+	};
 	
 	this.start = function() {
 		this.tickingForInProgress = false;
 		var ticker = this.gui.mcSim.updateTicker;
 		ticker.startRunning();
 		this.setActiveButton(this.runButtonClass);
-	}
+	};
 	
 	this.stop = function() {
 		this.tickingForInProgress = false;
 		var ticker = this.gui.mcSim.updateTicker;
 		ticker.stopRunning();
 		this.setActiveButton(this.stopButtonClass);
-	}
+	};
 	
 	this.step = function() {
 		this.tickingForInProgress = false;
@@ -174,7 +174,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		this.setActiveButton(this.stepButtonClass);
 		ticker.tickOnce();
 		this.setActiveButton(this.stopButtonClass);
-	}
+	};
 	
 	this.tickFor = function() {
 		$tickFor = $("#" + this.tickForTextboxId);
@@ -194,12 +194,12 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		else {
 			$tickFor.addClass("invalidBackgroundColor");
 		}
-	}
+	};
 	
 	this.resetTickCounter = function() {
 		this.tickCounter = 0;
 		this.updateTickCounter();
-	}
+	};
 	
 	this.onEventStopOrStart = function(isNowRunning) {
 		//console.log("com.mordritch.mcSim.guiFull_ticker.onEventStopOrStart(): isNowRunning = %s", isNowRunning);
@@ -214,7 +214,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		else {
 			this.setActiveButton(this.stopButtonClass);
 		}
-	}
+	};
 	
 	this.setActiveButton = function(buttonClassName) {
 		$("." + this.runButtonClass).removeClass("topToolbarSelected");
@@ -231,7 +231,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		
 		$("." + buttonClassName).removeClass("topToolbarUnselected");
 		$("." + buttonClassName).addClass("topToolbarSelected");
-	}
+	};
 	
 	this.onEventTickFinished = function() {
 		this.tickCounter++;
@@ -245,7 +245,7 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 			}
 		}
 		this.updateTickCounter();
-	}
+	};
 	
 	this.updateTickCounter = function() {
 		var easterEggText = (this.tickCounter > 9000) ? " (IT'S OVER 9000!)" : "";
@@ -256,31 +256,31 @@ com.mordritch.mcSim.guiFull_ticker = function(gui) {
 		else {
 			$("#" + this.tickCounterId).text(this.tickCounter + easterEggText);
 		}
-	}
+	};
 	
 	this.setTickerStepButtonClass = function(value) {
 		this.step_domClass = value;
-	}
+	};
 	
 	this.setTickerStopButtonClass = function(value) {
 		this.stop_domClass = value;
-	}
+	};
 	
 	this.setTickerRunButtonClass = function(value) {
 		this.run_domClass = value;
-	}
+	};
 	
 	this.setTickerTickForButtonClass = function(value) {
 		this.tickFor_domClass = value;
-	}
+	};
 	
 	this.setTickForTextboxId = function(value) {
 		this.tickForTextbox_domId = value;
-	}
+	};
 	
 	this.setTickCounterId = function(value) {
 		this.tickCounter_domId = value;
-	}
+	};
 	
 	this.construct();
-}
+};

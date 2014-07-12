@@ -52,7 +52,7 @@
 		this.currentFacing = NORTH;
 		this.drawMethod = "drawSideView";
 		$('#'+this.containerDomId+' .direction').html(new Array('N','E','S','W')[this.currentFacing]);
-	}
+	};
 	
 	/**
 	 * Generates the HTML for the controls of the model view, called in the parent class' _construct method 
@@ -73,11 +73,11 @@
 			'<img class="zoomOut" src="images/icons/modelviewControls/zoom-out.png" />' +
 			'<img class="exportImage" src="images/icons/modelviewControls/export-image.png" />';
 		return returnString;
-	}
+	};
 	
 
 	proto.bindControlEvents = function() {
-		$('#'+this.containerDomId+' .arrowUp').bind('click', {t: this}, function(e) {e.data.t.layerUp()});
+		$('#'+this.containerDomId+' .arrowUp').bind('click', {t: this}, function(e) {e.data.t.layerUp();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .arrowUp'),
 			/* position               */ 'below',
@@ -86,7 +86,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_layer_up');
 
-		$('#'+this.containerDomId+' .arrowDown').bind('click', {t: this}, function(e) {e.data.t.layerDown()});
+		$('#'+this.containerDomId+' .arrowDown').bind('click', {t: this}, function(e) {e.data.t.layerDown();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .arrowDown'),
 			/* position               */ 'below',
@@ -95,7 +95,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_layer_down');
 		
-		$('#'+this.containerDomId+' .rotateClockwise').bind('click', {t: this}, function(e) {e.data.t.rotateClockwise()});
+		$('#'+this.containerDomId+' .rotateClockwise').bind('click', {t: this}, function(e) {e.data.t.rotateClockwise();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .rotateClockwise'),
 			/* position               */ 'below',
@@ -104,7 +104,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_rotate_clockwise');
 
-		$('#'+this.containerDomId+' .rotateAntiClockwise').bind('click', {t: this}, function(e) {e.data.t.rotateAntiClockwise()});
+		$('#'+this.containerDomId+' .rotateAntiClockwise').bind('click', {t: this}, function(e) {e.data.t.rotateAntiClockwise();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .rotateAntiClockwise'),
 			/* position               */ 'below',
@@ -113,7 +113,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_rotate_anti_clockwise');
 
-		$('#'+this.containerDomId+' .zoomIn').bind('click', {t: this}, function(e) {e.data.t.zoomLevelIncrease()});
+		$('#'+this.containerDomId+' .zoomIn').bind('click', {t: this}, function(e) {e.data.t.zoomLevelIncrease();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .zoomIn'),
 			/* position               */ 'below',
@@ -122,7 +122,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_zoom_increase');
 		
-		$('#'+this.containerDomId+' .zoomOut').bind('click', {t: this}, function(e) {e.data.t.zoomLevelDecrease()});
+		$('#'+this.containerDomId+' .zoomOut').bind('click', {t: this}, function(e) {e.data.t.zoomLevelDecrease();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .zoomOut'),
 			/* position               */ 'below',
@@ -131,7 +131,7 @@
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_zoom_decrease');
 		
-		$('#'+this.containerDomId+' .exportImage').bind('click', {t: this}, function(e) {e.data.t.exportImage()});
+		$('#'+this.containerDomId+' .exportImage').bind('click', {t: this}, function(e) {e.data.t.exportImage();});
 		this.tooltip.createForElement(
 			/* $domEelement           */ $('#'+this.containerDomId+' .exportImage'),
 			/* position               */ 'below',
@@ -139,7 +139,7 @@
 			/* bodyTextResourceName   */ 'toolbar.modelview.tooltips.exportImage.description',
 			/* shortcutKeyScope       */ 'main',
 			/* shortcutKeyEventName   */ 'modelView_exportImage');
-	}
+	};
 	
 	/**
 	 * Translates out current grid coordinate into a world coordinate, based on current direction being faced 
@@ -186,7 +186,7 @@
 				};
 				break;
 		}
-	}
+	};
 	
 	/**
 	 * Translates world coordinates into grid coordinates based on current direction
@@ -225,7 +225,7 @@
 				};
 				break;
 		}
-	}
+	};
 	
 	/**
 	 * See if world coords are in the current slice + offset based on the current direction
@@ -272,7 +272,7 @@
 		}
 
 		return returnValue;
-	}
+	};
 	
 	/**
 	 * Based on our direction we are facing and our current layer, ensure that our number of lower layers to
@@ -302,15 +302,15 @@
 				break;
 			
 		}
-	}
+	};
 		
 	proto.rotateClockwise = function() {
 		this.changeFacingTo(new Array(1, 2, 3, 0)[this.currentFacing]);
-	}
+	};
 	
 	proto.rotateAntiClockwise = function() {
 		this.changeFacingTo(new Array(3, 0, 1, 2)[this.currentFacing]);
-	}
+	};
 	
 	proto.changeFacingTo = function(facing) {
 		this.currentFacing = facing;
@@ -320,7 +320,7 @@
 		}
 		$('#'+this.containerDomId+' .direction').html(new Array('N','E','S','W')[this.currentFacing]);
 		this.drawAllBlocks();
-	}
+	};
 	
 	/**
 	 * Tries moving up one layer up
@@ -358,7 +358,7 @@
 				}
 				break;
 		}
-	}
+	};
 	
 	/**
 	 * Tries moving down one layer down
@@ -396,7 +396,7 @@
 				}
 				break;
 		}
-	}
+	};
 	
 	/**
 	 * Based on the current direction it's facing, returns the max slice that is possible 
@@ -412,7 +412,7 @@
 		else {
 			return xWorldSize;
 		}
-	}
+	};
 	
 	/**
 	 * Tries moving to the specified layer
@@ -431,7 +431,7 @@
 			return true;
 		}
 		return false;
-	}
+	};
 
 	/**
 	 * Check and see if the dimensions of a "world" have changed and if we maybe need to change our canvas size.
@@ -466,7 +466,7 @@
 				rows: worldRows
 			});
 		}
-	}
+	};
 	
 	
 }());

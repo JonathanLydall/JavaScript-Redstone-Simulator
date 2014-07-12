@@ -12,7 +12,7 @@
 	
 	proto.construct = function() {
 		this.text = new Array("", "", "", "");
-	}
+	};
 	
 	/**
 	 * Reads a tile entity from NBT.
@@ -31,7 +31,7 @@
 		
 		this.worldObj = worldObj;
 		this.text = text;
-	}
+	};
 
 	/**
 	 * Writes a tile entity to NBT.
@@ -71,5 +71,5 @@
 		par1NBTTagCompound.setFloat("progress", lastProgress);
 		par1NBTTagCompound.setBoolean("extending", extending);
 		*/
-	}
+	};
 }());

@@ -20,16 +20,16 @@
 		if (this.blockType == "redstoneRepeaterIdle") {
 			this.isRepeaterPowered = false;
 		}
-	}
+	};
 	
 	proto.isIndirectlyPoweringTo = function(world, posX, posY, posZ, direction) {
 		return this.isPoweringTo(world, posX, posY, posZ, direction);
-	}
+	};
 	
 	proto.toggleBlock = function(world, posX, posY, posZ) {
 		this.blockActivated(world, posX, posY, posZ);
 		world.markBlocksDirty(posX, posY, posZ, posX, posY, posZ);
-	}
+	};
 	
 	proto.rotateSelection = function(blockMetadata, amount) {
 		var facing = blockMetadata & 0x3;
@@ -38,14 +38,14 @@
 			facing = new Array(1, 2, 3, 0)[facing];
 		}
 		return facing | delay;
-	}
+	};
 	
 	proto.rotateBlock = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
 		var repeaterOrientation = blockMetadata & 0x3;
 		repeaterOrientation = (repeaterOrientation + 1) & 0x3;
 		world.setBlockAndMetadataWithNotify(posX, posY, posZ, this.blockID, repeaterOrientation | (blockMetadata & 0xc));
-	}
+	};
 	
 	proto.blockActivated = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -53,15 +53,15 @@
 		repeaterDelay = repeaterDelay + 1 << 0x2 & 0xc;
 		world.setBlockMetadataWithNotify(posX, posY, posZ, repeaterDelay | blockMetadata & 0x3);
 		return true;
-	}
+	};
 	
 	proto.canPlaceBlockAt = function(world, posX, posY, posZ) {
 		return world.isBlockNormalCube(posX, posY - 1, posZ);
-	}
+	};
 
 	proto.canBlockStay = function(world, posX, posY, posZ) {
 		return this.canPlaceBlockAt(world, posX, posY, posZ);
-	}
+	};
 
 	proto.onBlockAdded = function (world, posX, posY, posZ)
 	{
@@ -71,7 +71,7 @@
 		world.notifyBlocksOfNeighborChange(posX, posY, posZ - 1, blockID);
 		world.notifyBlocksOfNeighborChange(posX, posY - 1, posZ, blockID);
 		world.notifyBlocksOfNeighborChange(posX, posY + 1, posZ, blockID);
-	}
+	};
 	
 	proto.isPoweringTo = function(world, posX, posY, posZ, direction) {
 		if (!this.isRepeaterPowered) {
@@ -89,7 +89,7 @@
 			return true;
 		}
 		return repeaterDirection == 3 && direction == 5;
-	}
+	};
 	
 	proto.onNeighborBlockChange = function(world, posX, posY, posZ, direction) {
 		if (!this.canBlockStay(world, posX, posY, posZ)) {
@@ -106,7 +106,7 @@
 		else if (!this.isRepeaterPowered && ignoreTick) {
 			world.scheduleBlockUpdate(posX, posY, posZ, this.blockID, this.repeaterState[repeaterDelay] * 2);
 		}
-	}
+	};
 	
 	proto.ignoreTick = function (world, posX, posY, posZ, blockMetadata) {
 		var repeaterDirection= blockMetadata & 3;
@@ -124,7 +124,7 @@
 				return world.isBlockIndirectlyProvidingPowerTo(posX - 1, posY, posZ, 4) || world.getBlockId(posX - 1, posY, posZ) == world.Block.redstoneWire.blockID && world.getBlockMetadata(posX - 1, posY, posZ) > 0;
 		}
 		return false;
-	}
+	};
 	
 	proto.updateTick = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -139,15 +139,15 @@
 				world.scheduleBlockUpdate(posX, posY, posZ, world.Block.redstoneRepeaterActive.blockID, this.repeaterState[repeaterDelay] * 2);
 			}
 		}
-	}
+	};
 
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas);
-	}
+	};
 		
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas);
-	}
+	};
 	
 	proto.drawTopView_generic = function(world, posX, posY, posZ, canvas) {
 		var blockMetaData = world.getBlockMetadata(posX, posY, posZ);
@@ -175,7 +175,7 @@
 				this.draw(world, posX, posY, posZ, canvas, "top", 270);
 				break;
 		}
-	}
+	};
 	
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		var blockMetaData = world.getBlockMetadata(posX, posY, posZ);
@@ -277,7 +277,7 @@
 				break;
 		}
 		proto.draw(world, posX, posY, posZ, canvas, view, rotated, mirrored);
-	}
+	};
 
 	proto.draw = function(world, posX, posY, posZ, canvas, view, rotated, mirrored) {
 		var poweredColour = "rgb(255,0,0)";
@@ -307,7 +307,7 @@
 			canvas.save();
 			this.rotateContext(rotated, canvas);
 
-			canvas.fillStyle = delayColour1
+			canvas.fillStyle = delayColour1;
 			canvas.fillRect(3, 0, 2, 2);
 
 			if (delayColour2 != delayColour1) {
@@ -335,7 +335,7 @@
 				canvas.scale(-1, 1);
 			}
 			
-			canvas.fillStyle = delayColour1
+			canvas.fillStyle = delayColour1;
 			canvas.fillRect(0, 6, 2, 2);
 
 			if (delayColour2 != delayColour1) {
@@ -357,7 +357,7 @@
 				canvas.restore();
 			}
 		}
-	}
+	};
 
 	proto.enumeratePlaceableBlocks = function() {
 		if (this.blockType == "redstoneRepeaterIdle") {
@@ -374,5 +374,5 @@
 		else {
 			return new Array();
 		}
-	}
+	};
 }());

@@ -18,7 +18,7 @@
 	
 	proto.construct = function() {
 		this.drawIconBlockMetadataOveride = 4;
-	}
+	};
 
 	proto.canPlaceBlockAt = function(world, posX, posY, posZ) {
 		if (world.isBlockNormalCubeDefault(posX - 1, posY, posZ, true))
@@ -42,13 +42,13 @@
 		}
 
 		return this.canPlaceTorchOn(world, posX, posY - 1, posZ);
-	}
+	};
 	
 	proto.onNeighborBlockChange = function(world, posX, posY, posZ) {
 		if (this.checkIftorchPlacementInvalid(world, posX, posY, posZ)) {
 			world.setBlockWithNotify(posX, posY, posZ, world.Block.air.blockID);
 		}
-	}
+	};
 	
 	proto.checkIftorchPlacementInvalid = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -80,7 +80,7 @@
 		}
 		
 		return removeTorch;
-	}
+	};
 	
 	proto.onBlockPlaced = function(world, posX, posY, posZ, facing) {
 		/*
@@ -152,7 +152,7 @@
 			world.setBlockMetadataWithNotify(posX, posY, posZ, blockMetadata);
 			return;
 		}
-	}
+	};
 
 	proto.canPlaceTorchOn = function(world, posX, posY, posZ) {
 		var Block = world.Block;
@@ -180,14 +180,14 @@
 		}
 
 		return false;
-	}
+	};
 	
 	proto.rotateSelection = function(blockMetadata, amount) {
 		for (var i=0; i<amount; i++) {
 			blockMetadata = new Array(0, 3, 4, 2, 1, 5)[blockMetadata];
 		}
 		return blockMetadata;
-	}
+	};
 	
 	proto.rotateBlock = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -200,15 +200,15 @@
 				break;
 			}			
 		} while (true);
-	}
+	};
 	
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas, false);
-	}
+	};
 	
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas, true);
-	}
+	};
 	
 	proto.drawTopView_generic = function(world, posX, posY, posZ, canvas, forAboveLayer) {
 		layerView = (forAboveLayer) ? "shadow" : "side"; 
@@ -240,15 +240,15 @@
 			default: throw new Error("Unexpected case");
 		}
 		
-	}
+	};
 		
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		this.drawSideView_generic(world, posX, posY, posZ, canvas, lookingTowards, false);
-	}
+	};
 
 	proto.drawSideView_aboveLayer = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		this.drawSideView_generic(world, posX, posY, posZ, canvas, lookingTowards, true);
-	}
+	};
 	
 	proto.drawSideView_generic = function(world, posX, posY, posZ, canvas, lookingTowards, forAboveLayer) {
 		var rotatedBy, view;
@@ -379,7 +379,7 @@
 		}
 		
 		this.drawGeneric(world, posX, posY, posZ, canvas, view, rotatedBy);
-	}
+	};
 	
 	proto.drawGeneric = function(world, posX, posY, posZ, canvas, view, rotatedBy) {
 		var torchColour = {
@@ -454,5 +454,5 @@
 			canvas.restore();
 			return;
 		}
-	}
+	};
 }());

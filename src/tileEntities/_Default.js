@@ -30,7 +30,7 @@ com.mordritch.mcSim.TileEntity__Default = function() {
         zCoord = nbttagcompound.getInteger("z");
 
 		 */
-	}
+	};
 	
 	/**
 	 * Used to rotate the entire world or a selection of blocks, torches for example can have their metadata updated appropriately
@@ -38,7 +38,7 @@ com.mordritch.mcSim.TileEntity__Default = function() {
 	 * Accepts amount of times to rotate the block 90 degrees clockwise, so, to rotate it 180 degress clockwise, the amount would be 2, 270 would be 3
 	 */
 	this.rotateSelection = function(amount) {
-	}
+	};
 	
 	/**
 	 * Used to export NBT data
@@ -86,14 +86,14 @@ com.mordritch.mcSim.TileEntity__Default = function() {
 	            return;
 	        }
 		 */
-	}
+	};
 	
 	/**
 	 * Called for each entity each time the game ticks.
 	 */
 	this.updateEntity = function() {
 		
-	}
+	};
 	
 	/**
 	 * Called when loading world/shematic data
@@ -125,7 +125,7 @@ com.mordritch.mcSim.TileEntity__Default = function() {
         }
         return tileentity;
 		 */
-	}
+	};
 	
 	/**
 	 * 
@@ -135,7 +135,7 @@ com.mordritch.mcSim.TileEntity__Default = function() {
 			this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
 		}
 		return this.blockMetadata;
-	}
+	};
 	
 	/**
 	 * 
@@ -146,7 +146,7 @@ com.mordritch.mcSim.TileEntity__Default = function() {
 			this.blockMetadata = worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
 			//this.worldObj.updateTileEntityChunkAndDoNothing(this.xCoord, this.yCoord, this.zCoord, this); //TODO: Is this needed?
 		}
-	}
+	};
 	
 	this.getDistanceFrom = function(otherX, otherY, otherZ) {
 		var distanceX = (this.xCoord + 0.5) - otherX;
@@ -154,7 +154,7 @@ com.mordritch.mcSim.TileEntity__Default = function() {
 		var distanceZ = (this.zCoord + 0.5) - otherZ;
 		
 		return distanceX * distanceX + distanceY * distanceY + distanceZ * distanceZ;
-	}
+	};
 	
 	/**
 	 * Gets a block object based on the coordinates of the entity
@@ -166,27 +166,27 @@ com.mordritch.mcSim.TileEntity__Default = function() {
 			this.blockType = this.worldObj.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)];
 		}
 		return this.blockType;
-	}
+	};
 	
 	this.isInvalid = function() {
 		return this.tileEntityInvalid;
-	}
+	};
 	
 	this.invalidate = function() {
 		this.tileEntityInvalid = true;
-	}
+	};
 	
 	this.validate = function() {
 		this.tileEntityInvalid = false;
-	}
+	};
 	
 	this.onTileEntityPowered = function() {
 		
-	}
+	};
 	
 	this.updateContainingBlockInfo = function() {
 		this.blockType = null;
 		this.blockMetadata = -1;
-	}
+	};
 	
-}
+};

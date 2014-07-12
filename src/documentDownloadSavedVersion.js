@@ -34,7 +34,7 @@ com.mordritch.mcSim.documentDownloadSavedVersion = function(gui) {
 		else {
 			sendDownloadRequest(schematicId);
 		}
-	}
+	};
 	
 	var construct = function() {
 		$('body').append(
@@ -52,7 +52,7 @@ com.mordritch.mcSim.documentDownloadSavedVersion = function(gui) {
 		feedbackModal.setCloseButtonText(L10n.getString('button.text.ok'));
 		
 		feedbackModal.setDomClass('prompt');
-	}
+	};
 	
 	var sendDownloadRequest = function(schematicId) {
 		$('#documentDownloadSavedVersion').ajaxForm({
@@ -66,7 +66,7 @@ com.mordritch.mcSim.documentDownloadSavedVersion = function(gui) {
 				console.log("documentDownloadSavedVersion.sendDownloadRequest(): complete");
 			}
 		}).submit();
-	}
+	};
 	
 	construct();
-}
+};

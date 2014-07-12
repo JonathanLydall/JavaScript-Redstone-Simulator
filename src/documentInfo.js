@@ -31,13 +31,13 @@ com.mordritch.mcSim.documentInfo = function(gui) {
 			}
 		});
 		
-	}
+	};
 	
 	this.show = function() {
 		populateForm();
 		modal.show();
 		$('#documentInfo_title').focus();
-	}
+	};
 	
 	var populateForm = function() {
 		var title = gui.schematicMetadata.title;
@@ -81,7 +81,7 @@ com.mordritch.mcSim.documentInfo = function(gui) {
 		$('.documentInfo input').bind('keyup', function(e) {
 			if (e.which == 13) validateForm();
 		});
-	}
+	};
 	
 	var validateForm = function() {
 		var inputError = false;
@@ -127,7 +127,7 @@ com.mordritch.mcSim.documentInfo = function(gui) {
 			
 			modal.hide();
 		}
-	}
+	};
 	
 	construct();
-}
+};

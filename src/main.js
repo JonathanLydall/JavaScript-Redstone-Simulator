@@ -47,7 +47,7 @@ if (typeof window.escapeHtml == "undefined") {
 	    var div = document.createElement('div');
 	    div.appendChild(document.createTextNode(str));
 	    return div.innerHTML;
-	}
+	};
 }
 
 // UNSAFE with unsafe strings; only use on previously-escaped ones!
@@ -57,5 +57,5 @@ if (typeof window.unescapeHtml == "undefined") {
 	    div.innerHTML = escapedStr;
 	    var child = div.childNodes[0];
 	    return child ? child.nodeValue : '';
-	}
+	};
 }

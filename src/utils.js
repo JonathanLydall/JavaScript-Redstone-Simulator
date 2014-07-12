@@ -37,7 +37,7 @@ function hexDump(data) {
 		"00000000  ";
 	
 	for (var i=0; i < data.length; i++) {
-		countForCurrentLine++
+		countForCurrentLine++;
 		var byteData = data.substr(i, 1);
 		
 		var number = data.charCodeAt(i) & 0xff;

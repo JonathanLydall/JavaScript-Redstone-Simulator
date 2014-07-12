@@ -34,7 +34,7 @@ com.mordritch.mcSim.submitFeedback = function(gui) {
 		$('#feedbackAndComments').on('click', function() {
 			self.show();
 		});
-	}
+	};
 	
 	var submitForm = function() {
 		$.ajax({
@@ -51,7 +51,7 @@ com.mordritch.mcSim.submitFeedback = function(gui) {
 				modal.hide();
 			}
 		});
-	}
+	};
 	
 	var populateForm = function() {
 		modal.setContent(
@@ -70,15 +70,15 @@ com.mordritch.mcSim.submitFeedback = function(gui) {
 		if (gui.userManager.authenticated) {
 			$('#submitFeedback_email').val(gui.userManager.userData.emailAddress);
 		}
-	}	
+	};
 	
 	this.show = function() {
 		populateForm();
 		modal.show();
 		$('#submitFeedback_email').focus();
-	}
+	};
 	
 	construct();
 	
-}
+};
 	

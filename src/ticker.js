@@ -52,13 +52,13 @@ com.mordritch.mcSim.ticker = function(simulator) {
 				if (thisReferrence.isRunning) thisReferrence.run(); //recursive call
 			}
 		);
-	}
+	};
 	
 	this.trackTps = function() {
 		var timeNow = new Date().getTime();
 		//$("#tps").text(Math.round(1000/(timeNow-this.previousTickRunAt))); //TODO: have this bindable to a callback or something?
 		this.previousTickRunAt = timeNow;
-	}
+	};
 	
 	this.tick = function() {
 		if (
@@ -73,7 +73,7 @@ com.mordritch.mcSim.ticker = function(simulator) {
 		this.simulator.World.updateEntities();
 		this.simulator.World.tick();
 		this.triggerEvent("onTickFinished");
-	}
+	};
 	
 	this.toggleRunning = function() {
 		if (!this.isRunning) {
@@ -82,7 +82,7 @@ com.mordritch.mcSim.ticker = function(simulator) {
 		else {
 			this.stopRunning();
 		}
-	}
+	};
 	
 	this.tickOnce = function() {
 		this.stopRunning();
@@ -90,7 +90,7 @@ com.mordritch.mcSim.ticker = function(simulator) {
 			this.tick();
 		}
 		
-	}
+	};
 	
 	this.startRunning = function() {
 		this.nextTickAt = new Date().getTime();
@@ -105,14 +105,14 @@ com.mordritch.mcSim.ticker = function(simulator) {
 			this.run();
 		}
 		
-	}
+	};
 
 	this.stopRunning = function() {
 		if (this.isRunning) {
 			this.triggerEvent("stopRunning");
 			this.isRunning = false;
 		}
-	}
+	};
 	
 	/**
 	 * Register a callback event called each time the simulator starts or stops running
@@ -123,7 +123,7 @@ com.mordritch.mcSim.ticker = function(simulator) {
 	 */
 	this.bind = function(eventName, callBackFunction) {
 		this.eventBindings.push([eventName, callBackFunction]);
-	}
+	};
 	
 	/**
 	 * Calls all callbacks bound to an eventName
@@ -134,5 +134,5 @@ com.mordritch.mcSim.ticker = function(simulator) {
 				this.eventBindings[i][1]();
 			}
 		}
-	}
-}
+	};
+};

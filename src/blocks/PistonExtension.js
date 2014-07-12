@@ -27,31 +27,31 @@
 	proto.construct = function() {
 		this._renderAsNormalBlock = false;
 		this.facing = new com.mordritch.mcSim.facing();
-	}
+	};
 
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing = FACING_DOWN, blockMetadata, forAboveLayer = false);
-	}
+	};
 
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing = FACING_DOWN, blockMetadata, forAboveLayer = true);
-	}
+	};
 	
 	proto.drawTopView_moving = function(world, posX, posY, posZ, canvas, entity, forAboveLayer, currentFacing) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing = FACING_DOWN, blockMetadata = entity.storedMetadata, forAboveLayer);
-	}
+	};
 
 	proto.drawSideView_moving = function(world, posX, posY, posZ, canvas, entity, forAboveLayer, currentFacing) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing, blockMetadata = entity.storedMetadata, forAboveLayer);
-	}
+	};
 
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing, blockMetadata, forAboveLayer = false);
-	}
+	};
 
 	proto.drawSideView_aboveLayer = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata) {
 		this.draw_generic(world, posX, posY, posZ, canvas, currentFacing, blockMetadata, forAboveLayer = true);
-	}
+	};
 
 	proto.draw_generic = function(world, posX, posY, posZ, canvas, currentFacing, blockMetadata, forAboveLayer) {
 		blockMetadata = (typeof blockMetadata != 'undefined') ? blockMetadata : world.getBlockMetadata(posX, posY, posZ);
@@ -170,9 +170,9 @@
 				}
 				canvas.restore();
 				break;
-			default: throw new Error("Unexepected case")
+			default: throw new Error("Unexepected case");
 		}
-	}
+	};
 	
 	proto.rotateSelection = function(blockMetadata, amount) {
 		var isSticky = blockMetadata & 8;
@@ -181,12 +181,12 @@
 			orientation = new Array(0, 1, 5, 4, 2, 3)[orientation];
 		}
 		return orientation | isSticky;
-	}
+	};
 	
 	proto.canPlaceBlockAt = function(world, posX, posY, posZ)
 	{
 		return false;
-	}
+	};
 
 	proto.onNeighborBlockChange = function(world, posX, posY, posZ, l)
 	{
@@ -200,12 +200,12 @@
 		{
 			world.Block.blocksList[blockID].onNeighborBlockChange(world, posX - this.facing.offsetsXForSide[direction], posY - this.facing.offsetsYForSide[direction], posZ - this.facing.offsetsZForSide[direction], l);
 		}
-	}
+	};
 
 	proto.getDirectionMeta = function(blockMetadata)
 	{
 		return blockMetadata & 0x7;
-	}
+	};
 
 	proto.onBlockRemoval = function(world, posX, posY, posZ)
 	{
@@ -225,9 +225,9 @@
 				world.setBlockWithNotify(posX, posY, posZ, 0);
 			}
 		}
-	}
+	};
 
 	proto.enumeratePlaceableBlocks = function() {
 		return [];
-	}
+	};
 }());

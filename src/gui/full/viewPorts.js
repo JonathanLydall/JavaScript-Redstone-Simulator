@@ -36,7 +36,7 @@
 		var construct = function() {
 			multiViewHandler.addModelView('modelViewTopLeft', 'top');
 			$('.modelViewTopLeft').css({width: '100%', height: '100%'});
-		}
+		};
 		
 		this.ToggleSplitHorizontally = function() {
 			if (isResizing) return;
@@ -50,7 +50,7 @@
 				isSplitHorizontally = true;
 				splitHorizontally();
 			}
-		}
+		};
 		
 		this.ToggleSplitVertically = function() {
 			if (isResizing) return;
@@ -64,7 +64,7 @@
 				isSplitVertically = true;
 				splitVertically();
 			}
-		}
+		};
 		
 		var mergeHorizontally = function() {
 			if (isSplitVertically) {
@@ -104,7 +104,7 @@
 					}
 				);
 			}
-		}
+		};
 		
 		var splitHorizontally = function() {
 			$(horizontalButtonSelector)
@@ -132,7 +132,7 @@
 					function() { isResizing = false; }
 				);
 			}
-		}
+		};
 		
 		var mergeVertically = function() {
 			if (isSplitHorizontally) {
@@ -172,7 +172,7 @@
 					}
 				);
 			}
-		}
+		};
 		
 		var splitVertically = function() {
 			$(verticalButtonSelector)
@@ -200,10 +200,10 @@
 					function() { isResizing = false; }
 				);
 			}
-		}
+		};
 		
 		construct();
-	}
+	};
 	
 	namespace.viewPorts = viewPorts;
 }());

@@ -43,21 +43,21 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		$(window).bind('focus', {t:this}, function(e) {e.data.t.onFocus(e);});
 		$(window).bind('blur', {t:this}, function(e) {e.data.t.onBlur(e);});
 
-		$(window).bind('mousemove', {t:this}, function(e) {e.data.t.onMouseMove(e)});
+		$(window).bind('mousemove', {t:this}, function(e) {e.data.t.onMouseMove(e);});
 		$(window).bind('mousewheel', {t: this}, function(e, delta) {e.data.t.onMouseWheel(e, delta);}); //Requires the mousewheel JQuery extension: http://plugins.jquery.com/project/mousewheel
 		
 		this.modal = new com.mordritch.mcSim.guiFullModal(this.gui);
 		this.modal.setCloseButtonText('Cancel');
-		this.modal.bind('show', function() {t.onModalShow()});
-		this.modal.addButton('Apply', 'applyButton', function() {t.applyButton()});
+		this.modal.bind('show', function() {t.onModalShow();});
+		this.modal.addButton('Apply', 'applyButton', function() {t.applyButton();});
 		
 		$('body').append('<div id="inputSelectOverlay"></div>');
 		$('#inputSelectOverlay').hide();
-		$('#inputSelectOverlay').bind('mousedown', {t:this}, function(e) {e.data.t.onKeyDown(e);}) //Since it's not bound above
+		$('#inputSelectOverlay').bind('mousedown', {t:this}, function(e) {e.data.t.onKeyDown(e);}); //Since it's not bound above
 				
 		this.gui.userSettings_registerForOnLoadCallback(function() {t.onUserSettingsLoad();});
 		
-	}
+	};
 	
 	/**
 	 * Returns a string showing the friendly keybinding key combo, used in places like tooltips  
@@ -72,7 +72,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		}
 		
 		return returnArray.join(", ");
-	}
+	};
 	
 	/**
 	 * Called as the modal is shown
@@ -170,18 +170,18 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		$('.choosekeybinding').bind('click',{t:this},function(e) {
 			e.data.t.chooseInputCombo(e.target.id);
 		});
-	}
+	};
 	
 	this.toggleConfigVisible = function() {
 		this.modal.toggleShown();
-	}
+	};
 	
 	/**
 	 * Called whenever the browser window/tab becomes active
 	 */
 	this.onFocus = function() {
 		
-	}
+	};
 	
 	/**
 	 * Called whenever the browser window/tab becomes the inactive/background window/tab
@@ -192,14 +192,14 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		for (var i in this.modKeysDown) {
 			//TODO: Trigger keyupevent for each modkey which was down (perhaps). 
 		}
-	}
+	};
 	
 	this.ignoreKey = function(keyCode) {
 		return (
 			keyCode == 93 || //Windows Context Menu Key 
 			keyCode == 92 || //Windows Key
 		false);
-	}
+	};
 	
 	this.isModKey = function(keyCode) {
 		return (
@@ -211,7 +211,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 			keyCode == 18 || //alt
 			keyCode == 32 || //space
 		false);
-	}
+	};
 	
 	this.onKeyUp = function(e) {
 		if(this.isModKey(e.which)) {
@@ -238,7 +238,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 			keysDown.sort();
 			this.inputEvent(keysDown.join('-'), e);
 		}
-	}
+	};
 	
 	this.onMouseMove = function(e) {
 		var keysDown = [];
@@ -247,7 +247,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		}
 		keysDown.sort();
 		this.inputEvent(keysDown.join('-'), e);
-	}
+	};
 	
 	this.onKeyDown = function(e) {
 		if (this.ignoreKey(e.which)) return;
@@ -275,7 +275,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		keysDown.sort();
 
 		this.inputEvent(keysDown.join('-'), e);
-	}
+	};
 	
 	this.inputEvent = function(keys, e) {
 		var isForMouseUp = e.type == "mouseup";
@@ -317,7 +317,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 				this.captureDone(keys);
 			}
 		}
-	}
+	};
 	
 	this.keysAreBoundToMouseUpEvent = function(keys, e)
 	{
@@ -332,7 +332,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		var inputEventName = typeof scopeBinding != 'undefined' ? scopeBinding : mainBinding;
 		var inputEventBinding = this.inputEventBindings[this.scope][inputEventName];
 		return inputEventBinding.alsoFireOnMouseUp;
-	}
+	};
 	
 	/**
 	 * When there is a matching keybinding, this calls back the bound function
@@ -366,11 +366,11 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 			if (inputEventBinding.keyUpModifierKeysOnTrigger)
 				this.modKeysDown = [];
 		}
-	}
+	};
 	
 	this.chooseInputCombo = function(domId) {
 		$('#inputSelectOverlay').show();
-		$(window).bind('contextmenu.inputSelection', function(e) {e.preventDefault()});
+		$(window).bind('contextmenu.inputSelection', function(e) {e.preventDefault(); });
 
 		this.choosingEventFor = {
 			domId: domId,
@@ -382,7 +382,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		this.modal.setFeedbackText(this.gui.localization.getString("guiFull.input.choose"));
 		this.capturingInputCombination_modKeys = [];
 		this.capturingInputCombination = true;
-	}
+	};
 	
 	this.captureDone = function(keys) {
 		if (typeof this.inputEventBindings_toUpdate[this.choosingEventFor.scope] == 'undefined')
@@ -391,7 +391,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 			this.inputEventBindings_toUpdate[this.choosingEventFor.scope][this.choosingEventFor.keyEvent] = {
 				binding1: this.inputEventBindings[this.choosingEventFor.scope][this.choosingEventFor.keyEvent].binding1,
 				binding2: this.inputEventBindings[this.choosingEventFor.scope][this.choosingEventFor.keyEvent].binding2
-			}
+			};
 
 		this.capturingInputCombination = false;
 		$('#inputSelectOverlay').hide();
@@ -456,7 +456,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		$('#'+this.modal.domId+'_'+this.choosingEventFor.scope+'_'+this.choosingEventFor.keyEvent+'_'+this.choosingEventFor.binding).html(this.getKeyNames(keys, "+"));
 		this.inputEventBindings_toUpdate[this.choosingEventFor.scope][this.choosingEventFor.keyEvent][this.choosingEventFor.binding] = keys;
 		this.keyBindingsMap_new[this.choosingEventFor.scope][keys] = this.choosingEventFor.keyEvent;
-	}
+	};
 
 	/**
 	 * Called when the modal's apply button is clicked
@@ -473,11 +473,11 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		this.gui.userSettings.bindings = this.getSaveableBindings();
 		this.gui.userManager.saveUserSettings();
 		this.modal.hide();
-	}
+	};
 	
 	this.onKeyPress = function(e, type) {
 
-	}
+	};
 	
 	this.getKeyNames = function(keys, seperator) {
 		if (keys == null) return this.gui.localization.getString('keynames.unbound');
@@ -488,7 +488,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		}
 		
 		return keyNames.join(seperator);
-	}
+	};
 	
 	this.getKeyName = function(keyCode) {
 		var keyCodeNames = {
@@ -570,7 +570,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		else {
 			return String.fromCharCode(keyCode);
 		}
-	}
+	};
 
 	this.onMouseWheel = function(e, delta) {
 		var keysDown = [];
@@ -588,7 +588,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		keysDown.sort();
 
 		this.inputEvent(keysDown.join('-'), e);
-	}
+	};
 	
 	/**
 	 * Tools use this register their events which can be bound to input
@@ -617,7 +617,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 			mouseMoveEvent: false,
 			keyUpModifierKeysOnTrigger: false,
 			alsoFireOnMouseUp: false
-		}
+		};
 		
 		for (var i in defaultParamaters) {
 			if (typeof parameters[i] == 'undefined') parameters[i] = defaultParamaters[i];
@@ -642,6 +642,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 		if (typeof this.inputEventBindings[scope][savedKeyName] != 'undefined') {
 			throw new Error('input.bindInputEvent: Attempted binding of duplicate savedKeyName and scope combination.');
 		}
+		
 		this.inputEventBindings[scope][savedKeyName] = {
 			'callbackFunction': callbackFunction,
 			'description': description,
@@ -709,7 +710,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 			this.keyBindingsMap[scope][binding2] = savedKeyName;
 			this.inputEventBindings[scope][savedKeyName].binding2 = binding2;
 		}
-	}
+	};
 	
 	/**
 	 * Used to apply user's saved keybindings, destroys any current custom keybindings
@@ -775,7 +776,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 				}
 			}
 		}
-	}
+	};
 	
 	/**
 	 * Returns an object which can be placed in the database of the server with a snapshot of the users keybindings.
@@ -789,11 +790,11 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 				returnObject[savedKeyName] = {
 					binding1: this.inputEventBindings[scope][savedKeyName].binding1,
 					binding2: this.inputEventBindings[scope][savedKeyName].binding2
-				}
+				};
 			}
 		}
 		return returnObject;
-	}
+	};
 	
 	
 	/**
@@ -804,7 +805,7 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 	this.captureInputCombo = function(callbackFunction) {
 		this.capturingInputCombination = true;
 		this.inputCaptureCallbackFunction = callbackFunction;
-	}
+	};
 
 	/**
 	 * Pauses shortcut key processing
@@ -813,14 +814,14 @@ com.mordritch.mcSim.guiFullInput = function(gui) {
 	 */
 	this.suspend = function() {
 		this.suspended = true;
-	}
+	};
 	
 	/**
 	 * Resumes shortcut key processing
 	 */
 	this.resume = function() {
 		this.suspended = false;
-	}
+	};
 	
 	this.construct();
-}
+};

@@ -26,23 +26,23 @@
 	
 	proto.construct = function() {
 		this._renderAsNormalBlock = false;
-	}
+	};
 
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas, currentFacing) {
 		this.drawGenericView_moving(world, posX, posY, posZ, canvas, forAboveLayer = false, currentFacing = FACING_DOWN);
-	}
+	};
 	
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas, currentFacing) {
 		this.drawGenericView_moving(world, posX, posY, posZ, canvas, forAboveLayer = true, currentFacing = FACING_DOWN);
-	}
+	};
 	
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, currentFacing) {
 		this.drawGenericView_moving(world, posX, posY, posZ, canvas, forAboveLayer = false, currentFacing);
-	}
+	};
 	
 	proto.drawSideView_aboveLayer = function(world, posX, posY, posZ, canvas, currentFacing) {
 		this.drawGenericView_moving(world, posX, posY, posZ, canvas, forAboveLayer = true, currentFacing);
-	}
+	};
 	
 	proto.drawGenericView_moving = function(world, posX, posY, posZ, canvas, forAboveLayer, lookingTowards) {
 		var entity = world.getBlockTileEntity(posX, posY, posZ);
@@ -145,20 +145,20 @@
 			}
 		}
 		canvas.restore();
-	}
+	};
 
 	proto.rotateSelection = function(blockMetadata, amount) {
 		//The stored block will be called by the part of the rotateSelection function which updated entities
 		return 0;
-	}
+	};
 
 	proto.drawTopView_moving_fromAir = function(world, posX, posY, posZ, canvas, entity, forAboveLayer, lookingTowards) {
 		this.drawGenericView_moving_fromAir(world, posX, posY, posZ, canvas, entity, forAboveLayer, FACING_DOWN);
-	}
+	};
 
 	proto.drawSideView_moving_fromAir = function(world, posX, posY, posZ, canvas, entity, forAboveLayer, lookingTowards) {
 		this.drawGenericView_moving_fromAir(world, posX, posY, posZ, canvas, entity, forAboveLayer, lookingTowards);
-	}
+	};
 
 	proto.drawGenericView_moving_fromAir = function(world, posX, posY, posZ, canvas, entity, forAboveLayer, lookingTowards) {
 		var storedBlock = world.Block.blocksList[entity.storedBlockID];
@@ -195,14 +195,14 @@
 		storedBlock["draw" + drawView + "View_moving"](world, posX, posY, posZ, canvas, entity, forAboveLayer, lookingTowards);
 		
 		canvas.restore();
-	}
+	};
 
 	proto.getBlockEntity = function() {
 		return null;
-	}
+	};
 	
 	proto.onBlockAdded = function(world, posX, posY, posZ) {
-	}
+	};
 	
 	proto.onBlockRemoval = function(world, posX, posY, posZ) {
 		var tileentity = world.getBlockTileEntity(posX, posY, posZ);
@@ -214,7 +214,7 @@
 		{
 			//super.onBlockRemoval(world, i, j, k); //TODO: Make a plan
 		}
-	}
+	};
 	
 	proto.onNeighborBlockChange = function(world, posX, posY, posZ) {
 		//source code seems to do nothing:
@@ -224,14 +224,14 @@
             if (world.getBlockTileEntity(i, j, k) != null);
         }
 		 */
-	}
+	};
 	
 	proto.getTileEntity = function(blockID, blockMetadata, orientation, flag, flag1, world)
     {
         var tileEntityPiston = new com.mordritch.mcSim.TileEntity_Piston();
         tileEntityPiston.construct(blockID, blockMetadata, orientation, flag, flag1, world);
         return tileEntityPiston;
-    }
+    };
     
 	proto.getTileEntityAtLocation = function(world, posX, posY, posZ) {
         var tileentity = world.getBlockTileEntity(posX, posY, posZ);
@@ -243,9 +243,9 @@
         {
             return null;
         }
-	}
+	};
 
 	proto.enumeratePlaceableBlocks = function() {
 		return new Array();
-	}
+	};
 }());

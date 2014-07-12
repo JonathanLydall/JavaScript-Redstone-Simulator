@@ -102,11 +102,11 @@
 			
 			this.sideBarSchematicDescriptionElement = this.sidebar.addSection('','');
 			this.setSchematicMetadata(this.schematicMetadata, isNew = true);
-		}
+		};
 		
 		this.initBlockHelpers = function() {
 			this.blockHelper_Sign = new  namespace.blockHelper_Sign(this);
-		}
+		};
 		
 		this.setSchematicMetadata = function(parameters, isNew) {
 			isNew = (typeof isNew == "undefined") ? false : isNew;
@@ -124,7 +124,7 @@
 					schematicId: -1,
 					userDisplayName: this.L10n.getString("document.metadata.default.userDisplayName"),
 					userId: ""
-				}
+				};
 			}
 			
 			schematicMetadata = this.schematicMetadata;
@@ -171,7 +171,7 @@
 			);
 			
 			this.urlHistory.setSchematicId(schematicMetadata.schematicId, useReplaceState = false, noChange = true);
-		}
+		};
 		
 		this.initGuiOptions = function() {
 			this.options.registerOption({
@@ -208,7 +208,7 @@
 				defaultValue: true
 			});
 			
-		}
+		};
 		
 		this.initTopRightButtons = function() {
 			var container = '.documentToolBarRight';
@@ -265,7 +265,7 @@
 					t.sidebar.toggle();
 				}
 			);
-		}
+		};
 		
 		this.initTopLeftButtons = function() {
 			var container = '.documentToolBarLeft';
@@ -510,7 +510,7 @@
 			this.tickerDomIds.stepButtonClass = tickerStep;
 			this.tickerDomIds.tickForButtonClass = tickerTickFor;
 			this.tickerDomIds.tickForTextboxId = tickUntilStopTextBoxId;
-		}
+		};
 		
 		this.addDocumentToolbarButton = function(name, description, imageUrl, container, onClickCallback) {
 			var className = 'addDocumentToolbarButton_'+name;
@@ -537,7 +537,7 @@
 
 			$(container+' .'+className).bind('click', onClickCallback);
 			return className;
-		}
+		};
 		
 		/**
 		 * Adds a toolbar seperator 
@@ -546,14 +546,14 @@
 			$(container).append(
 				'<span class="toolbarSeperator"></span>'
 			);
-		}
+		};
 		
 		/**
 		 * Classes can register to be notified if usersettings are loaded
 		 */
 		this.userSettings_registerForOnLoadCallback = function(callback) {
 			this.userSettings_onLoadCallbacks.push(callback);
-		}
+		};
 		
 		/**
 		 * Tells all clases which are registered for usersetting change notifcation through callbacks
@@ -562,7 +562,7 @@
 			for (var i=0; i<this.userSettings_onLoadCallbacks.length; i++) {
 				this.userSettings_onLoadCallbacks[i]();
 			}
-		}
+		};
 		
 		this.loadSchematicId = function(schematicId) {
 			if (typeof schematicId == "undefined" || schematicId == null) throw new Error("loadSchematicId() Schematic ID cannot be undefined.");
@@ -579,12 +579,22 @@
 					url: 'php/getSchematicMetadata.php?id=' + schematicId,
 					dataType: 'json',
 					success: function(data) {
-						t.setSchematicMetadata(data, isNew = true);
-						t.ajaxGetSchematicData(data.schematicId);
+						t.onGetSchematicIdComplete(data);
 					}
 				});
 			}
-		}
+		};
+		
+		this.onGetSchematicIdComplete = function(data)
+		{
+			if (data.error)
+			{
+				
+				return;
+			}
+			this.setSchematicMetadata(data, isNew = true);
+			this.ajaxGetSchematicData(data.schematicId);
+		};
 		
 		this.ajaxGetSchematicData = function(schematicIdToOpen) {
 			var t = this;
@@ -613,7 +623,7 @@
 					});
 				}
 			});
-		}
+		};
 		
 		
 		/**
@@ -662,6 +672,11 @@
 					//console.log("cancelled.");
 					//t.loaderModal.setContent("Task: "+category+"<br/>Progress: "+progress);
 				},
+				onError: function() {
+					t.loaderModal.hide();
+					// TODO: Have this better detect the kind of error and localize the response.
+					alert("Could not load the requested schematic, either an invalid URL was requested or the schematic is unreadable/corrupt.");
+				},
 				success: function(nbtData) {
 					var startTickingWorldOnLoad = t.userSettings.options.simulator.startTickingWorldOnLoad;
 					t.sidebar.show(noAnimate = true);
@@ -671,7 +686,7 @@
 					//t.tempToParticularView();
 				}
 			});
-		}
+		};
 		
 		this.tempToParticularView = function() {
 			var 
@@ -685,7 +700,7 @@
 
 			sideView.changeFacingTo(WEST);
 			sideView.layerTo(1);
-		}
+		};
 		
 		
 		this.saveSchematic = function(options) {
@@ -702,7 +717,7 @@
 					console.log("saveSchematic(): progress callback.");
 				}
 			});
-		}
+		};
 		
 		/**
 		 * Queries all blocks to get a list of blocktypes the user can place
@@ -737,7 +752,7 @@
 			this.placeableBlocks = placeableBlocks;
 			//console.log(placeableBlocks);
 			$('canvas#tempForIconGeneration').remove();
-		}
+		};
 		
 		/**
 		 * Pauses all keybinding events
@@ -746,7 +761,7 @@
 		 */
 		this.pauseBindings = function() {
 			this.input.suspend();
-		}
+		};
 		
 		/**
 		 * Resumes all keybinding events
@@ -755,21 +770,21 @@
 		 */
 		this.resumeBindings = function() {
 			this.input.resume();
-		}
+		};
 		
 		/**
 		 * Get an option's  current value
 		 */
 		this.getOption = function(category, name) {
 			return this.options.getOption(category, name);
-		}
+		};
 		
 		this.refreshModelViews = function() {
 			this.modelviews.drawAllBlocks();
-		}
+		};
 		
 		this.init();
-	}
+	};
 	
 	namespace['Gui_FullApp'] = Gui_FullApp;
 }());

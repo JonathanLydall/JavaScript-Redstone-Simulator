@@ -39,7 +39,7 @@ namespace[funcName] = function(gui) {
 		});
 		
 		this.setContent();
-	}
+	};
 	
 	this.setContent = function() {
 		var clockwise = this.L10n.getString("document.rotate.clockwise");
@@ -55,7 +55,7 @@ namespace[funcName] = function(gui) {
 			'</div>';
 			
 		this.modal.setContent(html);
-	}
+	};
 	
 	this.onOkClick = function() {
 		this.modal.hide();
@@ -73,7 +73,7 @@ namespace[funcName] = function(gui) {
 		setTimeout(function() {
 			t.doRotate();
 		},5);
-	}
+	};
 	
 	this.doRotate = function() {
 		var rotateAmountInDegrees = parseInt($('.documentRotate input["rotateAmount"]:checked').val());
@@ -105,16 +105,17 @@ namespace[funcName] = function(gui) {
 			loadedTileEntityList[tileEntity].rotateSelection(rotateAmount);
 		}
 		
-		console.log("Rotated %s blocks and %s tile enties in %sms.", sizeX*sizeY*sizeZ, count, new Date().getTime() - startedAt)
+		console.log("Rotated %s blocks and %s tile enties in %sms.", sizeX*sizeY*sizeZ, count, new Date().getTime() - startedAt);
 		this.gui.refreshModelViews();
 		this.progressModal.enableControls();
 		this.progressModal.hide();
-	}
+	};
 	
 	this.show = function() {
 		this.modal.show();
-	}
+	};
 	
 	
 	this.construct();
-}})();
+};
+})();

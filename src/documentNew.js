@@ -47,7 +47,7 @@ com.mordritch.mcSim.documentNew = function(gui) {
 				t.processNewPanel();
 			}
 		);
-	}
+	};
 	
 	/**
 	 * Once they have clicked the confirmation that they will lose any unsaved work 
@@ -83,11 +83,11 @@ com.mordritch.mcSim.documentNew = function(gui) {
 		this.modalPanelNew.show();
 		$('#documentNew_title').focus();
 		
-	}
+	};
 	
 	this.prompt = function() {
 		this.modalConfirmNew.show();
-	}
+	};
 	
 	this.processNewPanel = function() {
 		var inputError = false;
@@ -142,7 +142,7 @@ com.mordritch.mcSim.documentNew = function(gui) {
 				description: description
 			}, isNew = true);
 		}
-	}
+	};
 	
 	this.construct();
-}
+};

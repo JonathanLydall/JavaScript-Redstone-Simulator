@@ -9,11 +9,11 @@
 
 	proto.construct = function() {
 		this._renderAsNormalBlock = false;
-	}
+	};
 	
 	proto.toggleBlock = function(world, posX, posY, posZ) {
 		//TODO: Implement, toggles, the blockID between iron/wood
-	}
+	};
 	
 	proto.blockActivated = function(world, posX, posY, posZ, entityplayer)
 	{
@@ -40,7 +40,7 @@
 		world.markBlocksDirty(posX, posY - 1, posZ, posX, posY, posZ);
 		//world.playAuxSFXAtEntity(entityplayer, 1003, posX, posY, posZ, 0);
 		return true;
-	}
+	};
 	
 	proto.getFullMetadata = function(world, posX, posY, posZ) {
         var thisMetadata = world.getBlockMetadata(posX, posY, posZ);
@@ -62,7 +62,7 @@
         var hingeIsOnLeft = (topHalfMetadata & 1) != 0;
         var returnData = bottomHalfMetadata & 7 | (isTopHalf ? 8 : 0) | (hingeIsOnLeft ? 0x10 : 0);
         return returnData;
-	}
+	};
 	
 	proto.onPoweredBlockChange = function(world, posX, posY, posZ, doorIsPowered)
 	{
@@ -88,7 +88,7 @@
             world.markBlocksDirty(posX, posY, posZ, posX, posY, posZ);
         }
         //world.playAuxSFXAtEntity(null, 1003, posX, posY, posZ, 0);
-	}
+	};
 	
 	proto.onBlockPlaced = function(world, posX, posY, posZ) {
 		var topByte = 0;
@@ -96,7 +96,7 @@
 		
 		topByte = topByte | 8; //IsTopHalf bit
 		topByte = topByte | 1; //hingeIsOnLeft bit
-		bottomByte = bottomByte | 1 //facing North
+		bottomByte = bottomByte | 1; //facing North
 		
 		world.editingBlocks = true;
 		world.setBlockAndMetadataWithNotify(posX, posY, posZ, this.blockID, bottomByte);
@@ -104,7 +104,7 @@
 		world.editingBlocks = false;
 		world.notifyBlocksOfNeighborChange(posX, posY, posZ, this.blockID);
 		world.notifyBlocksOfNeighborChange(posX, posY + 1, posZ, this.blockID);
-	}
+	};
 	
 	proto.onNeighborBlockChange = function(world, posX, posY, posZ, sourceBlockID)
 	{
@@ -155,7 +155,7 @@
 				}
 			}
 		}
-	}
+	};
 	
 	/* 
 	 * http://www.minecraftwiki.net/wiki/Data_values#Doors :
@@ -182,17 +182,17 @@
 	proto.isTopHalf = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
 		return ((blockMetadata & 0x8) == 0x8);
-	}
+	};
 	
 	proto.isOpen = function(world, posX, posY, posZ) {
 		var blockMetadata = (this.isTopHalf(world, posX, posY, posZ)) ? world.getBlockMetadata(posX, posY-1, posZ) : world.getBlockMetadata(posX, posY, posZ);
 		return ((blockMetadata & 0x4) == 0x4);
-	}
+	};
 	
 	proto.getFacing = function(world, posX, posY, posZ) {
 		var blockMetadata = (this.isTopHalf(world, posX, posY, posZ)) ? world.getBlockMetadata(posX, posY-1, posZ) : world.getBlockMetadata(posX, posY, posZ);
 		return blockMetadata & 0x3;
-	}
+	};
 	
 	proto.setFacing = function(world, posX, posY, posZ, facing) {
 		if (facing > 0x3) {
@@ -207,12 +207,12 @@
 		else {
 			world.setBlockMetadataWithNotify(posX, posY, posZ, metadata);
 		}
-	}
+	};
 	
 	proto.hingeIsOnLeft = function(world, posX, posY, posZ) {
 		var blockMetadata = (this.isTopHalf(world, posX, posY, posZ)) ? world.getBlockMetadata(posX, posY, posZ) : world.getBlockMetadata(posX, posY+1, posZ);
 		return ((blockMetadata & 0x1) != 0x1);
-	}
+	};
 	
 	proto.setHingeIsOnLeft = function(world, posX, posY, posZ, isOnLeft) {
 		var metadata = (isOnLeft) ? 8 : 9;
@@ -222,7 +222,7 @@
 		else {
 			world.setBlockMetadataWithNotify(posX, posY+1, posZ, metadata);
 		}
-	}
+	};
 	
 	proto.rotateSelection = function(blockMetadata, amount) {
 		var isTopHalf = blockMetadata & 0x8;
@@ -238,7 +238,7 @@
 			}
 			return isTopHalf | isOpen | facing;
 		}
-	}
+	};
 	
 	proto.rotateBlock = function(world, posX, posY, posZ) {
 		var facing = this.getFacing(world, posX, posY, posZ);
@@ -247,7 +247,7 @@
 			this.setFacing(world, posX, posY, posZ, new Array(1, 2, 3, 0)[facing]);
 		}
 		this.setHingeIsOnLeft(world, posX, posY, posZ, !hingeIsOnLeft);
-	}
+	};
 
 	proto._canPlaceBlockAt = proto.canPlaceBlockAt;
 	proto.canPlaceBlockAt = function(world, posX, posY, posZ) {
@@ -257,15 +257,15 @@
 		else {
 			return world.isBlockNormalCube(posX, posY - 1, posZ) && this._canPlaceBlockAt(world, posX, posY, posZ) && this._canPlaceBlockAt(world, posX, posY + 1, posZ);
 		}
-	}
+	};
 
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas, forAboveLayer = false);
-	}
+	};
 	
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas, forAboveLayer = true);
-	}
+	};
 	
 	proto.drawTopView_generic = function(world, posX, posY, posZ, canvas, forAboveLayer) {
 		var colourPowered = "rgb(255,0,0)";
@@ -374,7 +374,7 @@
 		}
 		
 		canvas.restore();
-	}
+	};
 	
 	proto.getBlockInfo = function(world, posX, posY, posZ) {
 		returnData =
@@ -384,7 +384,7 @@
 			"hingeIsOnLeft: " + this.hingeIsOnLeft(world, posX, posY, posZ) + "\n" +
 		"";
 		return returnData;
-	}
+	};
 	
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		var facing = this.getFacing(world, posX, posY, posZ);
@@ -510,7 +510,7 @@
 		}
 		
 		this.drawSideView_generic(world, posX, posY, posZ, canvas, drawDoor, drawHinge, drawHingeOnLeft);
-	}
+	};
 	
 	proto.drawIcon = function(blockObj, canvas, blockMetadata) {
 		canvas.scale(0.5, 0.5);
@@ -543,7 +543,7 @@
 			drawHinge = true,
 			drawHingeOnLeft = true
 		);
-	}
+	};
 
 	proto.drawSideView_generic = function(world, posX, posY, posZ, canvas, drawDoor, drawHinge, drawHingeOnLeft) {
 		var colourPowered = "rgb(255,0,0)";
@@ -588,5 +588,5 @@
 		if (!drawHingeOnLeft) {
 			canvas.restore();
 		}
-	}
+	};
 }());

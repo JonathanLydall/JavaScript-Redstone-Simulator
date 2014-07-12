@@ -33,7 +33,7 @@ namespace[funcName] = function(gui) {
 		$('body').append('<div id="'+domId+'"></div>');
 		$tooltip = $('#'+domId);
 		$tooltip.hide();
-	}
+	};
 	
 	this.createForElement = function($domElement, position, headerTextResourceName, bodyTextResourceName, shortcutKeyScope, shortcutKeyEventName) {
 		var self = this;
@@ -49,7 +49,7 @@ namespace[funcName] = function(gui) {
 		});
 		
 		this.bindHideEvents($domElement);
-	}
+	};
 	
 	this.creteForElementWithDynamicParameters = function($domElement, getParamatersCallback) {
 		var self = this;
@@ -73,12 +73,12 @@ namespace[funcName] = function(gui) {
 		});
 		
 		this.bindHideEvents($domElement);
-	}
+	};
 	
 	this.bindHideEvents = function($domElement) {
 		$domElement.on('mouseleave', this.hide);
 		$domElement.on('click', this.hide);
-	}
+	};
 	
 	
 	this.show = function($domElement, position, headerText, bodyText, shortcutKeyScope, shortcutKeyEventName) {
@@ -87,7 +87,7 @@ namespace[funcName] = function(gui) {
 		timeoutId = setTimeout(function(){
 			t.showNow($domElement, position, headerText, bodyText, shortcutKeyScope, shortcutKeyEventName);
 		}, delay);
-	}
+	};
 	
 	this.showNow = function($domElement, position, headerText, bodyText, shortcutKeyScope, shortcutKeyEventName) {
 		var posX, posY, html = '';
@@ -103,7 +103,7 @@ namespace[funcName] = function(gui) {
 		}
 		if (bodyText.length > 0) {
 			while (bodyText.indexOf('\\n') >= 0) {
-				bodyText = bodyText.replace("\\n", "<br/>")
+				bodyText = bodyText.replace("\\n", "<br/>");
 			}
 			
 			html += '<br/><br/>' + bodyText;
@@ -135,27 +135,27 @@ namespace[funcName] = function(gui) {
 			top: posY + "px"
 		});
 		$tooltip.fadeIn("fast");
-	}
+	};
 	
 	this.getOuterHeight = function() {
 		$tooltip.show();
 		var returnValue = $tooltip.outerHeight();
 		$tooltip.hide();
 		return returnValue;
-	}
+	};
 	
 	this.getOuterWidth = function() {
 		$tooltip.show();
 		var returnValue = $tooltip.outerWidth();
 		$tooltip.hide();
 		return returnValue;
-	}
+	};
 	
 	this.hide = function() {
 		clearTimeout(timeoutId);
 		$tooltip.hide();
-	}
-	
+	};	
 	
 	this.construct();
-}})();
+};
+})();

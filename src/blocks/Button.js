@@ -19,11 +19,11 @@
 		this.drawIconBlockMetadataOveride = 3;
 		this._renderAsNormalBlock = false;
 		this.tickOnLoad = true;
-	}
+	};
 	
 	proto.tickRate = function() {
 		return 20;
-	}
+	};
 	
 	proto.canPlaceBlockAt = function(world, posX, posY, posZ)
 	{
@@ -40,7 +40,7 @@
 			return true;
 		}
 		return world.isBlockNormalCube(posX, posY, posZ + 1);
-	}
+	};
 	
 	proto.placementIsValid = function(world, posX, posY, posZ, direction) {
 		var facing = world.getBlockMetadata(posX, posY, posZ) & 7;
@@ -50,16 +50,16 @@
 			(!world.isBlockNormalCube(posX, posY, posZ - 1) && facing == 3) ||
 			(!world.isBlockNormalCube(posX, posY, posZ + 1) && facing == 4)
 		);
-	}
+	};
 
 	proto.rotateSelection = function(blockMetadata, amount) {
-		var isPressed = blockMetadata & 0x8
+		var isPressed = blockMetadata & 0x8;
 		var facing = blockMetadata & 0x7;
 		for (var i=0; i<amount; i++) {
 			facing = new Array(0, 3, 4, 2, 1)[facing];
 		}
 		return facing | isPressed;
-	}
+	};
 	
 	proto.rotateBlock = function(world, posX, posY, posZ) {
 		var facing = world.getBlockMetadata(posX, posY, posZ) & 7;
@@ -71,7 +71,7 @@
 				break;
 			}			
 		} while (true);
-	}
+	};
 	
 	/**
 	 * For buttons, we should need to see if the button needs to be destroyed if the block it was resting on is now gone. 
@@ -84,7 +84,7 @@
 				world.setBlockWithNotify(posX, posY, posZ, 0);
 			}
 		}
-	}
+	};
 	
 	proto.onBlockPlaced = function(world, posX, posY, posZ, facing) {
 		/*
@@ -146,7 +146,7 @@
 			return;
 		}
 		
-	}
+	};
 
 	/**
 	 * The MCP variable name
@@ -163,7 +163,7 @@
 		{
 			return true;
 		}
-	}
+	};
 
 	proto.blockActivated = function(world, posX, posY, posZ)
 	{
@@ -202,16 +202,16 @@
 		}
 		world.scheduleBlockUpdate(posX, posY, posZ, blockID, this.tickRate());
 		return true;
-	}
+	};
 	
 	proto.toggleBlock = function(world, posX, posY, posZ) {
 		this.blockActivated(world, posX, posY, posZ);
-	}
+	};
 
 	proto.isPoweringTo = function(world, posX, posY, posZ, direction)
 	{
 		return (world.getBlockMetadata(posX, posY, posZ) & 8) > 0;
-	}
+	};
 	
 	proto.isIndirectlyPoweringTo = function(world, posX, posY, posZ, direction)
 	{
@@ -238,11 +238,11 @@
 			return true;
 		}
 		return orientation == 1 && direction == 5;
-	}
+	};
 	
 	proto.canProvidePower = function() {
 		return true;
-	}
+	};
 	
 	proto.updateTick = function(world, posX, posY, posZ)
 	{
@@ -282,15 +282,15 @@
 		}
 		//world.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "random.click", 0.3F, 0.5F);
 		world.markBlocksDirty(posX, posY, posZ, posX, posY, posZ);
-	}
+	};
 	
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas, false);
-	}
+	};
 
 	proto.drawTopView_aboveLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawTopView_generic(world, posX, posY, posZ, canvas, true);
-	}
+	};
 
 	/**
 	 * @param forAboveLayer	It's faded when drawing for the above layer
@@ -318,15 +318,15 @@
 				this.draw(world, posX, posY, posZ, canvas, "up", forAboveLayer);
 				break;
 		}
-	}
+	};
 	
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		this.drawSideView_generic(world, posX, posY, posZ, canvas, lookingTowards, false);
-	}
+	};
 
 	proto.drawSideView_aboveLayer = function(world, posX, posY, posZ, canvas, lookingTowards) {
 		this.drawSideView_generic(world, posX, posY, posZ, canvas, lookingTowards, true);
-	}
+	};
 	
 	proto.drawSideView_generic = function(world, posX, posY, posZ, canvas, lookingTowards, forAboveLayer) {
 		var orientation = world.getBlockMetadata(posX, posY, posZ) & 0x7;
@@ -416,8 +416,8 @@
 				break;
 		}
 		
-		this.draw(world, posX, posY, posZ, canvas, direction, forAboveLayer)
-	}
+		this.draw(world, posX, posY, posZ, canvas, direction, forAboveLayer);
+	};
 
 	proto.draw = function(world, posX, posY, posZ, canvas, direction, forAboveLayer) {
 		var isPressed = (world.getBlockMetadata(posX, posY, posZ) & 8) == 0x8;
@@ -462,5 +462,5 @@
 				canvas.fillRect(2, 2, 4, 4);
 				break;
 		}
-	}
+	};
 }());

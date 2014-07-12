@@ -25,41 +25,41 @@
 		this.shouldHeadBeRendered = shouldHeadBeRendered;
 		this.worldObj = worldObj;
 		this.entityId = "Piston"; //used by the base class's writeToNBT() method
-	}
+	};
 
 	proto.rotateSelection = function(amount) {
 		var storedBlock = this.worldObj.Block.blocksList[this.storedBlockID];
 		this.storedMetadata = storedBlock.rotateSelection(this.storedMetadata, amount);
-	}
+	};
 
 	proto.getStoredBlockID = function() {
 		return this.storedBlockID;
-	}
+	};
 	
 	/**
 	 * Returns block data at the location of this entity (client-only).
 	 */
 	proto.getBlockMetadata = function() {
 		return this.storedMetadata;
-	}
+	};
 	
 	/**
 	 * Returns true if a piston is extending
 	 */
 	proto.isExtending = function() {
 		return this.extending;
-	}
+	};
 	
 	/**
 	 * Returns the orientation of the piston as an int
 	 */
 	proto.getPistonOrientation = function() {
 		return this.storedOrientation;
-	}
+	};
 	
 	proto.shouldRenderHead = function() {
 		return this.shouldHeadBeRendered;
-	}
+	};
 	
 	/**
 	 * Get interpolated progress value (between lastProgress and progress) given the fractional time between ticks as an
@@ -69,7 +69,7 @@
 		if (par1 > 1.0) par1 = 1.0;
 
 		return this.lastProgress + (progress - lastProgress) * par1;
-	}
+	};
 	
 	proto.getOffsetX = function(par1) {
 		if (this.extending) {
@@ -78,7 +78,7 @@
 		else {
 			return (1.0 - this.getProgress(par1)) * Facing.offsetsXForSide[storedOrientation];
 		}
-	}
+	};
 	
 	proto.getOffsetY = function(par1) {
 		if (this.extending) {
@@ -87,7 +87,7 @@
 		else {
 			return (1.0 - this.getProgress(par1)) * Facing.offsetsYForSide[storedOrientation];
 		}
-	}
+	};
 	
 	proto.getOffsetZ = function(par1) {
 		if (this.extending) {
@@ -96,7 +96,7 @@
 		else {
 			return (1.0 - this.getProgress(par1)) * Facing.offsetsZForSide[storedOrientation];
 		}
-	}
+	};
 	
 	/* Used by renderer only?
 	proto.updatePushedObjects = function(par1, par2)
@@ -145,7 +145,7 @@
 				this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
 			}
 		}
-	}
+	};
 	
 	/**
 	 * Allows the entity to update its state. Overridden in most subclasses, e.g. the mob spawner uses this to count
@@ -176,7 +176,7 @@
 		if (this.extending) {
 			//this.updatePushedObjects(this.progress, (this.progress - this.lastProgress) + 0.0625); //For renderer only?
 		}
-	}
+	};
 	
 	/**
 	 * Reads a tile entity from NBT.
@@ -210,7 +210,7 @@
 		lastProgress = progress = par1NBTTagCompound.getFloat("progress");
 		extending = par1NBTTagCompound.getBoolean("extending");
 		*/
-	}
+	};
 
 	/**
 	 * Writes a tile entity to NBT.
@@ -254,5 +254,5 @@
 		par1NBTTagCompound.setFloat("progress", lastProgress);
 		par1NBTTagCompound.setBoolean("extending", extending);
 		*/
-	}
+	};
 }());

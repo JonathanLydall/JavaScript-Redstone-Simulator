@@ -11,7 +11,7 @@
 	
 	proto.construct = function() {
 		this._renderAsNormalBlock = false;
-	}
+	};
 	
 	/**
 	 * Draws a blue block with the block ID in it, signfiying the block is not yet implemented 
@@ -33,17 +33,17 @@
 		canvas.textAlign = "center";
 		canvas.font = "bold " + (8) + "px arial";
 		canvas.fillText(this.blockID, 4, 4, 6);
-	}
+	};
 	
 	proto.drawTopView_currentLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawGeneric(world, posX, posY, posZ, canvas);
-	}
+	};
 	
 	proto.drawSideView_currentLayer = function(world, posX, posY, posZ, canvas) {
 		this.drawGeneric(world, posX, posY, posZ, canvas);
-	}
+	};
 	
 	proto.enumeratePlaceableBlocks = function() {
 		return new Array();
-	}
+	};
 }());

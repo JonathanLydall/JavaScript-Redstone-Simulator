@@ -40,7 +40,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 
 		this.worldTime = 0; //TODO: Migrate into a worldinfo class, like in the games source code.
 		this.editingBlocks = false;
-	}
+	};
 
 	/**
 	 * In the source code, this is inside a "worldInfo" object
@@ -48,7 +48,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 	this.getWorldTime = function() {
 		//TODO: Migrate into the WorldInfo class, like in the games source code
 		return this.worldTime;
-	}
+	};
 	
 	this.getBlockMaterial = function(par1, par2, par3)
 	{
@@ -62,7 +62,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		{
 			return this.Block.blocksList[i].blockMaterial;
 		}
-	}
+	};
 
 	/**
 	 * Adds an object to the this.worldAccesses array.
@@ -72,7 +72,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 	 */
 	this.addWorldAccess = function(worldAccess) {
 		this.worldAccesses.push(worldAccess);
-	}
+	};
 	
 	/**
 	 * Inverse of this.addWorldAccess();
@@ -84,7 +84,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 				return;
 			}
 		}
-	}
+	};
 	
 	/**
      * Checks if the block is a solid, normal cube. If the chunk does not exist, or is not loaded, it returns the
@@ -116,7 +116,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
         {
             return block.blockMaterial.isOpaque() && block.renderAsNormalBlock();
         }
-	}
+	};
 	
 	/**
 	 * This seems to notify the renderer to update the blocks.
@@ -129,7 +129,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		for (var i in this.worldAccesses) {
 			this.worldAccesses[i].markBlockNeedsUpdate(posX, posY, posZ);
 		}
-	}
+	};
 	
 	/**
 	 * Also, seems to notify the renderer to update the blocks.
@@ -140,7 +140,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		for (var i in this.worldAccesses) {
 			this.worldAccesses[i].markBlockRangeNeedsUpdate(posX, posY, posZ, posX, posY, posZ);
 		}
-	}
+	};
 	
 	/**
 	 * Also, seems to notify the renderer to update the blocks.
@@ -151,7 +151,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		for (var i in this.worldAccesses) {
 			this.worldAccesses[i].markBlockRangeNeedsUpdate(posX1, posY1, posZ1, posX2, posY2, posZ2);
 		}
-	}
+	};
 	
 	/**
 	 * Removes refference to a tile entity at a particular coordinate
@@ -189,7 +189,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 			}
 			*/
 		}
-	}
+	};
 	
 	/**
 	 * Loads tick data from a saved world
@@ -207,7 +207,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 				nbtTickData[i].t.payload
 			);
 		}
-	}
+	};
 	
 	/**
 	 * Simulator specific. Commits tick data to the schematic file, sends it over in NBT format
@@ -255,7 +255,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		}
 		
 		this.worldData.setTickData(tickData);
-	}
+	};
 	
 	/**
 	 * Simulator specific.  
@@ -268,7 +268,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		}
 		
 		this.worldData.setEntities(nbtData);
-	}
+	};
 	
 	/**
 	 * Simulator specific.  
@@ -281,19 +281,19 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		}
 		
 		this.worldData.setTileEntities(nbtData);
-	}
+	};
 	
 	this.loadAll = function() {
 		this.loadEntities();
 		this.loadTickData();
 		this.loadTileEntities();
-	}
+	};
 	
 	this.commitAll = function() {
 		this.commitEntities();
 		this.commitTickData();
 		this.commitTileEntities();
-	}
+	};
 	
 	/**
 	 * Get's a tile entity at a particular coordinate
@@ -311,7 +311,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 			typeof this.loadedTileEntityList[id] != 'undefined' &&
 			!this.loadedTileEntityList[id].isInvalid()
 		) {
-			return this.loadedTileEntityList[id]
+			return this.loadedTileEntityList[id];
 		}
 		
 		///asdasd;
@@ -320,7 +320,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 			typeof this.addedTileEntityList[id] != 'undefined' &&
 			!this.addedTileEntityList[id].isInvalid()
 		) {
-			return this.addedTileEntityList[id]
+			return this.addedTileEntityList[id];
 		}
 		return null;
 		
@@ -360,7 +360,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		}
 		return null;
 			 */
-	}
+	};
 	
 	/**
 	 * Sets a blocks tile entity
@@ -384,7 +384,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		}
 		
 		this.markBlockNeedsUpdate(posX, posY, posZ); //Simulator only
-	}
+	};
 	
 	/**
 	 * If a block is getting powered, for example by a torch underneath it, or wire running into it.
@@ -412,7 +412,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 			return true;
 		}
 		return this.isBlockProvidingPowerTo(posX + 1, posY, posZ, 5);
-	}
+	};
 
 	/**
 	 * 
@@ -441,7 +441,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		}
 		
 		return this.isBlockIndirectlyProvidingPowerTo(posX + 1, posY, posZ, 5);
-	}
+	};
 	
 	/**
 	 * 
@@ -460,7 +460,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		{
 			return this.Block.blocksList[blockID].isPoweringTo(this, posX, posY, posZ, direction);
 		}
-	}
+	};
 	
 	/**
 	 * 
@@ -475,7 +475,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		{
 			return this.Block.blocksList[blockID].isIndirectlyPoweringTo(this, posX, posY, posZ, direction);
 		}
-	}
+	};
 	
 	/**
 	 * 
@@ -485,14 +485,14 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 			return 1; //TODO: make this customizable, for now it's returning the stone blockId, make it choose from user definable option
 		}
 		return this.worldData.getBlockId(posX, posY, posZ);
-	}
+	};
 	
 	/**
 	 * 
 	 */
 	this.getBlockMetadata = function(posX, posY, posZ) {
 		return this.worldData.getBlockMetadata(posX, posY, posZ);
-	}
+	};
 
 	/**
 	 * Calls the "powerBlock" method for a block at particular coordinates.
@@ -510,7 +510,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 			this.Block.blocksList[blockID].powerBlock(this, posX, posY, posZ, uknownParam1, uknownParam2);
 		}
 		
-	}
+	};
 	
 	/**
 	 * Checks if the specified block has "isNormalCube" set true
@@ -527,7 +527,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		
 		//IsOpaque checks if blockMaterial has the "isTranslucent" property
 		//renderAsNormalBlock is just a property of the blocktype
-	}
+	};
 	
 	/**
 	 * 
@@ -568,7 +568,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 
 		this.markBlockNeedsUpdate(posX, posY, posZ); //Normally this happens via updateAllLightTypes(i, j, k) and a whole lot of other calls, we are ignoring lighting data for now.
 		return true;
-	}
+	};
 	
 	/**
 	 * Blocks being moved by pistons, chests, furnaces 
@@ -592,7 +592,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 			}
 			this.loadedTileEntityList[id].readFromNBT(tileEntities[i], this);
 		}
-	}
+	};
 	
 	
 	/**
@@ -616,7 +616,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 			}
 			
 		}
-	}
+	};
 	
 	/**
 	 * Called at the same regularity of tick()
@@ -692,7 +692,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 			}
 		}
 		this.addedTileEntityList = {};
-	}
+	};
 	
 	/**
 	 * Called by a block to schedule an update for x ticks from now. For example a torch would call itself to be updated
@@ -727,7 +727,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 				}
 			);
 		}
-	}
+	};
 	
 	/**
 	 * 
@@ -741,7 +741,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		else {
 				return false;
 		}
-	}
+	};
 
 	/**
 	 * 
@@ -754,7 +754,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		else {
 			return false;
 		}
-	}
+	};
 
 	/**
 	 * 
@@ -767,7 +767,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		this.notifyBlockOfNeighborChange(posX, posY + 1, posZ, blockID);
 		this.notifyBlockOfNeighborChange(posX, posY, posZ - 1, blockID);
 		this.notifyBlockOfNeighborChange(posX, posY, posZ + 1, blockID);
-	}
+	};
 	
 	/**
 	 * 
@@ -783,7 +783,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		{
 				block.onNeighborBlockChange(this, posX, posY, posZ, blockID);
 		}
-	}
+	};
 	
 	/**
 	 * 
@@ -791,7 +791,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 	this.notifyBlockChange = function(posX, posY, posZ, blockID) {
 		this.markBlockNeedsUpdate(posX, posY, posZ);
 		this.notifyBlocksOfNeighborChange(posX, posY, posZ, blockID);
-	}
+	};
 	
 	/**
 	 * 
@@ -808,7 +808,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 					this.notifyBlocksOfNeighborChange(posX, posY, posZ, blockID);
 				}
 		}
-	}
+	};
 	
 	/**
 	 * 
@@ -839,7 +839,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		
 		this.worldData.setBlockMetadata(posX, posY, posZ, blockMetadata);
 		return true;
-	}
+	};
 	
 	/**
 	 * Checks all ticks in the queue and will update blocks scheduled for an update based on the world time. 
@@ -865,7 +865,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 				this.scheduledUpdates.push(scheduledUpdate);
 			}
 		}
-	}
+	};
 	
 	/**
 	 * In MCP, this does a variety of functions like spawn mobs and eventually call tickupdates.
@@ -903,7 +903,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		}
 		this.worldTime++;
 		this.tickUpdates();
-	}
+	};
 	
 	/**
 	 * 
@@ -937,7 +937,7 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		this.Block.blocksList[blockID].onBlockAdded(this, posX, posY, posZ);
 		this.markBlockNeedsUpdate(posX, posZ, posY); //Normally this happens via updateAllLightTypes(i, j, k) and a whole lot of other calls, we are ignoring lighting data for now.
 		return true;
-	}
+	};
 
 	/**
 	 * Simulator only, not in the game.
@@ -995,8 +995,8 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 		}
 		
 		return null;
-	}
+	};
 	
 	
 	this.construct();
-}
+};

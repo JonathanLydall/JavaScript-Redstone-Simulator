@@ -31,7 +31,7 @@
 	proto.construct = function(par1MapColor)
 	{
 		this._construct(par1MapColor);
-	}
+	};
 
 	/**
 	 * Returns if this material is considered solid or not
@@ -39,5 +39,5 @@
 	proto.blocksMovement = function()
 	{
 		return false;
-	}
+	};
 }());
