@@ -1,4 +1,0 @@
-{"ts":1371159022419,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"com.mordritch.mcSim.BlockType_Dirt = function(){}\n\tcom.mordritch.mcSim.BlockType_Dirt.prototype = new com.mordritch.mcSim.BlockType_Block();\n\n\tcom.mordritch.mcSim.BlockType_Dirt.prototype.material = \"ground\";\n\n"]],"start1":0,"start2":0,"length1":0,"length2":210}]],"length":210}
-{"contributors":[],"silentsave":true,"ts":1371159287441,"patch":[[{"diffs":[[0,"ground\";"],[-1,"\n\n"]],"start1":200,"start2":200,"length1":10,"length2":8}]],"length":208,"saved":false}
-{"ts":1371159288695,"patch":[[{"diffs":[[0,"ock();\n\n"],[-1,"\t"],[0,"com.mord"]],"start1":134,"start2":134,"length1":17,"length2":16}]],"length":207,"saved":false}
-{"ts":1371159289909,"patch":[[{"diffs":[[0,"){}\n"],[-1,"\t"],[0,"com."]],"start1":46,"start2":46,"length1":9,"length2":8}]],"length":206,"saved":false}

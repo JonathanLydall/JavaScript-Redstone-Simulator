@@ -1,2 +1,0 @@
-{"ts":1371162343248,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"com.mordritch.mcSim.BlockType_Bookshelf = function(){}\n\tcom.mordritch.mcSim.BlockType_Bookshelf.prototype = new com.mordritch.mcSim.BlockType_Block();\n\t\n\tcom.mordritch.mcSim.BlockType_Bookshelf.prototype.material = \"wood\";\n\t\n"]],"start1":0,"start2":0,"length1":0,"length2":225}]],"length":225}
-{"contributors":[],"silentsave":true,"ts":1371162346486,"patch":[[{"diffs":[[0," \"wood\";"],[-1,"\n\t\n"]],"start1":214,"start2":214,"length1":11,"length2":8}]],"length":222,"saved":false}
