@@ -5,25 +5,23 @@ This is the same code as used at [http://mordritch.com/mc_rss/](http://mordritch
 
 For now feel free to contact me with questions regarding how this all works.
 
-Future plans:
+Roadmap:
 -------------
 
 **Move everything over to [TypeScript](http://www.typescriptlang.org/)**
 
-The work required is effectively a full port, but there are a lot of advantages. I am hoping it's possible to simply port it over bit by bit, but haven't sat down yet and tried it out. The primary candidates are the block types because in the original Java source code, they use inheritance which is much easier to achieve in JavaScript by using TypeScript
+This is mostly done. I am now in the process of "glueing" the Simulator code to the game engine. This is not as simple as I had done it initially because I am now keeping the game logic code seperate from the simulator logic and then creating an adapter to which communicates between the two.
 
 **Seperate drawing logic out of same source files as block logic**
 
-As drawing logic is specific to the simulator, this will allow one to more easily update block logic when the game changes as the files become independant.
+Drawing logic used to live in the same source files as the block logic which was ported from the original game's source code. Part of my "glue" operation above is establishing a pattern for self contained draw routines which can also be interchaged which will enable use of different display themes.
 
 **Generate a tool which can take Minecraft's Java source files and convert their logic into JavaScript / TypeScript**
 
-Because the current block logic is essentially just a JavaScript port from the game's Java source code, a tool to automatically port the source will make it trivial to update the simulator anytime Minecraft changes.
+Because the current block logic is essentially just a JavaScript port from the game's Java source code, a tool to automatically port the source will make it far easier to update the simulator anytime Minecraft changes.
 
-I am already in the process of doing this in C# (because I primarily work with C# where I work and like VS). So far I have the tokenizer done and a good chnunk of parsing Java into an AST. I will then be able to use the AST to generate either JavaScript or TypeScript.
-
-Moving block logic to TypeScript and seperating drawing logic code will need to be done as well to make the porting tool pretty much fully automatic.
+This tool is now at a "good enough" stage and meets the needs of the project. It was an exceptionally interesting, but also long excercise. The end result is largely automatic conversion of Java syntax files to TypeScript syntax files, but with configuration to limit which methods and properties are ignored/converted.
 
 **Adding more of the games block types**
 
-Porting over block types has two tasks, porting the game's code and then making the drawing code. The latter is unavoidable, but the former can be done automatically, so this is why not many blocks have been ported lately as it would be much quicker once I have the porting tool created.
+My initial goal is to release the tool with the same block types as it has now but updated to the latest Minecraft version, then incrementally add more block types.
