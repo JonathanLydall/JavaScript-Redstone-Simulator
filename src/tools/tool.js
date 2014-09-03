@@ -29,7 +29,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 	
 	this.construct = function() {
 
-		this.console = this.debugEnabled ? console : new function() { this.log = function () {}; };
+		this.console = this.debugEnabled ? console : { "log": function () {} };
 		
 		var t = this;
 		
@@ -37,9 +37,9 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			savedKeyName: 'tool_primary',
 			category: 'tools',
 			description: 'shortcuts.tools.primary',
-			callbackFunction: function(e) {t.onPrimaryInput(e, isMouseUpevent = e.type == "mouseup");},
+			callbackFunction: function(e) {t.onPrimaryInput(e, e.type == "mouseup");},
 			bindToMouseMove: true,
-			callbackFunction_mouseMove: function(e) {t.onPrimaryInput_mouseMove(e, isMouseUpevent = false);},
+			callbackFunction_mouseMove: function(e) {t.onPrimaryInput_mouseMove(e, false);},
 			alsoFireOnMouseUp: true
 		});
 		
@@ -47,9 +47,9 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			savedKeyName: 'tool_secondary',
 			category: 'tools',
 			description: 'shortcuts.tools.secondary', 
-			callbackFunction: function(e) {t.onSecondaryInput(e, isMouseUpevent = e.type == "mouseup");},
+			callbackFunction: function(e) {t.onSecondaryInput(e, e.type == "mouseup");},
 			bindToMouseMove: true,
-			callbackFunction_mouseMove: function(e) {t.onSecondaryInput_mouseMove(e, isMouseUpevent = false);},
+			callbackFunction_mouseMove: function(e) {t.onSecondaryInput_mouseMove(e, false);},
 			alsoFireOnMouseUp: true
 		});
 	};
@@ -323,7 +323,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				
 			if (blockTileEntity != null) {
 				if (typeof blockTileEntity.loaded_NBT_Data != 'undefined') {
-					content += 'Block Tile Entity Data: ' + JSON.stringify(blockTileEntity.loaded_NBT_Data, null, '  ') + "\n";;
+					content += 'Block Tile Entity Data: ' + JSON.stringify(blockTileEntity.loaded_NBT_Data, null, '  ') + "\n";
 				}
 				else {
 					content += 'Block Tile Entity Data: ' + "\n";
