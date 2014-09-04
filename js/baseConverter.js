@@ -8,6 +8,10 @@ function baseConverter( number, oldBase, newBase ){
 	return parseInt( number, oldBase ).toString( newBase );
 }
 
+function formatNumberString( template, string ){
+	return template.substr( 0, template.length - string.length ) + string;
+}
+
 //wrapper functions, created for Redstone Javascript simulator: 
 
 // number :: String
@@ -19,11 +23,7 @@ function fromBase2(number) {
 
 // @return String
 function toBase2(number) {
-	//expects base 10 input
-	var zeros = "0000";
-	var result = baseConverter( number, 10, 2 );
-	
-	return zeros.substr( 0, 4 - result.length ) + result;
+	return formatNumberString( "0000", baseConverter( number, 10, 2 ) );
 }
 
 // @return Number
@@ -35,25 +35,19 @@ function fromBase4(number) {
 // @return String
 function toBase4(number) {
 	//expects base 10 input
-	var zeros = "00";
-	var result = baseConverter(number,10,4);
-	
-	return zeros.substr( 0, 2 - result.length ) + result;
+	return formatNumberString( "00", baseConverter( number, 10, 4 ) );
 }
 
 // @return String
 function byteToBase2(number) {
 	var zeros = "00000000";
-	if (number === undefined) {
+	if (number === undefined)
 		return zeros;
-	}
-	var returnNum = baseConverter(number,10,2).toString();
-	
-	return zeros.substr(0, 8 - returnNum.length) + returnNum;
+	return formatNumberString( zeros, baseConverter( number, 10, 2 ) );
 }
 
 // @return String (formatted)
 function byteToBinary(number) {
-	var result = byteToBase2( number) ;
-	return result.substr(0, 4) + " " + result.substr(4, 4);
+	var result = byteToBase2( number );
+	return result.substr( 0, 4 ) + " " + result.substr( 4, 4 );
 }
