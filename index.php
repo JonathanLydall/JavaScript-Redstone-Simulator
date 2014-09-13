@@ -146,9 +146,7 @@ function getNoCanvasError() {
 			var schematicMetadata = <?php echo $schematicMetadataEncoded; ?>;
 			var userManager_cookieCheckResponse = <?php echo $sessionData; ?>;
 		</script>
-		<!--[if lt IE 8]>  
-		    <script "text/javascript" src="js/json2.js"></script>  
-		<![endif]-->
+
 		<script src="js/defaultOptions.js"></script> 
 
 		<script src="js/jquery/jquery-1.7.1.min.js"></script> 
