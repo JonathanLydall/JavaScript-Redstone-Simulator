@@ -97,7 +97,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 		}
 	};
 
-	this.onSecondaryInput = function(e) {
+	this.onSecondaryInput = function(e, isMouseUpevent) {
 		if (isMouseUpevent)
 		{
 			switch (this.activeTool) {
