@@ -23,6 +23,11 @@ body {
 	font-weight: bold;
 }
 
+.informationText {
+	color: blue;
+	font-weight: bold;
+}
+
 .hand {
 	cursor: pointer;
 }

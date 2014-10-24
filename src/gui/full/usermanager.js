@@ -167,21 +167,30 @@ com.mordritch.mcSim.guiFull_userManager = function(gui) {
 
 	this.formSuccess = function(modal, data) {
 		modal.stopWaitingForServer();
-		if (!data.error) {
-			modal.hide();
-			this.loggedIn(data.userData);
-			if (this.signInFirst) {
-				this.signInFirst = false;
-				this.signInFirst_callback();
-			}
-		}
-		else {
-			var jqDomId = modal.jqDomId  + ' .'; 
+		var jqDomId = modal.jqDomId  + ' .'; 
+		
+		if (data.error) {
 			modal.setFeedbackText('<span class="errorText">' + this.l("usermanager.form.inputerror") + '</span>');
 			for (var i in data.errorMessages) {
-				//console.log("error: %s (%s)", i, data.errorMessages[i]);
-				$(jqDomId + i).html('<br/>'+data.errorMessages[i]);
+				$(jqDomId + i).html('<br/><span class="errorText">'+data.errorMessages[i]+'</span>');
 			}
+			
+			return;
+		}
+		
+		if (data.information) {
+			for (var i in data.informationMessages) {
+				$(jqDomId + i).html('<br/><span class="informationText">'+data.informationMessages[i]+'</span>');
+			}
+			
+			return;
+		}
+		
+		modal.hide();
+		this.loggedIn(data.userData);
+		if (this.signInFirst) {
+			this.signInFirst = false;
+			this.signInFirst_callback();
 		}
 	};
 	

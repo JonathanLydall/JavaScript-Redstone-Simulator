@@ -760,27 +760,18 @@ class userManager {
 			return array(
 				"error" => true,
 				"errorMessages" => array(
-					'forgottenPassword_emailAddress' => "Your email address was found, but due to a technical failure on the web server, it could not send the password reset email."
+					'forgottenPassword_emailAddress' => "Technical error on server, could not send the password reset email."
 				)
 			);
 		}
 		else {
-			//It's not really an error, but the way the webpage interprets it, it's a feedback message.
 			return array(
-				"error" => true,
-				"errorMessages" => array(
+				"information" => true,
+				"informationMessages" => array(
 					'forgottenPassword_emailAddress' => "Password reset email sent to " . $emailAddress . "."
 				)
 			);
-
-			/*
-			return array(
-				"error" => false,
-				"successMessage" => "Password reset email sent to " . $_POST['emailAddress'] . " ."
-			);
-			*/
 		}
-		
 	}
 	
 	/**
