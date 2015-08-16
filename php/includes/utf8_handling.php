@@ -20,19 +20,18 @@
  */
 
 ini_set('mbstring.language', 'Neutral');
-
-ini_set('mbstring.language', 'Neutral');
 ini_set('mbstring.detect_order', 'auto');
-ini_set('mbstring.http_input', 'auto');
-ini_set('mbstring.http_output', 'UTF-8');
-ini_set('mbstring.internal_encoding', 'UTF-8');
-//ini_set('mbstring.substitute_character', 'none');
 ini_set('mbstring.encoding_translation', 'On');
-
-
 ini_set('default_charset', 'UTF-8');
-/*
-*/
+
+if (version_compare(PHP_VERSION, '5.6.0', '<')) {
+	// Deprecated as of 5.6.0: http://php.net/manual/en/mbstring.configuration.php#ini.mbstring.internal-encoding
+	// Their recommendation: "PHP 5.6 and later users should leave this empty and set default_charset instead."
+	ini_set('mbstring.http_input', 'auto');
+	ini_set('mbstring.http_output', 'UTF-8');
+	ini_set('mbstring.internal_encoding', 'UTF-8');
+}
+
 
 /*
 mbstring.language				= Neutral	; Set default language to Neutral(UTF-8) (default)
