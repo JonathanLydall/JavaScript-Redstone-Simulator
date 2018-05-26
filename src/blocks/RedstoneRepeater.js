@@ -122,20 +122,20 @@
 
 	proto.isLocked = function (world, posX, posY, posZ, blockMetadata) {
 		var repeaterDirection= blockMetadata & 3;
+		var repeaterBlockId = world.Block.redstoneRepeaterActive.blockID;
 		switch (repeaterDirection) {
 			case 3:
 			case 1:
-				return world.getBlockId(posX, posY, posZ + 1) == world.Block.redstoneRepeaterActive.blockID
-					|| world.getBlockId(posX, posY, posZ - 1) == world.Block.redstoneRepeaterActive.blockID;
+				return (world.getBlockId(posX, posY, posZ + 1) === repeaterBlockId && world.isBlockProvidingPowerTo(posX, posY, posZ + 1, 3))
+					|| (world.getBlockId(posX, posY, posZ - 1) === repeaterBlockId && world.isBlockProvidingPowerTo(posX, posY, posZ - 1, 2));
 
 			case 0:
 			case 2:
-				return world.getBlockId(posX + 1, posY, posZ) == world.Block.redstoneRepeaterActive.blockID
-					|| world.getBlockId(posX - 1, posY, posZ) == world.Block.redstoneRepeaterActive.blockID;
+				return (world.getBlockId(posX + 1, posY, posZ) === repeaterBlockId && world.isBlockProvidingPowerTo(posX + 1, posY, posZ, 5))
+					|| (world.getBlockId(posX - 1, posY, posZ) === repeaterBlockId && world.isBlockProvidingPowerTo(posX - 1, posY, posZ, 4));
 		}
 		return false;
 	}
-
 	
 	proto.ignoreTick = function (world, posX, posY, posZ, blockMetadata) {
 		var repeaterDirection= blockMetadata & 3;
