@@ -312,6 +312,7 @@
 		var poweredColour = "rgb(255,0,0)";
 		var unpoweredColour = "rgb(128,0,0)";
 		var unusedColour = "rgb(192,192,192)";
+		var lockedColour = "rgb(64, 64, 64)";
 		var blockMetaData = world.getBlockMetadata(posX, posY, posZ);
 		
  		/*
@@ -322,6 +323,7 @@
 		0x3: 4 tick delay
 		*/
 		var delay = ((blockMetaData & 0xc) >>> 2) + 1;
+		var isLocked = Boolean((blockMetaData & 0x10) >>> 4);
 		
 		var delayColour1 = (this.isRepeaterPowered) ? poweredColour : unpoweredColour;
 		var delayColour2 = (this.isRepeaterPowered) ? poweredColour : unpoweredColour;
@@ -335,6 +337,11 @@
 		if (view == "top") {
 			canvas.save();
 			this.rotateContext(rotated, canvas);
+
+			if (isLocked) {
+				canvas.fillStyle = lockedColour;
+				canvas.fillRect(0, 3, 8, 2);
+			}
 
 			canvas.fillStyle = delayColour1;
 			canvas.fillRect(3, 0, 2, 2);
