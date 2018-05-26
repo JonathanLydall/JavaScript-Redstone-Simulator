@@ -101,13 +101,41 @@
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
 		var ignoreTick = this.ignoreTick(world, posX, posY, posZ, blockMetadata);
 		var repeaterDelay = (blockMetadata & 0xc) >> 2;
-		if (this.isRepeaterPowered && !ignoreTick) {
+		var isLocked = Boolean((blockMetadata & 0x10) >> 4);
+		var isLockedNow = this.isLocked(world, posX, posY, posZ, blockMetadata);
+
+		if (isLocked !== isLockedNow) {
+			var isLockedNowMetadata = Number(isLockedNow) << 4;
+			world.setBlockMetadataWithNotify(posX, posY, posZ, isLockedNowMetadata | blockMetadata & 0xf);
+		}
+
+		if (isLockedNow) {
+			return; // don't trigger update if block is locked
+		}
+		else if (this.isRepeaterPowered && !ignoreTick) {
 			world.scheduleBlockUpdate(posX, posY, posZ, this.blockID, this.repeaterState[repeaterDelay] * 2);
 		}
 		else if (!this.isRepeaterPowered && ignoreTick) {
 			world.scheduleBlockUpdate(posX, posY, posZ, this.blockID, this.repeaterState[repeaterDelay] * 2);
 		}
 	};
+
+	proto.isLocked = function (world, posX, posY, posZ, blockMetadata) {
+		var repeaterDirection= blockMetadata & 3;
+		switch (repeaterDirection) {
+			case 3:
+			case 1:
+				return world.getBlockId(posX, posY, posZ + 1) == world.Block.redstoneRepeaterActive.blockID
+					|| world.getBlockId(posX, posY, posZ - 1) == world.Block.redstoneRepeaterActive.blockID;
+
+			case 0:
+			case 2:
+				return world.getBlockId(posX + 1, posY, posZ) == world.Block.redstoneRepeaterActive.blockID
+					|| world.getBlockId(posX - 1, posY, posZ) == world.Block.redstoneRepeaterActive.blockID;
+		}
+		return false;
+	}
+
 	
 	proto.ignoreTick = function (world, posX, posY, posZ, blockMetadata) {
 		var repeaterDirection= blockMetadata & 3;
