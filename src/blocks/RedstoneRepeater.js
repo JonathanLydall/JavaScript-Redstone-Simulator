@@ -34,25 +34,24 @@
 	proto.rotateSelection = function(blockMetadata, amount) {
 		var facing = blockMetadata & 0x3;
 		var delay = blockMetadata & 0xc;
-		var locked = blockMetadata & 0x10;
 		for (var i=0; i<amount; i++) {
 			facing = new Array(1, 2, 3, 0)[facing];
 		}
-		return facing | delay | locked;
+		return facing | delay;
 	};
 	
 	proto.rotateBlock = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
 		var repeaterOrientation = blockMetadata & 0x3;
 		repeaterOrientation = (repeaterOrientation + 1) & 0x3;
-		world.setBlockAndMetadataWithNotify(posX, posY, posZ, this.blockID, repeaterOrientation | (blockMetadata & 0x1c));
+		world.setBlockAndMetadataWithNotify(posX, posY, posZ, this.blockID, repeaterOrientation | (blockMetadata & 0xc));
 	};
 	
 	proto.blockActivated = function(world, posX, posY, posZ) {
 		var blockMetadata = world.getBlockMetadata(posX, posY, posZ);
 		var repeaterDelay = (blockMetadata & 0xc) >> 0x2;
 		repeaterDelay = repeaterDelay + 1 << 0x2 & 0xc;
-		world.setBlockMetadataWithNotify(posX, posY, posZ, repeaterDelay | blockMetadata & 0x13);
+		world.setBlockMetadataWithNotify(posX, posY, posZ, repeaterDelay | blockMetadata & 0x3);
 		return true;
 	};
 	
@@ -322,8 +321,7 @@
 		0x2: 3 tick delay
 		0x3: 4 tick delay
 		*/
-		var delay = ((blockMetaData & 0xc) >>> 2) + 1;
-		var isLocked = Boolean((blockMetaData & 0x10) >>> 4);
+		var delay = (blockMetaData >>> 2) + 1;
 		
 		var delayColour1 = (this.isRepeaterPowered) ? poweredColour : unpoweredColour;
 		var delayColour2 = (this.isRepeaterPowered) ? poweredColour : unpoweredColour;
