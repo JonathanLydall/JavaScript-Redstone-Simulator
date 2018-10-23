@@ -53,6 +53,8 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			alsoFireOnMouseUp: true
 		});
 	};
+
+	var currentX, currentY;
 	
 	this.onPrimaryInput = function(e, isMouseUpevent) {
 		if (isMouseUpevent)
@@ -80,23 +82,41 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				this.blockInfo(e);
 				break;
 		}
+		
+		currentX = e.pageX;
+		currentY = e.pageY;
 	};
 	
 	this.onPrimaryInput_mouseMove = function(e) {
 		switch (this.activeTool) {
 			case "material":
 				var materialData = this.gui.toolbars.getMaterialData();
-				this.placeMaterial(e, true, materialData.blockId, materialData.blockMetadata);
+				
+				var self = this;
+				linear(currentX, currentY, e.pageX, e.pageY, function(e2)
+				{
+					self.placeMaterial(e2, true, materialData.blockId, materialData.blockMetadata); //left click adds the block
+				});
+				
 				break;
 			case "pan":
 				this.pan(e, true);
 				break;
 			case "deleteBlock":
+				linear(currentX, currentY, e.pageX, e.pageY, function(e2)
+				{
+					self.placeMaterial(e2, true, 0, 0); //Right click deletes the block
+				});
 				this.placeMaterial(e, true, 0, 0);
 				break;
 		}
-	};
+		
+		currentX = e.pageX;
+		currentY = e.pageY;
 
+	};
+	
+	
 	this.onSecondaryInput = function(e, isMouseUpevent) {
 		if (isMouseUpevent)
 		{
@@ -112,6 +132,8 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			switch (this.activeTool) {
 				case "material":
 					this.placeMaterial(e, false, 0, 0); //Right click deletes the block
+					currentX = e.pageX;
+					currentY = e.pageY;
 					break;
 				case "pan":
 					this.pan(e, false);
@@ -129,7 +151,11 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 	this.onSecondaryInput_mouseMove = function(e) {
 		switch (this.activeTool) {
 			case "material":
-				this.placeMaterial(e, true, 0, 0); //Right click deletes the block
+				var self = this;
+				linear(currentX, currentY, e.pageX, e.pageY, function(e2)
+				{
+					self.placeMaterial(e2, true, 0, 0); //Right click deletes the block
+				});
 				break;
 			case "pan":
 				this.pan(e, true);
@@ -138,7 +164,42 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				this.placeMaterial(e, true, 0, 0);
 				break;
 		}
+		currentX = e.pageX;
+		currentY = e.pageY;
 	};
+	
+
+	function linear(x0, y0, x1, y1, continuation)
+	{
+        var dots = [];
+        var dx = Math.abs(x1 - x0);
+        var dy = Math.abs(y1 - y0);
+        var sx = (x0 < x1) ? 1 : -1;
+        var sy = (y0 < y1) ? 1 : -1;
+        var err = dx - dy;
+
+        continuation({pageX: x0, pageY: y0});
+
+        while(!((x0 == x1) && (y0 == y1)))
+		{
+            var e2 = err << 1;
+
+            if (e2 > -dy) {
+                err -= dy;
+                x0 += sx;
+            }
+
+            if (e2 < dx) {
+                err += dx;
+                y0 += sy;
+            }
+
+            continuation({pageX: x0 + .5, pageY: y0 + .5});
+        }
+
+        return dots;
+    }
+	
 	
 	this.setBlockData = function(x, y, z, blockId, blockMetadata) {
 		var block = this.gui.mcSim.Block.blocksList[blockId];
@@ -165,7 +226,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 		}
 		else {
 			this.gui.modelviews.pan_onMouseMove(e);
-		}
+		}		
 	};
 	
 	this.placeMaterial = function(e, triggeredByMouseMove, blockId, blockMetadata) {
@@ -185,17 +246,28 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 		) {
 			this.lastMaterialPlacedAt = coords;
 			
+			var blockToPlace = this.gui.mcSim.getBlockById(blockId);
+			var renderAsNormalBlock = blockToPlace.renderAsNormalBlock();
+			
 			//TODO: Make multilayer editing optional
 			//For multilayer editing, if the current level is a solid block, we action the layer above
 			var blockCurrentLayer = this.gui.mcSim.getBlockObject(coords.x, coords.y, coords.z);
 			var blockAboveLayer = this.gui.mcSim.getBlockObject(coords.x1, coords.y1, coords.z1);
 
-			//Try place block in above layer, then current layer
-			if (blockCurrentLayer.renderAsNormalBlock() && blockAboveLayer.blockID == 0 && blockId != 0) {
-				this.setBlockData(coords.x1, coords.y1, coords.z1, blockId, blockMetadata);
+			var blockMetadataCurrentLayer = this.gui.mcSim.World.getBlockMetadata(coords.x, coords.y, coords.z);
+			
+			//Try place block in current layer, then above layer
+			if (blockId != 0 && (blockCurrentLayer.blockID != blockId || blockMetadata != blockMetadataCurrentLayer) && (renderAsNormalBlock || !blockCurrentLayer.renderAsNormalBlock())) {
+				if (renderAsNormalBlock && !blockCurrentLayer.renderAsNormalBlock()) {
+					var currentLayerBlockID = blockCurrentLayer.blockID
+					this.setBlockData(coords.x, coords.y, coords.z, blockId, blockMetadata);
+					this.setBlockData(coords.x1, coords.y1, coords.z1, currentLayerBlockID, blockMetadataCurrentLayer);
+				}
+				else
+					this.setBlockData(coords.x, coords.y, coords.z, blockId, blockMetadata);
 			}
-			else if (blockCurrentLayer.blockID == 0 && blockId != 0) {
-				this.setBlockData(coords.x, coords.y, coords.z, blockId, blockMetadata);
+			else if (blockId != 0 && !renderAsNormalBlock && blockAboveLayer.blockID != blockId) {
+				this.setBlockData(coords.x1, coords.y1, coords.z1, blockId, blockMetadata);
 			}
 
 			//Try place air in above layer, then current layer

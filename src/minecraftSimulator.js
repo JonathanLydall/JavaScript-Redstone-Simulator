@@ -181,6 +181,16 @@ com.mordritch.mcSim.MinecraftSimulator = function() {
 			return Block.unknown;
 		}
 	};
+
+	this.getBlockById = function(blockID) {
+		var Block = this.Block;
+		if (typeof Block.blocksList[blockID] != "undefined") {
+			return Block.blocksList[blockID];
+		}
+		else {
+			return Block.unknown;
+		}
+	}
 	
 	/**
 	 * Returns the name of a type of block at a particular coordinate
