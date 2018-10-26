@@ -53,6 +53,8 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			alsoFireOnMouseUp: true
 		});
 	};
+
+	var currentX, currentY;
 	
 	this.onPrimaryInput = function(e, isMouseUpevent) {
 		if (isMouseUpevent)
@@ -80,23 +82,41 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				this.blockInfo(e);
 				break;
 		}
+		
+		currentX = e.pageX;
+		currentY = e.pageY;
 	};
 	
 	this.onPrimaryInput_mouseMove = function(e) {
 		switch (this.activeTool) {
 			case "material":
 				var materialData = this.gui.toolbars.getMaterialData();
-				this.placeMaterial(e, true, materialData.blockId, materialData.blockMetadata);
+				
+				var self = this;
+				linear(currentX, currentY, e.pageX, e.pageY, function(e2)
+				{
+					self.placeMaterial(e2, true, materialData.blockId, materialData.blockMetadata); //left click adds the block
+				});
+				
 				break;
 			case "pan":
 				this.pan(e, true);
 				break;
 			case "deleteBlock":
+				linear(currentX, currentY, e.pageX, e.pageY, function(e2)
+				{
+					self.placeMaterial(e2, true, 0, 0); //Right click deletes the block
+				});
 				this.placeMaterial(e, true, 0, 0);
 				break;
 		}
-	};
+		
+		currentX = e.pageX;
+		currentY = e.pageY;
 
+	};
+	
+	
 	this.onSecondaryInput = function(e, isMouseUpevent) {
 		if (isMouseUpevent)
 		{
@@ -112,6 +132,8 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 			switch (this.activeTool) {
 				case "material":
 					this.placeMaterial(e, false, 0, 0); //Right click deletes the block
+					currentX = e.pageX;
+					currentY = e.pageY;
 					break;
 				case "pan":
 					this.pan(e, false);
@@ -129,7 +151,11 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 	this.onSecondaryInput_mouseMove = function(e) {
 		switch (this.activeTool) {
 			case "material":
-				this.placeMaterial(e, true, 0, 0); //Right click deletes the block
+				var self = this;
+				linear(currentX, currentY, e.pageX, e.pageY, function(e2)
+				{
+					self.placeMaterial(e2, true, 0, 0); //Right click deletes the block
+				});
 				break;
 			case "pan":
 				this.pan(e, true);
@@ -138,7 +164,42 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 				this.placeMaterial(e, true, 0, 0);
 				break;
 		}
+		currentX = e.pageX;
+		currentY = e.pageY;
 	};
+	
+
+	function linear(x0, y0, x1, y1, continuation)
+	{
+        var dots = [];
+        var dx = Math.abs(x1 - x0);
+        var dy = Math.abs(y1 - y0);
+        var sx = (x0 < x1) ? 1 : -1;
+        var sy = (y0 < y1) ? 1 : -1;
+        var err = dx - dy;
+
+        continuation({pageX: x0, pageY: y0});
+
+        while(!((x0 == x1) && (y0 == y1)))
+		{
+            var e2 = err << 1;
+
+            if (e2 > -dy) {
+                err -= dy;
+                x0 += sx;
+            }
+
+            if (e2 < dx) {
+                err += dx;
+                y0 += sy;
+            }
+
+            continuation({pageX: x0 + .5, pageY: y0 + .5});
+        }
+
+        return dots;
+    }
+	
 	
 	this.setBlockData = function(x, y, z, blockId, blockMetadata) {
 		var block = this.gui.mcSim.Block.blocksList[blockId];
@@ -165,7 +226,7 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 		}
 		else {
 			this.gui.modelviews.pan_onMouseMove(e);
-		}
+		}		
 	};
 	
 	this.placeMaterial = function(e, triggeredByMouseMove, blockId, blockMetadata) {
@@ -355,60 +416,3 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 	
 	this.construct();
 };
-
-
-		/*
-		 * Follows is initial attempt at drawing line between coordinates where mouse moved from and to, so you don't land with gaps as
-		 * only a limited number of mousemove events can get fired.
-		
-		
-		if (!triggeredByMouseMove) {
-			this.lastMaterialPlacedAt = coords;
-			this.placeMaterial(coords.x, coords.y, coords.z);
-		}
-		else {
-			if (
-				this.lastMaterialPlacedAt.x != coords.x ||
-				this.lastMaterialPlacedAt.y != coords.y ||
-				this.lastMaterialPlacedAt.z != coords.z
-			) {
-				//TODO: This won't work on side views, it's also not working on topviews, yet, hence why it's commented out for now :(
-				var
-					x1 = this.lastMaterialPlacedAt.x,
-					x2 = coords.x,
-					y1 = this.lastMaterialPlacedAt.z,
-					y2 = coords.z;
-				
-				console.log("x1:"+x1+" x2:"+x2+" y1:"+y1+" y2:"+y2);
-				if(x1-x2 == 0) return;
-				
-				var m = (y1-y2)/(x1-x2);
-				var c = y1 - m*x1;
-				
-				if (x1 > x2) {
-					var oldx1 = x1;
-					x1 = x2;
-					x2 = oldx1;
-				}
-				
-				for (var x=x1; x<=x2; x++) {
-					console.log("Trying y = "+m+" * "+x+" + "+c+" : "+(y = m*x + c));
-					y = Math.round(m*x + c);
-					if (
-						this.lastMaterialPlacedAt.x != x ||
-						this.lastMaterialPlacedAt.y != coords.y ||
-						this.lastMaterialPlacedAt.z != y
-					) {
-						
-						this.lastMaterialPlacedAt = {x: x, y: coords.y, z: y};
-						this.placeMaterial(x, coords.y, y);
-					}
-				}
-				
-			}
-		}
-		this.gui.modelviews.flushMarkedBlocks();
-
-		return;
-		*/
-	
