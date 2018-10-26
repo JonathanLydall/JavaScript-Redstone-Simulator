@@ -246,42 +246,42 @@ com.mordritch.mcSim.toolHandler = function(gui) {
 		) {
 			this.lastMaterialPlacedAt = coords;
 			
+			var blockToPlace = this.gui.mcSim.getBlockById(blockId);
+			var renderAsNormalBlock = blockToPlace.renderAsNormalBlock();
+			
 			//TODO: Make multilayer editing optional
 			//For multilayer editing, if the current level is a solid block, we action the layer above
 			var blockCurrentLayer = this.gui.mcSim.getBlockObject(coords.x, coords.y, coords.z);
 			var blockAboveLayer = this.gui.mcSim.getBlockObject(coords.x1, coords.y1, coords.z1);
 
-			//Try place block in above layer, then current layer
-			if (blockCurrentLayer.renderAsNormalBlock() && blockAboveLayer.blockID == 0 && blockId != 0) {
-				this.setBlockData(coords.x1, coords.y1, coords.z1, blockId, blockMetadata);
+			var blockMetadataCurrentLayer = this.gui.mcSim.World.getBlockMetadata(coords.x, coords.y, coords.z);
+			
+			//Try place block in current layer, then above layer
+			if (blockId != 0 && (!renderAsNormalBlock || blockMetadataCurrentLayer != blockMetadata) && (renderAsNormalBlock || blockCurrentLayer.blockID != blockId && !blockCurrentLayer.renderAsNormalBlock())) {
+				if (renderAsNormalBlock && !blockCurrentLayer.renderAsNormalBlock() && blockCurrentLayer.blockID != 0) {
+					var currentLayerBlockID = blockCurrentLayer.blockID
+					this.setBlockData(coords.x, coords.y, coords.z, blockId, blockMetadata);
+					this.setBlockData(coords.x1, coords.y1, coords.z1, currentLayerBlockID, blockMetadataCurrentLayer);
+				}
+				else
+					this.setBlockData(coords.x, coords.y, coords.z, blockId, blockMetadata);
 			}
-			else if (blockCurrentLayer.blockID == 0 && blockId != 0) {
-				this.setBlockData(coords.x, coords.y, coords.z, blockId, blockMetadata);
+			else if (blockId != 0 && !renderAsNormalBlock && blockAboveLayer.blockID != blockId && blockCurrentLayer.renderAsNormalBlock()) {
+				this.setBlockData(coords.x1, coords.y1, coords.z1, blockId, blockMetadata);
 			}
 
-			//Try place air in above layer, then current layer
-			else if (blockId == 0 && blockAboveLayer.blockID != 0) {
-				this.setBlockData(coords.x1, coords.y1, coords.z1, blockId, blockMetadata);
-			}
+			//Try place air in current layer
 			else if (blockId == 0 && blockCurrentLayer.blockID != 0) {
 				this.setBlockData(coords.x, coords.y, coords.z, blockId, blockMetadata);
 			}
 			
+			
 			//Try rotate block in above layer, then current layer
-			else if (blockCurrentLayer.renderAsNormalBlock() &&
-				(
-					(blockAboveLayer.blockID == blockId && blockId != 0) ||
-					(blockAboveLayer.sameBlockTypeAs(blockId))
-				)
-			) {
+			else if (blockCurrentLayer.renderAsNormalBlock() && ((blockAboveLayer.blockID == blockId && blockId != 0) || (blockAboveLayer.sameBlockTypeAs(blockId)))) {
 				blockAboveLayer.rotateBlock(world, coords.x1, coords.y1, coords.z1);
 			}
-			else if (
-				blockId != 0 && (
-					blockCurrentLayer.blockID == blockId ||
-					blockCurrentLayer.sameBlockTypeAs(blockId)
-				)
-			) {
+			
+			else if (blockId != 0 && (blockCurrentLayer.blockID == blockId || blockCurrentLayer.sameBlockTypeAs(blockId))) {
 				blockCurrentLayer.rotateBlock(world, coords.x, coords.y, coords.z);
 			}
 			
