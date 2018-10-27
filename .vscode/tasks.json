@@ -19,7 +19,18 @@
                 "focus": true,
                 "panel": "shared",
                 "showReuseMessage": true
-            }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build",
+            "type": "process",
+            "command": "${config:php.executablePath}",
+            "args": [
+                "-n",
+                "-f",
+                "tools/build/_build.php"
+            ]
         }
     ]
 }

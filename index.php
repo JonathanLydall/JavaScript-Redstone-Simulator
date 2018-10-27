@@ -39,16 +39,18 @@ function generateScriptTags($prependedWhitespace = '') {
 	$returnString = '';
 	
 	if ($runningOnLive) {
-		$buildNumber = intval(file_get_contents('release/mc_rss-min.js_build#'));
-		$returnString = $prependedWhitespace . '<script type="text/javascript" src="release/mc_rss-min.js?b='.$buildNumber.'"></script>'. PHP_EOL;
-		
-		$languageBuildNumber = intval(file_get_contents('release/locals/'.$language.'.js_build#'));
-		$returnString .= $prependedWhitespace . '<script type="text/javascript" src="release/locals/'.$language.'.js?b='.$languageBuildNumber.'"></script>'. PHP_EOL;
+		$jsFile = 'js/mc_rss.min.js';
+		$fileMd5 = md5_file($jsFile);
+		$returnString = $prependedWhitespace . '<script type="text/javascript" src="'.$jsFile.'?'.$fileMd5.'"></script>'. PHP_EOL;
+
+		$localeFile = "locales/$language.js";
+		$fileMd5 = md5_file($localeFile);
+		$returnString .= $prependedWhitespace . '<script type="text/javascript" src="'.$localeFile.'?'.$fileMd5.'"></script>'. PHP_EOL;
 	}
 	else {
 		$returnString .= $prependedWhitespace . '<!-- BEGIN GENERATED SCRIPT TAGS -->' . PHP_EOL;
 		
-		$fileList = file('src/_fileList.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$fileList = file('tools/build/sources.js.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		for ($i=0; $i < count($fileList); $i++) { 
 			if (substr($fileList[$i], 0, 1) == ';') continue; //Ignore lines beginning with a semicolon as these are comments
 			$returnString .= $prependedWhitespace . '<script type="text/javascript" src="' . str_replace("\\", '/', $fileList[$i]) . '"></script>' . PHP_EOL;
