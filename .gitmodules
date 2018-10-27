@@ -1,0 +1,3 @@
+[submodule "JsNbtParser"]
+	path = JsNbtParser
+	url = https://github.com/JonathanLydall/JsNbtParser.git

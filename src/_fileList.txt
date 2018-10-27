@@ -7,13 +7,13 @@
 
 src\setNamespace.js
 
-..\JsNbtParser\src\binary-parser.js
-..\JsNbtParser\src\NbtParser.js
-..\JsNbtParser\src\deflate.js
-..\JsNbtParser\src\inflate.js
-..\JsNbtParser\src\gzip.js
+JsNbtParser\src\binary-parser.js
+JsNbtParser\src\NbtParser.js
+JsNbtParser\src\deflate.js
+JsNbtParser\src\inflate.js
+JsNbtParser\src\gzip.js
 
-..\JsNbtParser\sample\World_Schematic.js
+JsNbtParser\sample\World_Schematic.js
 
 js\sprintf-0.7-beta1.js
 
