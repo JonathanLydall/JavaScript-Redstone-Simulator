@@ -19,6 +19,9 @@ namespace com.mordritch.mcSim {
                 '<div class="documentInfo standardForm">' +
                     '<p><b>'+this.L10n.getString("helpAboutModal.title")+'</b></p>' +
                     '<p>Created by Jonathan Lydall (Mordritch)</p>' +
+    
+                    '<p><b>Thank you to the following people for their contributions:</b></p>' +
+                    '<li><a href="https://github.com/ollyhayes" target="_blank">ollyhayes</a>: Added repeater <a href="https://minecraft.gamepedia.com/Redstone_Repeater#Signal_locking" target="_blank">signal locking</a>.</li>' +
                 '</div>'
             );
             this.modal.show();
