@@ -33,11 +33,18 @@ class localization {
 			self::$isInitialized = true;
 		}
 		
-		$languagesFile = file(ROOT.'/php/resources/minecraft/lang/languages.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$languagesFile = file(ROOT.'/resources/minecraft/lang/languages.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		$output = array();
 		foreach ($languagesFile as $languageLine)
 		{
 			$langArray = mb_split("=", $languageLine);
+			
+			// We don't yet have a way to change the locale file used,
+			// so until we do, let's skip generating them
+			if ($langArray[0] != "en_US") {
+				continue;
+			}
+
 			self::$languages[$langArray[0]] = $langArray[1];
 		}
 	}
@@ -57,14 +64,14 @@ class localization {
 			);
 		}
 		
-		if(!file_exists(ROOT."/php/resources/minecraft/lang/$lang.lang")) {
+		if(!file_exists(ROOT."/resources/minecraft/lang/$lang.lang")) {
 			return array(
 				"error" => true,
 				"errorDescription" => "Language file missing from web server."
 			);
 		}
 		
-		$languageFileLines = file(ROOT."/php/resources/minecraft/lang/$lang.lang", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$languageFileLines = file(ROOT."/resources/minecraft/lang/$lang.lang", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		$minecraftBlockNames = array();
 		$languageDetails = array();
 		
@@ -93,7 +100,7 @@ class localization {
 		 * 
 		 * TODO: Make this run out of a database which people can easily contribute to
 		 */
-		$defaultLanguageAppStrings_unkeyed = file(ROOT."/php/resources/locales/en_US.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$defaultLanguageAppStrings_unkeyed = file(ROOT."/resources/locales/en_US.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		foreach($defaultLanguageAppStrings_unkeyed as $line)
 		{
 			if ($line[0] == "#") continue; //Skip commented lines (beginning with #)
@@ -105,12 +112,12 @@ class localization {
 		}
 		
 		$localizedCount = 0;
-		if(!file_exists(ROOT."/php/resources/locales/$lang.txt"))
+		if(!file_exists(ROOT."/resources/locales/$lang.txt"))
 		{
 			$localizedAppStrings = $defaultLanguageAppStrings;
 		}
 		else {
-			$localizedAppStrings_unKeyed = file(ROOT."/php/resources/locales/$lang.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+			$localizedAppStrings_unKeyed = file(ROOT."/resources/locales/$lang.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 			$localizedAppStrings = array();
 			foreach($localizedAppStrings_unKeyed as $line)
 			{

@@ -1,0 +1,34 @@
+index.php
+
+; An easy way to make URL like /download/?id=1000 work (with no need to show a .php file extension).
+; Alternatively we could set up a URL Rewrite Rule on the webserver.
+download\index.php
+
+php\saveOnServer.php
+php\schematicDownload.php
+php\schematicSaveLocally.php
+php\socialButtons.php
+php\submitFeedback.php
+php\userManager.php
+
+; This file doesn't appear to be in use. If I recall correctly, my plan was to eventually have the frontend use it to be able to,
+; switch locales. However, a better plan would be to actually use the generated resource files, so it may never be needed.
+;php\getLocaleStrings.php
+
+php\getSchematicMetadata.php
+php\openBinaryById.php
+php\readFile_bounceBack.php
+
+php\includes\error_handling.php
+php\includes\function_removeMagicQuotesIfEnabled.php
+php\includes\googleAnalyticsScriptTagGenerator.php
+php\includes\utf8_handling.php
+php\includes\class_emailHelper.php
+php\includes\class_localization.php
+php\includes\class_nbtValidator.php
+php\includes\class_phpPass.php
+php\includes\class_saveOnServer.php
+php\includes\class_schematicRetrieval.php
+php\includes\class_userManager.php
+php\includes\config_mysqlConnection.php
+php\includes\config_mysqlConnection_live.php

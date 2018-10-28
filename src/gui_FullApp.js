@@ -64,6 +64,7 @@
 			this.toolbars = new namespace.guiFullToolbar(this);
 			this.sidebar = new namespace.sidebar(this);
 			this.viewPorts = new namespace.viewPorts(this);
+			this.helpAboutModal = new namespace.helpAboutModal(this);
 			
 			this.documentOpen = new namespace.documentOpen(this);
 			this.documentNew = new namespace.documentNew(this);
@@ -244,17 +245,15 @@
 				}
 			);
 	
-			/*
 			this.addDocumentToolbarButton(
-				'help',
-				'help',
+				'helpAbout',
+				'helpAbout',
 				'images/icons/help-3.png',
 				container,
 				function() {
-					//t.toolbars.modal.show();
+					t.helpAboutModal.show();
 				}
 			);
-			*/
 
 			this.addDocumentToolbarButton(
 				'sidebar',
