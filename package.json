@@ -1,0 +1,23 @@
+{
+  "name": "mc_rss",
+  "version": "1.0.0",
+  "description": "Mordritch's JavaScript Redstone Simulator\r ===",
+  "main": "index.js",
+  "dependencies": {
+    "@types/jquery": "^1.10.31"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonathanLydall/JavaScript-Redstone-Simulator.git"
+  },
+  "author": "Jonathan Lydall",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonathanLydall/JavaScript-Redstone-Simulator/issues"
+  },
+  "homepage": "https://github.com/JonathanLydall/JavaScript-Redstone-Simulator#readme"
+}

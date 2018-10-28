@@ -23,6 +23,9 @@ Prerequisites
     - Add the following extensions following the configuration guides of each:
         - [PHP Intellisense](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-intellisense)
         - [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug)
+- TypeScript compiler
+    - Ensure you have [Node](https://nodejs.org/) installed.
+    - `npm install-g typescript `
 - MySQL (Optional)
     - It's possible to test the simulator without a database setup as it's only needed for functionality such as authentication and reading/saving user data. Due to no immediate need, I haven't yet taken the time to work out how get the database up and running again on my machine along with documenting the process. In theory MariaDB should also be a viable option. I have included below a dump of the SQL Schema from MySQL workbench.
 
@@ -133,6 +136,14 @@ Prerequisites
             SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
             ```
         </details>
+
+Compiling the code
+---
+
+Compile artifacts and the `node_modules` folder are in the `.gitignore` file, so even if the webserver is set up, the project will not run until the following two steps have been performed:
+
+- `npm -i` in your console. Required by TypeScript files which are using @types packages.
+- Running the a `tsc` task against the code's `tsconfig.ts`. The easiest way to do this in VS Code is to press `Ctrl+Shift+B` and then select `tsc: watch - tsconfig.json`. This will perform an immediate compile of all the files and then watches the files to automatically recompile them any time they change.
 
 Running the Website
 ---

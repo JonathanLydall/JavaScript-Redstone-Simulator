@@ -1,3 +1,6 @@
 php/includes/config_mysqlConnection_live.php
 tools/build/artifacts/**/*.*
 tools/build/temp/**/*.*
+src.typeScript/**/*.map
+src.typeScript/**/*.js
+node_modules

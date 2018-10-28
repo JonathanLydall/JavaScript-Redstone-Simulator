@@ -52,6 +52,8 @@ src\CanvasInterface.js
 src\facing.js
 src\localization.js
 
+src.typeScript\helpAboutModal.js
+
 src\documentNew.js
 src\documentInfo.js
 src\documentOpen.js
@@ -68,7 +70,7 @@ src\gui\full\guiFull_ticker.js
 src\gui\full\toolbar.js
 src\gui\full\tooltip.js
 src\gui\full\sidebar.js
-src\gui\full\modal.js
+src.typeScript\gui\full\modal.js
 src\gui\full\input.js
 src\gui\full\options.js
 src\gui\full\usermanager.js

@@ -38,6 +38,13 @@ class localization {
 		foreach ($languagesFile as $languageLine)
 		{
 			$langArray = mb_split("=", $languageLine);
+			
+			// We don't yet have a way to change the locale file used,
+			// so until we do, let's skip generating them
+			if ($langArray[0] != "en_US") {
+				continue;
+			}
+
 			self::$languages[$langArray[0]] = $langArray[1];
 		}
 	}

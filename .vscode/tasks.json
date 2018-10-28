@@ -23,7 +23,7 @@
             "problemMatcher": []
         },
         {
-            "label": "build",
+            "label": "create release",
             "type": "process",
             "command": "${config:php.executablePath}",
             "args": [

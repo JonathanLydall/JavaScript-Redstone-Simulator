@@ -192,6 +192,8 @@ options.toolbars.count=Number of toolbars
 document.info.prompt.title=Schematic Information
 document.filesize=File size at the time of the last save:
 
+helpAboutModal.title=About
+
 document.new.prompt.title=New Schematic
 document.new.prompt.content=Any unsaved content will be lost, are you sure you want to create a new schematic?
 
@@ -265,8 +267,8 @@ toolbar.top.tooltips.input.title=Input Bindings
 toolbar.top.tooltips.input.description=Change keyboard and mouse shortcuts here.
 toolbar.top.tooltips.toolbars.title=Edit Tools / Materials
 toolbar.top.tooltips.toolbars.description=Use this screen to add or remove tools and/or materials from the side toolbar.\n\nClick and drag icons to place them in the toolbar slots. 
-toolbar.top.tooltips.help.title=Help Screen
-toolbar.top.tooltips.help.description=
+toolbar.top.tooltips.helpAbout.title=About Screen
+toolbar.top.tooltips.helpAbout.description=
 toolbar.top.tooltips.fileNew.title=New Schematic
 toolbar.top.tooltips.fileNew.description=Creates a new blank schematic.
 toolbar.top.tooltips.fileOpen.title=Open Schematic
@@ -342,6 +344,7 @@ shortcuts.toolbar.top.schematicDownload=Download Saved Copy
 shortcuts.toolbar.top.viewPortsSplitHorizontally=Split View Ports Horizontally
 shortcuts.toolbar.top.viewPortsSplitVertically=Split View Ports Vertically
 shortcuts.toolbar.top.documentRotate=Rotate Schematic
+shortcuts.toolbar.top.helpAbout=About Screen
 
 shortcuts.toolbar.top.editSelect=Select
 shortcuts.toolbar.top.editCopy=Copy Selection
