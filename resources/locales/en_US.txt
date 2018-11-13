@@ -34,7 +34,6 @@ shortcuts.category.toolbars.general=General Toolbar
 shortcuts.category.tools=Tools
 shortcuts.category.toolbar.top=Top Toolbar Shortcuts
 
-modelview.pendingworldload=Opening schematic file
 modelview.prompt.gotolayer=Go to layer / slice:
 
 keynames.8=Backspace
