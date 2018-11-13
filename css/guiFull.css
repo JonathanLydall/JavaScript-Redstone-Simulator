@@ -524,8 +524,9 @@ body {
 
 #workarea canvas {
 	position: absolute;
-	top: 50px;
+	top: 37px;
 	left: 0;
+	padding: 3px;
 }
 
 #workarea canvas.modelView {
