@@ -366,7 +366,7 @@ document.rotate.modalheading=Rotate Schematic
 document.rotate.disclaimer=NOTE: Only known block types are rotated correctly. This means that if a block type is showing as an ID, it will not be rotated. For example, if torches were not yet implemented, and you tried rotating them, the torch's orientation would remain the same and it could land up hanging in the air.
 
 submitfeedback.title=Submit Feedback and/or Comments
-submitfeedback.body=You can send me a bug report, suggestions or just general feedback. The email address is optional, but if you include it I will endeavour to send you a response. Please note I will never share your email address with any third party or use it to send you any correspondance except in response to your query.<br/><br/>I have temporarily made the old version available <a href="../mc_rss_old/">here</a>.
+submitfeedback.body=You can send me a bug report, suggestions or just general feedback. The email address is optional, but if you include it I will endeavour to send you a response. Please note I will never share your email address with any third party or use it to send you any correspondance except in response to your query.<br/><br/>
 submitfeedback.email=Email Address (optional, if you want a response):
 submitfeedback.message=Message:
 submitfeedback.buttontext=Submit Feedback/Comments
