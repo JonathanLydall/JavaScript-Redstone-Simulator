@@ -148,7 +148,6 @@
 		
 
 		this.$controls = $('#'+this.containerDomId+' .controls');
-		this.$controls.hide();
 		this.$controls.html(this.getControlsHtml());
 
 		this.$domObject = $('#'+this.elementId);
@@ -167,15 +166,7 @@
 		if (this.noContextMenu == true) this.disableContextMenu();
 		
 		$(window).bind('resize', {t: this}, function(e){e.data.t.windowResize();});
-		this.$controls.parent().bind('mouseenter', {t: this}, function(e) {
-			e.data.t.$controls.show();
-		});
 		
-		this.$controls.parent().bind('mouseleave', {t: this}, function(e) {
-			e.data.t.$controls.hide();
-		});
-
-
 		this.construct();
 		this.constructed = true;
 		this.drawAllBlocks();
