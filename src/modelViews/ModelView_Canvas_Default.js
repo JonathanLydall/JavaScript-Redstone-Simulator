@@ -136,7 +136,6 @@
 					'<span class="controls"></span>' +
 					
 					'<div class="mouseDownCatcher innerDiv">' +
-						'<span class="pendingWorldLoad"><br/><br/><br/>'+this.gui.localization.getString("modelview.pendingworldload")+'...</span>' +
 						'<canvas class="modelView" id="'+this.elementId+'"></canvas>' +
 						'<canvas class="overlay" id="'+this.elementId_overlay+'"></canvas>' +
 					'</div>' +
@@ -170,7 +169,7 @@
 		this.$controls.parent().bind('mouseenter', {t: this}, function(e) {
 			e.data.t.$controls.show();
 		});
-		
+
 		this.$controls.parent().bind('mouseleave', {t: this}, function(e) {
 			e.data.t.$controls.hide();
 		});
@@ -220,11 +219,9 @@
 	
 	proto.setLoading = function(state) {
 		if (state) {
-			$('#'+this.containerDomId+' .pendingWorldLoad').show();
 			$('#'+this.containerDomId+' canvas').hide();
 		}
 		else {
-			$('#'+this.containerDomId+' .pendingWorldLoad').hide();
 			$('#'+this.containerDomId+' canvas').show();
 			this.setDimensions();
 		}
