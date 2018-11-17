@@ -799,14 +799,12 @@ com.mordritch.mcSim.World = function(BlockObj, worldDataObj) {
 	this.setBlockMetadataWithNotify = function(posX, posY, posZ, blockMetadata) {
 		if (this.setBlockMetadata(posX, posY, posZ, blockMetadata))
 		{
-				var blockID = this.getBlockId(posX, posY, posZ);
-				if(this.Block.blocksList[blockID & 0xff].requiresSelfNotify)
-				{
-					this.notifyBlockChange(posX, posY, posZ, blockID);
-				}
-				else {
-					this.notifyBlocksOfNeighborChange(posX, posY, posZ, blockID);
-				}
+			var blockID = this.getBlockId(posX, posY, posZ);
+			this.notifyBlockChange(posX, posY, posZ, blockID);
+			if(!this.Block.blocksList[blockID & 0xff].requiresSelfNotify)
+			{
+				this.notifyBlocksOfNeighborChange(posX, posY, posZ, blockID);
+			}
 		}
 	};
 	
